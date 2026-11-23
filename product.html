@@ -141,7 +141,7 @@
 <tbody>
 <tr>
 <td>Bảng Kanban (Sprint)</td>
-<td>GitHub Projects của repo agile-prism</td>
+<td>github.com/users/manhcuongdtbk/projects/2</td>
 </tr>
 <tr>
 <td>Mọi việc</td>
@@ -157,7 +157,7 @@
 </tr>
 </tbody>
 </table>
-<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn persona (<code>P1</code> tới <code>P4</code>), nhãn trạng thái (<code>in progress</code>, <code>in review</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>).</p>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In review, Done), không dùng nhãn.</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
@@ -280,7 +280,7 @@
 <tr>
 <td>Tên kỹ thuật, tên nội dung</td>
 <td>Tên kỹ thuật (nhãn, nhánh, tag, file, trường trên bảng) dùng tiếng Anh. Nội dung cho người đọc (issue, commit, CHANGELOG, trang) dùng tiếng Việt</td>
-<td><code>in progress</code>, <code>v0.1.0</code></td>
+<td><code>feedback</code>, <code>v0.1.0</code></td>
 </tr>
 <tr>
 <td>Ngôn ngữ chung</td>
@@ -599,6 +599,22 @@
 <td>Một số chỉ ứng với đúng 1 trạng thái code. Đội 2 người không cần nhãn tạm</td>
 <td>Mỗi môi trường 1 số riêng; nhãn <code>-rc</code> ở Staging</td>
 <td>Có nhiều người kiểm Staging song song</td>
+</tr>
+<tr>
+<td>D20</td>
+<td>24/11</td>
+<td>Bổ sung D18: lỗi do persona đang dùng Staging báo (hiện là P1) thì sửa xong đẩy Development lên Staging ngay, không đợi đầu Sprint sau</td>
+<td>P1 chỉ đọc Staging, lỗi của P1 cần tới tay P1 sớm</td>
+<td>Đợi đầu Sprint</td>
+<td>Có nhiều persona dùng Staging</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>24/11</td>
+<td>Trạng thái issue chỉ nằm ở cột Status trên bảng Projects. Bỏ 2 nhãn <code>in progress</code>, <code>in review</code>. Trường Iteration chưa dùng</td>
+<td>1 thông tin ở 1 nơi. Sprint của mình là 1 lượt góp ý, không cố định thời gian</td>
+<td>Giữ nhãn song song với cột</td>
+<td>Sprint có độ dài cố định</td>
 </tr>
 </tbody>
 </table></section>
