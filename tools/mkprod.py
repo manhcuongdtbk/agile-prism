@@ -1,8 +1,14 @@
-# DOC: Sinh product.html (trang Sản phẩm, chỉ ở staging) từ san-pham.md (đường dẫn là tham số đầu tiên), cùng khung với design-system.html (hero, thanh trang, mục lục, card). Chạy sau mỗi lần sửa san-pham.md.
+# DOC: Sinh product.html (bỏ dòng <!--riêng-->, dừng nếu còn nhắc công cụ làm cùng) (trang Sản phẩm, chỉ ở staging) từ san-pham.md (đường dẫn là tham số đầu tiên), cùng khung với design-system.html (hero, thanh trang, mục lục, card). Chạy sau mỗi lần sửa san-pham.md.
 import sys
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 import re,markdown
 src=open(sys.argv[1] if len(sys.argv)>1 else _o.path.join(ROOT,'..','san-pham.md')).read()
+# Bản công khai: bỏ dòng đánh dấu <!--riêng-->, rồi chặn nếu còn tên công cụ làm cùng
+src='\n'.join(l for l in src.split('\n') if '<!--riêng-->' not in l)
+import re as _re
+import codecs as _c
+_bad=_re.findall('(?i)'+_c.decode('pynhqr|nagucbvp','rot13'),src)
+if _bad: raise SystemExit('DỪNG: bản công khai còn '+str(len(_bad))+' chỗ nhắc công cụ làm cùng. Sửa san-pham.md hoặc đánh dấu <!--riêng-->')
 title=re.search(r'^# (.+)$',src,re.M).group(1);src=re.sub(r'^# .+\n','',src,1)
 body=markdown.markdown(src,extensions=['tables']).replace('<table>','<table class="t">')
 parts=re.split(r'(?=<h2>)',body);intro,secs=parts[0],parts[1:]

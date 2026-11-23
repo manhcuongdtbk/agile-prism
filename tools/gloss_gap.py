@@ -1,7 +1,7 @@
-# DOC: Thuật ngữ trong Glossary của APG 2 mà Glossary của trang chưa có. Cần /home/claude/apg2.txt (đọc PDF trong Project). Có thể khớp sai vì tên khác dạng.
+# DOC: Thuật ngữ trong Glossary của APG 2 mà Glossary của trang chưa có. Cần file apg2.txt (văn bản của APG 2) đặt ở tools/.out/. Có thể khớp sai vì tên khác dạng.
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 import re,json
-a=open('/home/claude/apg2.txt').read();a=a[a.index('\nGlossary\nacceptance'):a.index('\nIndex\n',a.index('\nGlossary\nacceptance'))]
+a=open(_o.path.join(OUT,'apg2.txt')).read();a=a[a.index('\nGlossary\nacceptance'):a.index('\nIndex\n',a.index('\nGlossary\nacceptance'))]
 L=a.split('\n');names=[]
 for i,l in enumerate(L[1:],1):
     pv=L[i-1].rstrip()
