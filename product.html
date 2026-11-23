@@ -12,10 +12,10 @@
   <a class="brand" href="index.html" aria-label="Agile Prism, về trang chính"><img src="logo.svg" alt="" width="40" height="40"><span><b>Agile Prism</b><small>Hiểu Agile bằng hình. Ôn PMI-ACP</small></span></a>
   <h1>Sản phẩm</h1>
   <div class="meta"><p>Nguồn duy nhất cho Vision, Persona, Product Backlog, kế hoạch Release, Definition of Done. Quy trình từng chat nằm ở tài liệu bàn giao.</p>
-<p><strong>Nhịp làm việc</strong> (D22): 1 chat là 1 Sprint, có Sprint Goal 1 câu chốt đầu chat. Issue chọn làm kéo vào cột Ready trên bảng, đó là Sprint Backlog. Mỗi lượt góp ý trong chat là 1 vòng Review nhỏ. Cuối chat có Sprint Retrospective 2 chiều. 1 Release gồm nhiều Sprint. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
+<p><strong>Nhịp làm việc</strong>: xem mục 8 Way of working. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
 </div>
   <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html" aria-current="page">Sản phẩm</a><a href="design-system.html">Design system</a></nav>
-  <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của Product</a><a href="#pd-6"><b>6</b>Ubiquitous Language</a><a href="#pd-7"><b>7</b>Decision log</a></nav>
+  <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của Product</a><a href="#pd-6"><b>6</b>Ubiquitous Language</a><a href="#pd-7"><b>7</b>Decision log</a><a href="#pd-8"><b>8</b>Way of working</a></nav>
 </header>
 <main class="wrap">
 <section class="card" id="pd-0">
@@ -218,16 +218,6 @@
 <td>agile-prism.pages.dev</td>
 </tr>
 <tr>
-<td>Project Claude</td>
-<td>Không gian làm việc với Claude: chat, tài liệu Project, bộ nhớ</td>
-<td>claude.ai</td>
-</tr>
-<tr>
-<td>Project docs</td>
-<td>File Markdown, PDF trong Project Claude (<code>claude/ban-giao.md</code>, <code>claude/san-pham.md</code>…), sổ làm việc của Claude. Không phải artifact</td>
-<td>claude.ai, phần tài liệu của Project</td>
-</tr>
-<tr>
 <td>Repo</td>
 <td>Mã nguồn, issue, Pull request</td>
 <td>github.com/manhcuongdtbk/agile-prism</td>
@@ -236,11 +226,6 @@
 <td>Scrum board</td>
 <td>Bảng GitHub Projects theo dõi issue. Không gọi là "project"</td>
 <td>github.com/users/manhcuongdtbk/projects/2</td>
-</tr>
-<tr>
-<td>Internal docs</td>
-<td>Tài liệu riêng tư: hạ tầng, kinh doanh, pháp lý (D27, D28)</td>
-<td>Claude Docs, trang chủ "Agile Prism – Internal docs"</td>
 </tr>
 </tbody>
 </table>
@@ -668,7 +653,7 @@
 <tr>
 <td>D22</td>
 <td>24/11</td>
-<td>Làm Scrum cho đúng: 1 chat là 1 Sprint, có Sprint Goal. Sprint Backlog là cột Ready. Retrospective cuối chat, cả chủ sản phẩm và Claude cùng nói. Release gồm nhiều Sprint. Thay D10</td>
+<td>Làm Scrum cho đúng: 1 chat là 1 Sprint, có Sprint Goal. Sprint Backlog là cột Ready. Retrospective cuối chat, cả chủ sản phẩm và Developers cùng nói. Release gồm nhiều Sprint. Thay D10</td>
 <td>Trước đây mượn vai trò Scrum nhưng nhịp giống Kanban: Sprint không cố định, không có Sprint Goal, retro 1 chiều. Dùng đúng Scrum trên chính sản phẩm là cách học ACP trực quan nhất</td>
 <td>Gọi đúng tên là Kanban (WIP limit, Lead Time)</td>
 <td>Có thêm người làm sản phẩm</td>
@@ -676,8 +661,8 @@
 <tr>
 <td>D23</td>
 <td>24/11</td>
-<td>Chống quên khi chat bị nén: Claude giữ sổ Sprint (Sprint Goal, việc xong, câu hỏi chờ, quyết định chưa ghi), cập nhật sau mỗi câu trả lời. Sau mỗi lần nén thì đọc lại sổ Sprint, tài liệu bàn giao, Decision log rồi mới trả lời. Bàn giao khi xong Sprint Goal, hoặc ngay sau lần nén đầu tiên</td>
-<td>Nén chat làm chủ sản phẩm chờ lâu và Claude quên quyết định cũ</td>
+<td>Chống quên khi chat bị nén: Developers giữ Sprint notes (Sprint Goal, việc xong, câu hỏi chờ, quyết định chưa ghi), cập nhật sau mỗi câu trả lời. Sau mỗi lần nén thì đọc lại sổ Sprint, tài liệu bàn giao, Decision log rồi mới trả lời. Bàn giao khi xong Sprint Goal, hoặc ngay sau lần nén đầu tiên</td>
+<td>Nén chat làm chủ sản phẩm chờ lâu và Developers quên quyết định cũ</td>
 <td>Để chat dài tới khi nén nhiều lần</td>
 <td>Công cụ chat có bộ nhớ dài hơn</td>
 </tr>
@@ -700,7 +685,7 @@
 <tr>
 <td>D26</td>
 <td>24/11</td>
-<td>Mỗi issue 1 nhánh tách từ <code>dev</code>, tên <code>loại/số-mô-tả</code> (ví dụ <code>fix/24-xem-ca-hinh</code>, <code>task/25-tools</code>). Xong thì Pull request vào <code>dev</code>, thân ghi "Closes #số", Claude merge. <code>dev</code> là nhánh mặc định của repo nên merge xong issue tự đóng, thẻ tự sang Done, nhánh tự xoá. Mở Pull request thì thẻ tự sang In progress. <code>dev</code> chỉ chứa việc đã xong, nên đẩy lên Staging lúc nào cũng an toàn, kể cả khi sửa lỗi P1 (D20). Thay việc commit thẳng lên <code>dev</code></td>
+<td>Mỗi issue 1 nhánh tách từ <code>dev</code>, tên <code>loại/số-mô-tả</code> (ví dụ <code>fix/24-xem-ca-hinh</code>, <code>task/25-tools</code>). Xong thì Pull request vào <code>dev</code>, thân ghi "Closes #số", Developers merge. <code>dev</code> là nhánh mặc định của repo nên merge xong issue tự đóng, thẻ tự sang Done, nhánh tự xoá. Mở Pull request thì thẻ tự sang In progress. <code>dev</code> chỉ chứa việc đã xong, nên đẩy lên Staging lúc nào cũng an toàn, kể cả khi sửa lỗi P1 (D20). Thay việc commit thẳng lên <code>dev</code></td>
 <td>Việc làm dở không lọt lên Staging. Sửa lỗi không bị mất khi đẩy lần sau. Bảng tự cập nhật, không phải kéo thẻ bằng Chrome</td>
 <td>Commit thẳng <code>dev</code>; sửa thẳng <code>staging</code></td>
 <td>Có nhiều người làm song song</td>
@@ -714,17 +699,9 @@
 <td>Có doanh thu, hoặc có tính năng trả phí</td>
 </tr>
 <tr>
-<td>D28</td>
-<td>24/11</td>
-<td>Tài liệu riêng tư dùng thử Claude Docs: 1 trang chủ "Internal docs" làm mục lục, mỗi chủ đề 1 trang con</td>
-<td>Chủ sản phẩm muốn thử. Claude sửa trực tiếp từng đoạn, riêng tư, không tốn thêm phí</td>
-<td>Google Docs (quen, dễ chia sẻ ra ngoài), Confluence Free</td>
-<td>Cần chia sẻ với người ngoài (P3, luật sư, đối tác), hoặc thấy thiếu tính năng: xuất Markdown hoặc Word, chuyển sang Google Docs</td>
-</tr>
-<tr>
 <td>D29</td>
 <td>24/11</td>
-<td>Phát hành: Claude tạo tag và GitHub Release qua Chrome, bấm "Generate release notes" để ghi chú tự gom từ Pull request; chủ sản phẩm chỉ cần nói "phát hành". Đẩy Development lên Staging bằng Pull request <code>dev</code> → <code>staging</code></td>
+<td>Phát hành: Developers tạo tag và GitHub Release qua Chrome, bấm "Generate release notes" để ghi chú tự gom từ Pull request; chủ sản phẩm chỉ cần nói "phát hành". Đẩy Development lên Staging bằng Pull request <code>dev</code> → <code>staging</code></td>
 <td>Giảm việc tay của chủ sản phẩm. Xem lại được mỗi lần persona nhận những gì</td>
 <td>Chủ sản phẩm tự tạo Release; merge thẳng không Pull request</td>
 <td>GitHub cho phép đẩy tag qua API</td>
@@ -737,8 +714,165 @@
 <td>Dịch hết sang tiếng Việt</td>
 <td></td>
 </tr>
+<tr>
+<td>D31</td>
+<td>24/11</td>
+<td>Mỗi Sprint 1 issue nhãn <code>Sprint</code> (Sprint Goal, Sprint Backlog bằng checkbox, Review, Retro), đóng khi handoff. Quy trình gom về 1 chỗ: mục 8 Way of working. Sprint Backlog là checkbox trong issue Sprint, không dùng cột Ready</td>
+<td>Lưu lịch sử Sprint, đo được tiến bộ; PO đọc quy trình ở 1 trang. Checkbox tạo được bằng API, không cần Chrome</td>
+<td>Cột Ready (phải kéo thẻ bằng Chrome), ghi đè retro trong tài liệu handoff</td>
+<td></td>
+</tr>
 </tbody>
-</table></section>
+</table>
+</section>
+<section class="card" id="pd-8">
+  <div class="card-head"><span class="num">8</span><h3>Way of working</h3></div>
+  
+<p>Cách nhóm làm Product theo Scrum. Đây là chỗ duy nhất mô tả quy trình; Decision log chỉ ghi lý do của từng thay đổi.</p>
+<div style="overflow-x:auto"><svg viewBox="0 0 1148 80" style="width:100%;min-width:900px;height:auto" role="img" aria-label="Luồng làm việc"><defs><marker id="wa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6e727c"/></marker></defs><rect x="1" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="75.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Feedback</text><text x="75.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">PO, P1</text><path d="M150 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="165" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="239.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Issue</text><text x="239.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">Product Backlog</text><path d="M314 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="329" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="403.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Sprint Planning</text><text x="403.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">issue Sprint</text><path d="M478 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="493" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="567.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Branch + PR</text><text x="567.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">vào dev</text><path d="M642 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="657" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="731.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Development</text><text x="731.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">PO review</text><path d="M806 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="821" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="895.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Staging</text><text x="895.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">P1 dùng</text><path d="M970 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="985" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="1059.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Production</text><text x="1059.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">khi &quot;release&quot;</text></svg></div>
+
+<p class="eyebrow" style="margin-top:20px">Vai trò</p>
+<table class="t">
+<thead>
+<tr>
+<th>Vai trò</th>
+<th>Ai</th>
+<th>Làm gì</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product Owner</td>
+<td>Chủ sản phẩm</td>
+<td>Chốt Sprint Goal, ưu tiên Product Backlog, duyệt quyết định, nói "release"</td>
+</tr>
+<tr>
+<td>Developers</td>
+<td>Nhóm phát triển</td>
+<td>Làm Increment, giữ quy trình, đề xuất cải tiến. Tự thao tác GitHub, Cloudflare; chỉ nhờ PO ở mật khẩu, thanh toán, quyết định</td>
+</tr>
+<tr>
+<td>Scrum Master</td>
+<td>Chưa có người riêng</td>
+<td>Developers tự giữ quy trình; retro 2 chiều thay phần đứng ngoài nhắc</td>
+</tr>
+<tr>
+<td>Stakeholder</td>
+<td>Persona P1 (đang dùng Staging), P3 sau này</td>
+<td>Dùng Product, gửi feedback qua PO</td>
+</tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Event</p>
+<table class="t">
+<thead>
+<tr>
+<th>Event</th>
+<th>Khi nào</th>
+<th>Làm gì</th>
+<th>Ghi ở đâu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sprint</td>
+<td>1 chat</td>
+<td>Đạt 1 Sprint Goal</td>
+<td>Issue nhãn <code>Sprint</code></td>
+</tr>
+<tr>
+<td>Sprint Planning</td>
+<td>Đầu chat</td>
+<td>Developers đề xuất Sprint Goal và việc, PO chốt</td>
+<td>Issue Sprint: Sprint Goal, Sprint Backlog (checkbox nối tới issue)</td>
+</tr>
+<tr>
+<td>Vòng Review nhỏ</td>
+<td>Mỗi lượt feedback trong chat</td>
+<td>Sửa, merge vào <code>dev</code>, PO xem Development</td>
+<td>Pull request, comment issue</td>
+</tr>
+<tr>
+<td>Sprint Review</td>
+<td>Cuối Sprint, và khi P1 dùng Staging</td>
+<td>PO xem kết quả, P1 dùng thật</td>
+<td>Issue Sprint, mục Kết quả</td>
+</tr>
+<tr>
+<td>Sprint Retrospective</td>
+<td>Trước handoff</td>
+<td>Developers nêu làm tốt, chưa tốt, thử gì; hỏi PO 3 câu; đếm nhãn <code>repeated</code></td>
+<td>Issue Sprint, mục Retro</td>
+</tr>
+<tr>
+<td>Handoff</td>
+<td>Xong Sprint Goal, hoặc ngay sau lần chat bị nén đầu tiên</td>
+<td>Cập nhật tài liệu, đóng issue Sprint, đưa câu mở đầu chat mới</td>
+<td>Project docs</td>
+</tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Artifact</p>
+<table class="t">
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Ở đâu</th>
+<th>Cam kết</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product Backlog</td>
+<td>Issues, Scrum board</td>
+<td>Product Goal (mục 1)</td>
+</tr>
+<tr>
+<td>Sprint Backlog</td>
+<td>Checkbox trong issue Sprint</td>
+<td>Sprint Goal</td>
+</tr>
+<tr>
+<td>Increment</td>
+<td>Branch <code>dev</code> → Development</td>
+<td>Definition of Done (mục 4)</td>
+</tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Luồng code và environment</p>
+<table class="t">
+<thead>
+<tr>
+<th>Bước</th>
+<th>Ai</th>
+<th>Tự động</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mỗi issue 1 branch <code>loại/số-mô-tả</code>, Pull request vào <code>dev</code> có "Closes #số"</td>
+<td>Developers</td>
+<td>Mở PR: thẻ sang In progress. Merge: issue đóng, thẻ sang Done, branch tự xoá, Cloudflare deploy Development</td>
+</tr>
+<tr>
+<td><code>dev</code> → <code>staging</code> bằng Pull request</td>
+<td>Developers, khi PO mở Sprint mới không phản đối, hoặc ngay khi sửa xong lỗi P1 báo</td>
+<td>Cloudflare deploy Staging</td>
+</tr>
+<tr>
+<td><code>staging</code> → <code>main</code> bằng Pull request, tag, GitHub Release</td>
+<td>Developers, khi PO nói "release"</td>
+<td>Cloudflare deploy Production; Release notes tự gom từ Pull request</td>
+</tr>
+<tr>
+<td><code>sh tools/check.sh</code></td>
+<td>Developers, trước mỗi Pull request</td>
+<td>Chạy tay, chưa có GitHub Actions (#19)</td>
+</tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
+<p>Theo D24: mỗi câu trả lời gói trong 1 màn hình (Kết quả, Cần bạn quyết, Tiếp theo); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>

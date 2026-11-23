@@ -5,5 +5,6 @@
 D=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$D")
 sh "$D/prep.sh" || exit 1
 (cd "$R" && python3 -m http.server 8765 >/dev/null 2>&1 & echo $! > "$D/.out/srv.pid"); sleep 1
+python3 "$D/leak.py" || echo "LỘ TÊN CÔNG CỤ"
 for t in err ov geo zero mob2 stp hov ld; do echo "== $t"; python3 "$D/$t.py"; done
 kill "$(cat "$D/.out/srv.pid")" 2>/dev/null
