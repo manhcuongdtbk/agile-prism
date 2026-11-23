@@ -31,31 +31,19 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>Release 1</td>
+<td>Release 1, phiên bản đang ở Production: v1.0.0-beta.1</td>
 </tr>
 <tr>
 <td>Release Goal</td>
-<td>Người đọc thật đầu tiên (P1) dùng được Production (agile-prism.pages.dev) trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới lượt P3</td>
-</tr>
-<tr>
-<td>Sprint</td>
-<td>32 tới 36 đã xong trên Staging</td>
-</tr>
-<tr>
-<td>Còn lại trong Release 1</td>
-<td>E1.1 tới E1.3 (repo public, Cloudflare Pages, khoá Staging), E2.6 vẽ lại 5.6, E2.4 rà thuật ngữ viết bằng lời thường</td>
+<td>Người đọc thật đầu tiên (P1) dùng được Production (agile-prism.pages.dev) trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới P3</td>
 </tr>
 <tr>
 <td>Hạn</td>
-<td>Trong tuần này (tuần 23 tới 29/11), sớm nhất có thể. Phát hành sớm cho P1 ngay khi có Production, các việc còn lại cập nhật dần trong lúc chờ góp ý</td>
+<td>Trong tuần 23 tới 29/11</td>
 </tr>
 <tr>
-<td>Dời sang Release 2</td>
-<td>E4.5 design system kiểu Storybook, làm đẹp trang Sản phẩm, E1.4 đo lượt quay lại</td>
-</tr>
-<tr>
-<td>Chờ chủ sản phẩm</td>
-<td>Chốt tên sản phẩm tiếng Anh, tạo repo public trống</td>
+<td>Việc còn lại, tiến độ</td>
+<td>Milestone Release 1 trên GitHub</td>
 </tr>
 </tbody>
 </table>
@@ -142,190 +130,34 @@
 <section class="card" id="pd-3">
   <div class="card-head"><span class="num">3</span><h3>Product Backlog</h3></div>
   
-<p>Thứ tự trong bảng là thứ tự ưu tiên. Trạng thái: Done, Đang làm, Chưa làm.</p>
-<p class="eyebrow" style="margin-top:20px">Epic E1: Phát hành cho người đọc thật</p>
+<p>Product Backlog nằm trên GitHub, không ghi ở đây nữa.</p>
 <table class="t">
 <thead>
 <tr>
-<th>ID</th>
-<th>Feature hay User Story</th>
-<th>Acceptance Criteria</th>
-<th>Trạng thái</th>
+<th>Xem gì</th>
+<th>Ở đâu</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>E1.1</td>
-<td>Là chủ sản phẩm, tôi muốn trang chạy trên tên miền riêng để chia sẻ cho người đọc</td>
-<td>Trang mở được không cần tài khoản. Không lộ công cụ làm trang trên trang, URL, mã nguồn</td>
-<td>Đang làm. Đã chọn repo public. Chờ tên sản phẩm (tên repo) và tạo repo</td>
+<td>Bảng Kanban (Sprint)</td>
+<td>GitHub Projects của repo agile-prism</td>
 </tr>
 <tr>
-<td>E1.2</td>
-<td>Là chủ sản phẩm, tôi muốn Staging chỉ mình tôi xem được</td>
-<td>Mở Staging phải đăng nhập (Cloudflare Access). Design system chỉ có ở Staging</td>
-<td>Chưa làm</td>
+<td>Mọi việc</td>
+<td>github.com/manhcuongdtbk/agile-prism/issues</td>
 </tr>
 <tr>
-<td>E1.3</td>
-<td>Là chủ sản phẩm, tôi muốn mỗi chat kết thúc bằng 1 lần phát hành có ghi lại thay đổi</td>
-<td>Merge staging vào main. CHANGELOG có mục mới. Rollback được trong 1 phút</td>
-<td>Chưa làm</td>
+<td>Tiến độ từng Release</td>
+<td>github.com/manhcuongdtbk/agile-prism/milestones</td>
 </tr>
 <tr>
-<td>E1.4</td>
-<td>Là chủ sản phẩm, tôi muốn biết người đọc có quay lại không</td>
-<td>Cloudflare Web Analytics bật, xem được lượt truy cập theo ngày</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E1.5</td>
-<td>Là người đọc, tôi muốn gửi góp ý ngay trên trang</td>
-<td>Nút Góp ý mở form, gửi tới chủ sản phẩm, không cần tài khoản</td>
-<td>Chưa làm, xét sau Release 1</td>
-</tr>
-<tr>
-<td>E1.6</td>
-<td>Ghi rõ trang không liên quan PMI và nguồn tham khảo</td>
-<td>Dòng cuối trang: không phải tài liệu chính thức của PMI, liệt kê nguồn</td>
-<td>Done (Vòng 33)</td>
+<td>Lịch sử phát hành</td>
+<td>CHANGELOG.md trong repo</td>
 </tr>
 </tbody>
 </table>
-<p class="eyebrow" style="margin-top:20px">Epic E2: Nội dung đúng nguồn, dễ hiểu</p>
-<table class="t">
-<thead>
-<tr>
-<th>ID</th>
-<th>Feature hay User Story</th>
-<th>Acceptance Criteria</th>
-<th>Trạng thái</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>E2.1</td>
-<td>Bản đồ 6 Phần, Ví dụ xuyên suốt Shop Áo Gió</td>
-<td></td>
-<td>Done</td>
-</tr>
-<tr>
-<td>E2.2</td>
-<td>Glossary 239 thuật ngữ, lọc theo nguồn gốc</td>
-<td></td>
-<td>Done</td>
-</tr>
-<tr>
-<td>E2.3</td>
-<td>Rà chữ quanh hình: bỏ chữ lặp hình, vẽ vào hình điều đang viết bằng chữ</td>
-<td>Mỗi hình đã xét 1 lần, ghi kết quả</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E2.4</td>
-<td>Rà khái niệm có thuật ngữ mà trang viết bằng lời thường (gloss_gap.py)</td>
-<td>65 mục đã xét</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E2.5</td>
-<td>Rà kết quả ẩn sau tương tác: Skill matrix (2.8), CFD (6.1)</td>
-<td>Mọi nhánh kết quả hiện sẵn</td>
-<td>Chưa làm</td>
-</tr>
-</tbody>
-</table>
-<p>| E2.6 | <strong>Vẽ lại toàn bộ Value Stream Mapping (5.6)</strong> cho người mới học | Người mới hiểu VSM dùng để tìm và bỏ lãng phí. Mỗi khoảng chờ gắn với 1 loại lãng phí ở Bảng 5.6-1. Có bản hiện tại và bản tương lai. Mọi số (kể cả 0,5) đọc được. Mũi tên nối đủ giữa các bước. Thuật ngữ thống nhất 1 cách gọi (Thời gian làm, Thời gian chờ) ở hình, Glossary, bài. Flow efficiency giải nghĩa ngay trong hình. Lead Time và Flow efficiency nổi bật, so trước sau. Bóng "ban đầu" không bị che | Chưa làm, ưu tiên 1 của Sprint sau |
-| E2.7 | Jira chỉ giải thích ở 6.5, nơi khác dẫn về | | Done (Vòng 33) |
-| E2.8 | Tên cũ không ghi cạnh tên mới trong bài, hình. Chỉ ở tooltip, Glossary, Bảng 6.8-1 | | Done (Vòng 33) |</p>
-<p class="eyebrow" style="margin-top:20px">Epic E3: Đọc tốt trên mọi thiết bị</p>
-<table class="t">
-<thead>
-<tr>
-<th>ID</th>
-<th>Feature hay User Story</th>
-<th>Acceptance Criteria</th>
-<th>Trạng thái</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>E3.1</td>
-<td>Là P4, tôi muốn Hình 2.5-1 trên điện thoại có đường nối như bản máy tính</td>
-<td>Không còn dạng danh sách chữ ở 390px</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E3.2</td>
-<td>Là P4, tôi muốn bấm được khối trong "⤢ Xem cả hình"</td>
-<td>Khối bấm được giống bản thường</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E3.3</td>
-<td>Là P3, tôi muốn dùng trang hoàn toàn bằng bàn phím</td>
-<td>Tab, Enter tới được mọi thứ bấm được</td>
-<td>Đang làm: thuật ngữ, khối trong hình xong</td>
-</tr>
-</tbody>
-</table>
-<p class="eyebrow" style="margin-top:20px">Epic E5: Thương hiệu Agile Prism</p>
-<table class="t">
-<thead>
-<tr>
-<th>ID</th>
-<th>Feature hay User Story</th>
-<th>Acceptance Criteria</th>
-<th>Trạng thái</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>E5.1</td>
-<td>Logo bản chính thức</td>
-<td><strong>1 logo dùng mọi chỗ</strong>, rõ ở 16px trên tab Chrome tới 512px, không cần bản rút gọn. Đẹp, chuyên nghiệp. Tam giác dễ bị liên tưởng tới Triple Constraint: hoặc tránh, hoặc dùng có chủ đích (ví dụ gợi ý lật tam giác của Agile) và nói được vì sao. Dùng màu của design system</td>
-<td>Chưa làm. Bản tạm ở Sprint 37 bị chủ sản phẩm chê xấu</td>
-</tr>
-<tr>
-<td>E5.2</td>
-<td>Slogan</td>
-<td>1 câu ngắn, bắt tai, tiếng Anh hợp tên Agile Prism (có bản tiếng Việt nếu cần). Tách khỏi câu mô tả "Hiểu Agile bằng hình. Ôn PMI-ACP". Đưa 3 tới 5 phương án, chủ sản phẩm chọn</td>
-<td>Chưa làm</td>
-</tr>
-</tbody>
-</table>
-<p class="eyebrow" style="margin-top:20px">Epic E4: Cách làm việc (nội bộ)</p>
-<table class="t">
-<thead>
-<tr>
-<th>ID</th>
-<th>Việc</th>
-<th>Trạng thái</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>E4.0</td>
-<td><strong>Trang Sản phẩm trong Staging</strong> (product.html, như design system): Release Goal, Product Backlog, Persona, Changelog, mẫu gửi phản hồi, hiện bằng HTML có cấu trúc thay cho đọc file .md. File .md này vẫn là nguồn dữ liệu, trang sinh từ nó bằng mkprod.py</td>
-<td>Done bản đầu (Sprint 34). Làm đẹp hơn ở Release 2</td>
-</tr>
-<tr>
-<td>E4.5</td>
-<td>Design system kiểu Storybook: mỗi thành phần dùng lại (chip nguồn, hộp ghi chú, phân số, BRANCH, đang tải, thanh chọn) là 1 thẻ gồm mẫu sống, các biến thể, tham số, thay phần lớn đoạn chữ mô tả. Chỉ cho thành phần nhỏ, không cho hình: hình vẫn vẽ riêng theo nội dung</td>
-<td>Chưa làm</td>
-</tr>
-<tr>
-<td>E4.1</td>
-<td>Design system, bộ script kiểm tra</td>
-<td>Done, cập nhật mỗi vòng</td>
-</tr>
-<tr>
-<td>E4.2</td>
-<td>Gộp err.py, fmap.py, clk.py vào tài liệu công cụ</td>
-<td>Chưa làm</td>
-</tr>
-</tbody>
-</table>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại (<code>story</code>, <code>task</code>, <code>bug</code>, <code>feedback</code>), nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (Release 1, Release 2).</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
