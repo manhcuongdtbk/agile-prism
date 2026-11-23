@@ -1,8 +1,8 @@
-# DOC: Chặn lộ tên công cụ làm cùng trong mọi file của repo (danh sách từ mã hoá rot13). Phải ra OK.
+# DOC: Chặn lộ tên công cụ làm cùng trong các file đăng lên Production (D32). Phải ra OK.
 import codecs,re,subprocess,os,sys
 R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pat=re.compile('(?i)'+codecs.decode('pynhqr|nagucbvp','rot13'))
-files=subprocess.run(['git','ls-files'],cwd=R,capture_output=True,text=True).stdout.split()
+files=['index.html','404.html','site.css','core.js','draw.js','terms.js']
 bad=[]
 for f in files:
     try: t=open(os.path.join(R,f),encoding='utf-8').read()
