@@ -653,6 +653,14 @@
 <td>P1 tự tạo issue</td>
 <td>Có persona muốn tham gia GitHub</td>
 </tr>
+<tr>
+<td>D26</td>
+<td>24/11</td>
+<td>Mỗi issue 1 nhánh tách từ <code>dev</code>, tên <code>loại/số-mô-tả</code> (ví dụ <code>fix/24-xem-ca-hinh</code>, <code>task/25-tools</code>). Xong thì Pull request vào <code>dev</code>, thân ghi "Closes #số", Claude merge. <code>dev</code> là nhánh mặc định của repo nên merge xong issue tự đóng, thẻ tự sang Done, nhánh tự xoá. Mở Pull request thì thẻ tự sang In progress. <code>dev</code> chỉ chứa việc đã xong, nên đẩy lên Staging lúc nào cũng an toàn, kể cả khi sửa lỗi P1 (D20). Thay việc commit thẳng lên <code>dev</code></td>
+<td>Việc làm dở không lọt lên Staging. Sửa lỗi không bị mất khi đẩy lần sau. Bảng tự cập nhật, không phải kéo thẻ bằng Chrome</td>
+<td>Commit thẳng <code>dev</code>; sửa thẳng <code>staging</code></td>
+<td>Có nhiều người làm song song</td>
+</tr>
 </tbody>
 </table></section>
 </main>
