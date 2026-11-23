@@ -115,7 +115,7 @@ const GM='<svg class="gm" aria-hidden="true"><use href="#i-gio"/></svg>';functio
 /* Kết quả tương tác có nhiều nhánh: luôn liệt kê đủ mọi nhánh, tô nhánh đang khớp (cur = -1: chưa nhánh nào). Người đọc không phải thử mới biết còn nhánh nào */
 function BRANCH(items,cur){return '<ul class="brn">'+items.map(([h,d],i)=>`<li${i===cur?' class="on" aria-current="true"':''}><b>${h}</b><span>${d}</span></li>`).join('')+'</ul>'}
 /* LOADING cả trang: khối #pgLoad đặt ngay đầu body của mỗi trang. PGL.done() gỡ khi trang đã vẽ xong và tương tác được.
-   Bấm liên kết sang trang khác cùng artifact (index.html, design-system.html) thì hiện lại ngay, vì trang mới cần vài trăm ms mới vẽ.
+   Bấm liên kết sang trang khác cùng site (index.html, design-system.html) thì hiện lại ngay, vì trang mới cần vài trăm ms mới vẽ.
    Quay lại bằng back của trình duyệt (bfcache) thì gỡ. Tối đa 10 giây để không kẹt nếu có lỗi */
 window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
   const done=()=>{const l=el();if(!l)return;l.classList.add('out');setTimeout(()=>l.hidden=true,260)};
@@ -128,7 +128,7 @@ window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
   return {done,show}})();
 /* Bàn phím: mọi phần tử bấm được không phải nút hay liên kết thật (thuật ngữ dfn, khối trong hình có role=button, data-cf, data-lv) nhận Enter và Space như 1 lần bấm chuột. Phần tử đã tự xử lý phím (gọi preventDefault) thì bỏ qua */
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||(e.key!=='Enter'&&e.key!==' '))return;const el=e.target;if(!el||!el.matches||!el.matches('dfn[tabindex],[role=button]:not(button),[data-cf],[data-lv]'))return;if(el.closest('a[href]'))return;e.preventDefault();el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}))});
-/* Lối vào design system: chỉ hiện khi artifact có file design-system.html (Staging). Production không có file nên không hiện gì */
+/* Lối vào design system: chỉ hiện khi site có file design-system.html (Development, Staging). Production không có file nên không hiện gì */
 fetch('design-system.html',{method:'HEAD'}).then(r=>{if(r.ok)document.documentElement.classList.add('has-ds')}).catch(()=>{});
 /* Công thức trong hình SVG: dùng đúng .fml và .frac của bài (design system, Công thức) qua foreignObject, để phép chia trong hình cũng là phân số.
    EQ(x,yGiữa,rộng,html,{s:cỡ chữ,c:màu,a:'start'|'middle'}) */

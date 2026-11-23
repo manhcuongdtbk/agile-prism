@@ -6,11 +6,11 @@ Trang tĩnh: HTML, CSS, JavaScript thuần, không cần cài gì. `build.sh` ch
 
 | Nhánh | Môi trường | Ai xem |
 |---|---|---|
-| `dev` | Development, có thêm trang Sản phẩm và Design system | Nhóm làm sản phẩm |
+| `dev` (mặc định) | Development, có thêm trang Sản phẩm và Design system | Chủ sản phẩm |
 | `staging` | Staging, như Development | Persona thử trước |
 | `main` | Production | Người đọc |
 
-Luồng: `dev` → `staging` → `main`. Phiên bản 0.x tới khi ra mắt công khai. Ghi thay đổi ở `CHANGELOG.md`.
+Mỗi issue 1 nhánh `loại/số-mô-tả`, Pull request vào `dev` kèm "Closes #số". Luồng: nhánh issue → `dev` → `staging` → `main`. Phiên bản 0.x tới khi ra mắt công khai. Ghi thay đổi ở `CHANGELOG.md`.
 
 Không liên quan và không được PMI bảo trợ. PMI, PMI-ACP, PMP, PMBOK là nhãn hiệu của Project Management Institute, Inc.
 
