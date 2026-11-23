@@ -15,7 +15,7 @@
 <p><strong>Nhịp làm việc</strong>: 1 chat là 1 Release. Mỗi Sprint là 1 lượt góp ý trong chat (Sprint Review là lúc người dùng xem Staging). Đầu chat chốt Release Goal và scope cùng người dùng. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
 </div>
   <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html" aria-current="page">Sản phẩm</a><a href="design-system.html">Design system</a></nav>
-  <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của sản phẩm</a><a href="#pd-6"><b>6</b>Ngôn ngữ chung</a></nav>
+  <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của sản phẩm</a><a href="#pd-6"><b>6</b>Ngôn ngữ chung</a><a href="#pd-7"><b>7</b>Nhật ký quyết định</a></nav>
 </header>
 <main class="wrap">
 <section class="card" id="pd-0">
@@ -35,7 +35,7 @@
 </tr>
 <tr>
 <td>Release Goal</td>
-<td>Người đọc thật đầu tiên (P1) dùng được Production trên tên miền riêng trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới lượt P3</td>
+<td>Người đọc thật đầu tiên (P1) dùng được Production (agile-prism.pages.dev) trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới lượt P3</td>
 </tr>
 <tr>
 <td>Sprint</td>
@@ -586,6 +586,121 @@
 <td>Storybook</td>
 <td>Công cụ trưng bày component có mẫu sống</td>
 <td>Design system làm vai trò tương tự</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="card" id="pd-7">
+  <div class="card-head"><span class="num">7</span><h3>Nhật ký quyết định</h3></div>
+  
+<p>Mỗi quyết định có ảnh hưởng lâu dài ghi 1 dòng: quyết gì, vì sao, đã bỏ phương án nào, khi nào nên xem lại. Kiểu ghi này trong nghề gọi là ADR (Architecture Decision Record). Không xoá dòng cũ: quyết định bị thay thì ghi dòng mới, dòng cũ ghi "thay bởi Dxx".</p>
+<table class="t">
+<thead>
+<tr>
+<th>Mã</th>
+<th>Ngày</th>
+<th>Quyết định</th>
+<th>Vì sao</th>
+<th>Đã bỏ</th>
+<th>Xem lại khi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D01</td>
+<td>22/11</td>
+<td>Trang tĩnh: HTML, CSS, JavaScript thuần, không framework, không bước build phức tạp</td>
+<td>Nhanh, rẻ, ai cũng sửa được, chạy được ở mọi nơi</td>
+<td>React, Next.js</td>
+<td>Cần tài khoản, lưu tiến độ, nhiều ngôn ngữ</td>
+</tr>
+<tr>
+<td>D02</td>
+<td>22/11</td>
+<td>Gốc đúng sai là APG 2, PMBOK 8, Scrum Guide 2020. Slide của David McLachlan chỉ là điểm khởi đầu</td>
+<td>PMI nêu 2 tài liệu này cho kỳ thi</td>
+<td>Bám nguyên slide</td>
+<td>Có bản APG, PMBOK mới</td>
+</tr>
+<tr>
+<td>D03</td>
+<td>23/11</td>
+<td>Tên sản phẩm Agile Prism. Không đưa PMI, ACP, PMP vào tên</td>
+<td>Tên tiếng Anh để sau làm bản tiếng Anh. Tên của PMI là nhãn hiệu</td>
+<td>Nhìn Là Hiểu, Agile Unfolded, Agile Lens</td>
+<td>Mở rộng thành hệ sinh thái</td>
+</tr>
+<tr>
+<td>D04</td>
+<td>23/11</td>
+<td>Repo public ở tài khoản cá nhân</td>
+<td>Miễn phí nhiều tính năng. Chưa có thu nhập nên chưa cần bảo vệ mã</td>
+<td>Repo private, organization</td>
+<td>Có thu nhập, có người cộng tác</td>
+</tr>
+<tr>
+<td>D05</td>
+<td>23/11</td>
+<td>Giấy phép: giữ toàn quyền, không cho dùng lại</td>
+<td>Chưa muốn chia sẻ, chưa muốn tốn thời gian về luật</td>
+<td>MIT, Creative Commons</td>
+<td>Trước khi phát hành rộng</td>
+</tr>
+<tr>
+<td>D06</td>
+<td>23/11</td>
+<td>Commit đứng tên chủ sản phẩm bằng email ẩn của GitHub, không ghi công cụ làm cùng</td>
+<td>Không lộ email thật, chưa muốn công khai cách làm</td>
+<td>Ghi đồng tác giả</td>
+<td>Khi cộng tác với developer</td>
+</tr>
+<tr>
+<td>D07</td>
+<td>23/11</td>
+<td>Cloudflare Pages: nhánh <code>main</code> là Production, nhánh <code>staging</code> là Staging, mỗi lần đẩy code tự đăng</td>
+<td>Miễn phí, HTTPS sẵn, cùng 1 tên miền cho 2 môi trường</td>
+<td>GitHub Pages (không khoá được Staging), Netlify</td>
+<td>Cần tên miền riêng</td>
+</tr>
+<tr>
+<td>D08</td>
+<td>23/11</td>
+<td>Staging khoá bằng Cloudflare Access, đăng nhập bằng mã gửi email</td>
+<td>Chặn thật ở máy chủ, không cần viết mã</td>
+<td>Basic Auth (artifact không hỗ trợ), mật khẩu trong JavaScript (không an toàn)</td>
+<td>Thêm người cộng tác cần xem Staging</td>
+</tr>
+<tr>
+<td>D09</td>
+<td>23/11</td>
+<td>Trang Sản phẩm, Design system chỉ có ở Staging. Production có trang 404 riêng</td>
+<td>Người đọc không thấy trang nội bộ. Không có 404 thì Cloudflare trả trang chính cho mọi địa chỉ lạ</td>
+<td>Chặn bằng mật khẩu</td>
+<td></td>
+</tr>
+<tr>
+<td>D10</td>
+<td>23/11</td>
+<td>1 chat là 1 Release, 1 lượt góp ý là 1 Sprint. Release 1 kéo sang 2 chat</td>
+<td>Giữ nhịp phát hành đều, không mất việc khi chat dài</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D11</td>
+<td>23/11</td>
+<td>Đo lượt quay lại dời sang Release 2</td>
+<td>Chỉ 2 người đọc, hỏi trực tiếp nhanh hơn</td>
+<td>Bật ngay Cloudflare Web Analytics</td>
+<td>Có người đọc thứ 3 trở đi</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>23/11</td>
+<td>Chỉ hỗ trợ Chrome trong Release 1</td>
+<td>Mọi persona đều dùng Chrome</td>
+<td>Thử mọi trình duyệt</td>
+<td>Có người đọc dùng Safari, Firefox</td>
 </tr>
 </tbody>
 </table></section>
