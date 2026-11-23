@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Agile Prism">
+  <title>Agile Prism</title>
+  <!-- 1 tia sáng đi vào lăng kính, ra thành 4 tia màu: màu chính và 3 màu vai trò của trang -->
+  <path d="M2 40 L24 34" stroke="#4b4f58" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+  <g stroke-width="3.2" stroke-linecap="round" fill="none">
+    <path d="M45 31 L62 21" stroke="#d6457a"/>
+    <path d="M45 33 L62 30" stroke="#517cbc"/>
+    <path d="M45 35 L62 39" stroke="#258b95"/>
+    <path d="M45 37 L62 48" stroke="#61894b"/>
+  </g>
+  <path d="M32 8 L55 50 H9 Z" fill="#fff" stroke="#23252b" stroke-width="3.4" stroke-linejoin="round"/>
+</svg>

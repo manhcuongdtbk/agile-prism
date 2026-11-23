@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system – Bản đồ trực quan Agile</title><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+</head>
+<body class="ds">
+<div id="pgLoad" class="pg-load" role="status" aria-live="polite"><div class="pl-box"><span class="kb-ld" aria-hidden="true"><i></i><i></i><i></i></span><span class="pl-t">Đang mở Design system</span></div></div>
+<div id="sprite" hidden></div>
+
+<header class="hero wrap">
+  <a class="brand" href="index.html" aria-label="Agile Prism, về trang chính"><img src="logo.svg" alt="" width="40" height="40"><span><b>Agile Prism</b><small>Hiểu Agile bằng hình. Ôn PMI-ACP</small></span></a>
+  <h1>Design system</h1>
+  <p class="meta">Màu, chữ, khoảng cách, thành phần và quy tắc dùng của trang chính. Mọi mẫu ở đây dùng đúng file <code>site.css</code> và <code>core.js</code> của trang chính, nên sửa ở 1 chỗ thì cả 2 trang cùng đổi.</p>
+  <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html">Sản phẩm</a><a href="design-system.html" aria-current="page">Design system</a></nav>
+  <nav class="ds-toc" aria-label="Mục lục design system">
+    <a href="#ds-0"><b>0</b>Nguyên tắc chung</a><a href="#ds-1"><b>1</b>Màu</a><a href="#ds-2"><b>2</b>Chữ</a><a href="#ds-3"><b>3</b>Khoảng cách, bo góc, biểu tượng</a><a href="#ds-4"><b>4</b>Khối nội dung</a><a href="#ds-5"><b>5</b>Bảng và công thức</a><a href="#ds-6"><b>6</b>Tương tác</a><a href="#ds-7"><b>7</b>Hình và biểu đồ</a><a href="#ds-8"><b>8</b>Ví dụ xuyên suốt</a><a href="#ds-9"><b>9</b>Quy tắc nội dung</a><a href="#ds-10"><b>10</b>Điều hướng và ngăn kéo</a><a href="#ds-11"><b>11</b>Kiến trúc file</a><a href="#ds-12"><b>12</b>Ngôn ngữ chung</a>
+  </nav>
+</header>
+
+<main class="wrap">
+<section class="card" id="ds-0">
+  <div class="card-head"><span class="num">0</span><h3>Nguyên tắc chung</h3><span class="en">Chất của sản phẩm, đúc kết từ các góp ý. Mọi quy tắc ở các mục sau đều xuất phát từ đây</span></div>
+  <table class="t"><tr><th>Nguyên tắc</th><th>Nghĩa là</th><th>Mục chi tiết</th></tr>
+  <tr><td><b>Hình trước chữ</b></td><td>Hình đủ rõ thì không thêm chữ quanh hình. Chữ nói điều hình nên vẽ thì vẽ vào hình</td><td>7</td></tr>
+  <tr><td><b>Khác loại vẽ khác, cùng loại vẽ giống</b></td><td>Khác nhau phải thấy bằng hình dạng, màu theo nghĩa, không chỉ khác chữ hay độ đậm. 2 vế song song phải cân xứng</td><td>4, 7</td></tr>
+  <tr><td><b>Không giấu</b></td><td>Mọi kết quả của 1 tương tác hiện sẵn, có ví dụ mẫu dẫn tới. Mọi số đọc được</td><td>6</td></tr>
+  <tr><td><b>1 khái niệm, 1 tên</b></td><td>Có thuật ngữ thì dùng thuật ngữ, không dịch. Tên cũ chỉ ở tooltip, Glossary. Tên trang, môi trường theo Ngôn ngữ chung</td><td>9, 12</td></tr>
+  <tr><td><b>1 ý, 1 chỗ</b></td><td>Ý nói ở 1 nơi, nơi khác dẫn về bằng liên kết</td><td>9</td></tr>
+  <tr><td><b>Ý tách rõ</b></td><td>Nhiều ý trong 1 ô: cách thay thế có "hoặc", bước nối tiếp có số, ý độc lập có gạch đầu dòng. Công thức là phương trình, phép chia là phân số</td><td>5</td></tr>
+  <tr><td><b>Động khi thật sự động</b></td><td>Đang tải, tô sáng, tiến độ là chuyển động thì biểu tượng cũng động. Người tắt chuyển động thì đứng yên</td><td>6</td></tr>
+  <tr><td><b>Mọi trang 1 bộ kiểu</b></td><td>Nút, thẻ, khung trang, thanh chuyển trang dùng chung site.css. Không viết kiểu riêng cho 1 trang</td><td>11</td></tr>
+  <tr><td><b>Sửa 1 thì rà cả loại</b></td><td>Góp ý 1 chỗ: tìm mọi chỗ cùng loại bằng script, sửa ở gốc chung, ghi quy tắc vào đúng 1 mục, thêm kiểm tra tự động nếu được</td><td>Mọi mục</td></tr>
+  </table>
+</section>
+
+<section class="card" id="ds-1">
+  <div class="card-head"><span class="num">1</span><h3>Màu</h3><span class="en">Đọc trực tiếp từ biến CSS của site.css</span></div>
+  <p class="lead">Mỗi màu có 1 việc riêng. Hồng là màu chính của trang và của Agile. Xanh dương, xanh lục lam, cam là 3 vai trò Scrum. Tím chỉ dành cho câu chuyện Shop Áo Gió.</p>
+  <div id="swCss"></div>
+  <p class="eyebrow" style="margin-top:8px">Bộ màu trong hình SVG <code>C</code> của core.js</p>
+  <p class="sm" style="color:var(--ink2);margin:4px 0 0">Mỗi tông có 3 giá trị: nét, nền, chữ. Hình luôn dùng bộ này, không viết mã màu lẻ.</p>
+  <div class="svc" id="swC"></div>
+</section>
+
+<section class="card" id="ds-2">
+  <div class="card-head"><span class="num">2</span><h3>Chữ</h3><span class="en">Be Vietnam Pro, 4 độ đậm 400, 500, 600, 700</span></div>
+  <div class="ty" id="tyList">
+    <span>h1, 40px, 700</span><div style="font-size:40px;font-weight:700;line-height:1.1;letter-spacing:-.02em">Bản đồ trực quan Agile</div>
+    <span>h2 Phần, 26px</span><div style="font-size:26px;font-weight:700">Practices & Ceremonies</div>
+    <span>h3 thẻ mục, 20px</span><div class="card-head" style="margin:0"><span class="num">4.6</span><h3>Daily Scrum</h3><span class="en">Họp ngắn hằng ngày</span></div>
+    <span>h3 tiêu đề phụ</span><div class="sub-head" style="margin:0"><h3>Tuckman ladder</h3><span class="en">5 giai đoạn phát triển của Team</span></div>
+    <span>.lead, 15px</span><p class="lead" style="margin:0">Đoạn dẫn đầu thẻ, nói ý chính của mục.</p>
+    <span>thân bài, 14px</span><p style="margin:0;font-size:14px">Chữ thường trong hộp, bảng và danh sách.</p>
+    <span>.eyebrow, 11.5px</span><p class="eyebrow" style="margin:0">Nhãn nhóm nhỏ, viết hoa</p>
+    <span>chữ trong SVG</span><div style="font-size:13px;color:var(--ink2)">11,5 nhãn phụ, trục số. 12 đến 12,5 nhãn thường. 13 đến 14 tên khối. 15 tiêu đề hình</div>
+  </div>
+  <div class="nt" style="margin-top:16px"><svg class="nt-i"><use href="#i-note"/></svg><span>Phụ đề xám <code>.en</code> là chỗ duy nhất dịch tiêu đề sang tiếng Việt. Phụ đề thêm nghĩa, không chứa hướng dẫn thao tác.</span></div>
+</section>
+
+<section class="card" id="ds-3">
+  <div class="card-head"><span class="num">3</span><h3>Khoảng cách, bo góc, biểu tượng</h3><span class="en">3 mức bo góc, khối cách nhau tối thiểu 8px</span></div>
+  <div class="rad"><div style="border-radius:var(--r-lg)">--r-lg 16px<br>thẻ mục</div><div style="border-radius:var(--r)">--r 12px<br>hộp, khung</div><div style="border-radius:var(--r-sm)">--r-sm 8px<br>nút, ô nhỏ</div><div style="border-radius:999px">999px<br>chip, nhãn</div></div>
+  <dl class="spec" style="margin-top:16px">
+    <dt>Khoảng cách</dt><dd>Khối có viền hoặc nền cách nhau ít nhất 8px. Thẻ mục có lề trong 28px trên máy tính, 18px trên điện thoại.</dd>
+    <dt>Bề rộng</dt><dd>Mọi khối dùng toàn chiều rộng thẻ, căn trái. Không đặt max-width riêng cho đoạn chữ, bảng, bộ điều khiển.</dd>
+    <dt>Hình SVG</dt><dd>viewBox rộng 1118 cho hình hết khung, có lề 3px để nét viền không bị cắt.</dd>
+  </dl>
+  <p class="eyebrow">Biểu tượng, lấy từ trang chính</p>
+  <div class="ic-g" id="icList"></div>
+</section>
+
+<section class="card" id="ds-4">
+  <div class="card-head"><span class="num">4</span><h3>Khối nội dung</h3><span class="en">Định nghĩa, lưu ý, callout, gợi ý thao tác, cách gọi khác</span></div>
+
+  <p class="eyebrow">Định nghĩa <code>.def</code></p>
+  <div class="demo"><div class="def"><span class="def-i" title="Định nghĩa"><svg><use href="#i-book"/></svg></span><span><b>Increment</b>: phần Product dùng được, đạt Definition of Done.</span></div></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Nêu nghĩa chính thức của 1 khái niệm, lần đầu khái niệm xuất hiện. Không có chữ nhãn, chỉ có icon sách.</dd></dl>
+
+  <p class="eyebrow">Lưu ý <code>.nt</code> và lưu ý ngoài slide <code>.nt.ext</code></p>
+  <div class="demo"><div class="nt"><svg class="nt-i"><use href="#i-note"/></svg><span>Ghi chú ngắn bổ sung cho đoạn ngay trên.</span></div><div class="nt ext"><svg class="nt-i" aria-label="Ngoài slide"><use href="#i-plus"/></svg><span>Nội dung không có trong slide: viền đứt và icon ⊕.</span></div></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Ghi chú không cần tiêu đề. Nội dung ngoài slide luôn thêm <code>.ext</code>.</dd><dt>Không dùng</dt><dd>Không thêm chữ "Lưu ý" làm nhãn.</dd></dl>
+
+  <p class="eyebrow">Callout có tiêu đề <code>.co</code>: <code>.key</code>, <code>.warn</code>, <code>.ext</code></p>
+  <div class="demo"><div class="co key"><div class="co-h"><svg><use href="#i-key"/></svg>Ý cốt lõi</div>Một ý cần nhớ nhất của mục.</div><div class="co warn"><div class="co-h"><svg><use href="#i-warn"/></svg>Bẫy hay gặp</div>Điều dễ sai khi làm bài.</div><div class="co ext"><div class="co-h"><svg><use href="#i-plus"/></svg>Kiến thức thêm</div>Phần mở rộng ngoài slide, có tiêu đề.</div></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Nội dung cần 1 tiêu đề riêng. Tiêu đề là cụm danh từ.</dd></dl>
+
+  <p class="eyebrow">Gợi ý thao tác <code>.hint</code></p>
+  <div class="demo"><div class="hint"><span class="ic try" title="Tương tác"><svg><use href="#i-hand"/></svg></span><span>Bấm 1 khối trong hình để xem chi tiết.</span></div></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Hình có tương tác mà người đọc khó tự đoán. Dùng đúng icon Tương tác như cạnh tiêu đề.</dd></dl>
+
+  <p class="eyebrow">Cách gọi khác <code>.syns</code> và tên cũ</p>
+  <div class="demo"><div class="syns"><span class="ic ext" title="Ngoài slide"><svg><use href="#i-plus"/></svg></span><span>Cách gọi khác</span><i>Daily coordination meeting</i><i>Daily sync</i><a class="ref">APG 2</a><i>Daily Stand-up</i><span class="muted sm">tên cũ, slide dùng</span></div>
+    <dl class="nm" style="margin-top:12px"><dt>Cách gọi khác</dt><dd>Spectrum of Development Approaches (PMBOK 8)</dd><dt class="o">Tên cũ</dt><dd class="o"><i>Project Continuum</i> <small>(tên trên slide)</small></dd></dl></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Chỉ cho tên thật sự đồng nghĩa, có nguồn. Chip nguồn đặt ngay sau tên. Trong Glossary và tooltip, tên cũ là 1 dòng riêng, nhãn nâu, chữ nghiêng.</dd></dl>
+
+  <p class="eyebrow">Nhãn tài liệu <code>.ref</code> và số mục <code>.pills</code></p>
+  <div class="demo"><p style="margin:0 0 10px">Theo <a class="ref" href="#">APG 2</a> và <a class="ref" href="#">PMBOK 8</a>, nhãn luôn kèm phiên bản.</p><div class="pills"><a href="#">1.4</a><a href="#">2.6</a><a href="#">4.7</a></div></div>
+  <dl class="spec"><dt>Nhãn tài liệu</dt><dd>Chip <code>.ref</code>, phần mã hình hay mục đặt trong <code>.srcn</code> ngay sau, ở mọi nơi kể cả cột nguồn của bảng.</dd><dt>Liên kết nội bộ</dt><dd>Trỏ tới mục x.y, không trỏ tới cả Phần.</dd><dt>Icon sau tiêu đề</dt><dd>Theo thứ tự ⊕ Ngoài slide, Minh hoạ, Tương tác, rồi nhãn tài liệu. Rê chuột hiện giải thích, bấm mở Chú giải.</dd></dl>
+</section>
+
+<section class="card" id="ds-5">
+  <div class="card-head"><span class="num">5</span><h3>Bảng và công thức</h3><span class="en">Dòng tạm tính, dòng tổng, phân số như toán</span></div>
+  <div class="demo">
+    <table class="t rkt"><tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Probability × Impact</th></tr>
+      <tr><td>Risk 1: Sandbox chậm</td><td>50%</td><td>10 ngày</td><td><b>5 ngày</b></td></tr>
+      <tr><td>Risk 2: Lưu thẻ chưa đạt</td><td>30%</td><td>15 ngày</td><td><b>4,5 ngày</b></td></tr>
+      <tr class="sub"><td>Tạm tính, cộng Risk 1 và 2</td><td></td><td></td><td>9,5 ngày</td></tr>
+      <tr><td>Risk 3: Web chậm</td><td>40%</td><td>8 ngày</td><td><b>3,2 ngày</b></td></tr>
+      <tr class="sum"><td>Tổng</td><td></td><td></td><td>12,7 ngày</td></tr></table>
+  </div>
+  <dl class="spec"><dt>Bảng <code>table.t</code></dt><dd>Tối đa 4 tới 5 cột. Cột đầu là khía cạnh so sánh. Mỗi bảng có tên ở dưới, đánh số tự động. Dưới 1000px bảng cuộn ngang trong khung.</dd><dt>So sánh</dt><dd>Luôn xếp theo khía cạnh, không để 2 danh sách rời. Ô tốt nền xanh, ô có vấn đề nền đỏ. Trường hợp đúng trước, sai sau, mỗi trường hợp có ví dụ.</dd>
+    <dt><code>tr.sub</code>, <code>tr.sum</code></dt><dd>Dòng tạm tính đặt ngay sau dòng cuối nó cộng. Dòng tổng ở cuối. Cả 2 cùng nét kẻ như mọi dòng, phân biệt bằng nền và độ đậm chữ.</dd></dl>
+  <div class="demo"><span class="fbox"><span class="fml"><span class="fl">WSJF</span> = <span class="frac"><span>User business value + Time criticality + Risk reduction</span><span>Size</span></span></span></span></div>
+  <dl class="spec"><dt>Công thức <code>.fml</code></dt><dd>Mọi phép chia viết dạng phân số <code>.frac</code>, tử trên mẫu dưới. Công thức đứng riêng đặt trong <code>.fbox</code>. Phép cộng, trừ ngắn có thể viết 1 dòng. Không mô tả công thức bằng lời.</dd></dl>
+</section>
+
+<section class="card" id="ds-6">
+  <div class="card-head"><span class="num">6</span><h3>Tương tác</h3><span class="en">Nút, bộ chọn, bộ điều khiển xem lần lượt, khung chi tiết</span></div>
+  <p class="eyebrow">Nút và bộ chọn</p>
+  <div class="demo"><div class="dctl"><div class="seg" id="dsSeg" role="radiogroup" aria-label="Mẫu bộ chọn"><button type="button" role="radio" aria-checked="true" data-v="0">Lựa chọn 1</button><button type="button" role="radio" aria-checked="false" data-v="1">Lựa chọn 2</button><button type="button" role="radio" aria-checked="false" data-v="2">Lựa chọn 3</button></div><span class="ctl-sep" aria-hidden="true"></span><button type="button" class="btn">Nút thường</button><button type="button" class="btn"><svg viewBox="0 0 16 16" width="14" height="14"><use href="#i-reset"/></svg>Làm lại</button></div></div>
+  <dl class="spec"><dt>Bộ chọn <code>.seg</code></dt><dd>Dùng khi có từ 2 tới 7 lựa chọn ngắn: bấm 1 lần là chọn. Nhiều hơn thì dùng select. Nút đang chọn màu hồng, không nền đen. Không dùng thanh trượt cho lựa chọn rời rạc. Bấm chỉ đổi trạng thái, không vẽ lại nút.</dd>
+    <dt>Hàng điều khiển</dt><dd>Hàng có bộ chọn thì bộ chọn ở dòng trên. Dòng dưới là Xem lần lượt rồi Làm lại sát phải. Mọi bộ điều khiển đều có Làm lại. Dòng "Bước i/n" có chỗ cố định nên hàng không nhảy khi bấm. Chấm bước nhìn 10px nhưng vùng bấm 24px để bấm được trên điện thoại. Hàng nằm trên hình, thông báo nằm trong khung riêng dưới hình.</dd></dl>
+
+  <p class="eyebrow">Khối tương tác <code>.ixc</code>: bộ điều khiển <code>STEP</code>, hình, khung chi tiết <code>.ipan</code></p>
+  <div class="ixc"><div class="scen"><button type="button" class="btn play" id="dsPl"><svg viewBox="0 0 16 16"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg>Xem lần lượt</button></div><div id="f-ds1"></div><div class="ipan" id="dsP" aria-live="polite"></div></div>
+  <dl class="spec"><dt>STEP</dt><dd>Nút chạy, lùi, tới, chấm từng bước, dòng "Bước i/n: tên bước". Bấm vào hình thì dòng bước tự xoá. Mọi hình có xem lần lượt dùng đúng hàm này.</dd>
+    <dt>Mũi tên có nhãn</dt><dd>Nhãn nói thứ gì đi theo mũi tên (chữ đậm) và khi nào: "<b>Increment</b>, tại Sprint Review". Mũi tên khác loại (bàn giao, thông tin, hỗ trợ) khác nét hoặc màu, có hàng chú thích dưới hình.</dd><dt>Hình lồng nhau</dt><dd>Khung ngoài nét đứt, khung trong nét liền, nhãn khung ở góc trên trái. Hình con nằm gọn trong hình cha thì gộp làm 1 hình (Stakeholders và Scrum Team ở 2.5).</dd><dt>Khung chi tiết</dt><dd>Kiểu ô thoại: đuôi cong chỉ vào phần tử đang chọn. Không lặp lại tên hay nghĩa mà hình đã ghi. Nhãn trong khung là cụm danh từ.</dd><dt>Vùng bấm trong hình</dt><dd>Rê chuột thì viền phần tử đó đậm lên hoặc đổi nền, để biết đang trỏ vào đâu. Phần tử chỉ để hiển thị (thẻ đang chọn) không mang <code>role button</code>. Kiểm bằng <code>hov.py</code>.</dd><dt>Điều hướng giữa trang và lớp phủ</dt><dd>Lớp phủ là Glossary, Danh mục, Chú giải (ngăn kéo) và tooltip. Mỗi lần bấm liên kết trong trang là 1 bước trong lịch sử của trình duyệt, nên nút Quay lại trên trang, back và forward của trình duyệt hay của chuột, phím b đi cùng 1 đường. Mỗi bước lưu vị trí cuộn và lớp phủ đang mở cùng chữ tìm, bộ lọc, chỗ cuộn của nó. Bấm liên kết trong lớp phủ thì lớp phủ đóng rồi mới nhảy. Quay lại thì mở lại đúng lớp phủ ở đúng trạng thái. Nhãn nút nói nơi sẽ về: "Về 5.5 Agile Risk Management", "Về Glossary", "Về Ví dụ xuyên suốt", "Về Mục lục". Mọi đích nhảy có <code>scroll-margin</code> để không bị thanh điều hướng che. Kiểm bằng <code>nav.py</code>.</dd><dt>Bàn phím</dt><dd>Mọi phần tử bấm được mà không phải nút hay liên kết thật (thuật ngữ, khối trong hình) nhận Tab, Enter, Space qua 1 bộ xử lý chung trong core.js. Menu chọn mức dùng phím mũi tên. Không ghi chữ hướng dẫn phím trong bài, chỉ ghi ở bảng Cách thao tác của Chú giải.</dd>
+    <dt>Kết quả nhiều nhánh</dt><dd>Tương tác ra 1 trong nhiều kết quả (Agile, Hybrid, Predictive. Thấp, trung bình, cao) thì hiện đủ mọi nhánh bằng <code>BRANCH()</code>, nhánh đang khớp viền đậm, nhánh khác mờ. Mỗi nhánh có ít nhất 1 ví dụ mẫu bấm là thấy. Người đọc không phải kéo thử mới biết còn nhánh nào.</dd>
+    <dt>Chú giải</dt><dd>Nhóm theo thứ tự người đọc hay gặp: Thuật ngữ và tài liệu, Biểu tượng cạnh tiêu đề, Hình và bảng, Màu vai trò, Màu trạng thái, Hộp ghi chú, Hành vi chung trên trang, Cách thao tác. Mỗi dòng nói thứ đó nằm ở đâu trên trang. Hành vi dùng chung (tô sáng, quay lại, đang tải) ghi 1 lần ở nhóm Hành vi chung, không lặp ở từng dòng. Bảng Cách thao tác: mỗi thiết bị 1 cột, mỗi ý 1 dòng, cụm phím không xuống dòng, chuột và cảm ứng giống nhau thì gộp 1 ô trải 2 cột (không viết "Như chuột"). Cử chỉ của trình duyệt, máy (vuốt quay lại) không tả cụ thể vì mỗi máy mỗi khác.</dd>
+    <dt>Đang tải</dt><dd>1 bộ chuyển động cho mọi chỗ chờ: 1 bản đồ nhỏ tự vẽ: khối, đường nối, khối, đúng chất "bản đồ trực quan" của sản phẩm (<code>.kb-ld</code>), khác hẳn vạch Tiến độ đọc. 3 lúc hiện, 2 lúc không: hiện khi trang đang nạp lần đầu, khi bấm liên kết sang trang khác, khi rời trang bằng bất kỳ cách nào (nút back, forward của chuột, trình duyệt). Không hiện khi trình duyệt lấy lại trang từ bộ nhớ đệm (sự kiện pageshow có persisted), và gỡ ngay khi trang đã dùng được. Mỗi lần hiện, chuyển động chạy lại từ đầu. Script ld.py kiểm đủ 5 điều này, chạy mỗi Sprint có sửa core.js. <code>.pg-load</code> khi cả trang chưa dùng được: đầu body mỗi trang có <code>#pgLoad</code>, <code>PGL.done()</code> gỡ khi đã vẽ xong, bấm liên kết sang trang kia (index.html, design-system.html) thì <code>PGL.show()</code> ngay. <code>.busy</code> cho 1 vùng đang chờ. <code>.skel</code> giữ chỗ đúng kích thước cho nội dung nạp sau (lazy load). Người bật giảm chuyển động thì thẻ chỉ nhấp nháy.
+      <span style="display:flex;gap:18px;align-items:center;margin-top:8px"><span class="busy"><span class="kb-ld" aria-hidden="true"><i></i><i></i><i></i></span>Đang nạp</span><span class="skel" style="width:160px;height:14px;display:inline-block"></span><span class="skel" style="width:90px;height:14px;display:inline-block"></span><button type="button" class="btn" onclick="PGL.show('Thử Đang tải');setTimeout(PGL.done,1600)">Thử Đang tải cả trang</button></span></dd>
+    <dt>Bản thử và bản phát hành</dt><dd>Trang này chỉ có ở artifact bản thử (riêng tư). Lối vào ở cuối Chú giải chỉ hiện khi artifact có file design-system.html, nên bản phát hành không có lối vào.</dd>
+    <dt>Tô sáng khi nhảy tới</dt><dd>1 quầng hồng mềm cho mọi nơi: khối, dòng bảng, ô References, dòng Glossary. Không viền, không tô nền, tắt dần trong khoảng 3 giây, bắt đầu khi khối hiện trên màn hình. <button type="button" class="btn" id="dsHl" style="margin-left:6px">Thử tô sáng</button></dd></dl>
+  <div class="nt" id="dsHlBox"><svg class="nt-i"><use href="#i-note"/></svg><span>Khối được tô sáng khi bấm nút ở trên.</span></div>
+</section>
+
+<section class="card" id="ds-7">
+  <div class="card-head"><span class="num">7</span><h3>Hình và biểu đồ</h3><span class="en">Trục, tên trục, tên hình</span></div>
+  <div id="f-ds2"></div>
+  <div class="fcap"><b>Hình 7-1</b><span>Mẫu biểu đồ đúng quy tắc trục</span></div>
+  <dl class="spec" style="margin-top:14px"><dt>Trục</dt><dd>Mọi biểu đồ có đủ 2 trục, có tên trục. Riêng biểu đồ làn (mỗi hàng là 1 việc, Ox là thời gian) chỉ có Ox, tên hàng ghi bên trái, vì các hàng không có thứ tự. Trục có hướng tăng (số, thời gian, mức) có mũi tên. Trục phân loại không có thứ tự (các User Story, các mảng kỹ năng) là đường thẳng không mũi tên. Không ghi "thấp", "cao" ở 2 đầu trục: mũi tên đã nói hướng tăng. <b>Mốc 0</b>: trục có thang số bắt đầu từ 0 thì ghi 0. Cả 2 trục cùng bắt đầu từ 0 thì chỉ ghi 1 số 0 ở gốc (hàm <code>grid</code> tự bỏ số 0 của Ox). Trục định tính, trục phân loại, dãy đếm không có giá trị 0 (số người trong Team) thì không ghi 0. Kiểm bằng <code>zero.py</code>. Tên trục Ox ở giữa, dưới trục. Tên trục Oy xoay dọc, ở giữa, bên trái. Riêng 2 trục cắt nhau (Kano) thì tên đặt ở đầu trục.</dd>
+    <dt>Chữ trong và quanh hình</dt><dd>Hình đủ rõ thì không thêm chữ giải thích. Chỉ giữ chữ khi nó thêm điều hình không thể hiện được, ví dụ số liệu, nguồn, ngoại lệ.</dd><dt>Tên trục</dt><dd>Không chứa "→". Là cụm danh từ, ghi đơn vị nếu có.</dd>
+    <dt>Ý của khối ngoài</dt><dd>Vòng hay khối nằm trong khối khác thì theo luôn ý của khối ngoài. Mỗi khối ghi 1 dòng xám "thế nào thì thuộc khối này", không lặp ý của khối ngoài vào từng khối trong (Hình 6.7-1).</dd>
+    <dt>Biểu đồ làn có chuyển việc</dt><dd>Phần gạch chéo (thời gian chuyển việc) nằm trong hàng của việc được chuyển sang, không tách làn riêng.</dd>
+    <dt>Mũi tên vẽ trên lưới HTML</dt><dd>Khi khối là HTML (Hình 2.5-1), vẽ mũi tên bằng 1 SVG phủ lên, tính toạ độ từ vị trí khối, vẽ lại khi đổi cỡ màn hình và khi font tải xong. Mũi tên chung gốc thì vẽ 1 thân rồi tách nhánh, nhãn chỉ ghi 1 lần.</dd>
+    <dt>Số mục trong hình</dt><dd>Viết "(4.9)" trong chữ của hình thì tự thành link tới mục.</dd>
+    <dt>Số</dt><dd>Chỉ dùng chữ số. Số thập phân dùng dấu phẩy, ví dụ 5,3.</dd>
+    <dt>Khối khác loại</dt><dd>Khác loại thì khác cách vẽ, không chỉ khác chữ. Màu theo nghĩa: tốt xanh, chưa tốt vàng, vấn đề đỏ. Màu vai trò chỉ dùng cho vai trò. Khung cha nền nhạt, khối con nền trắng viền màu. Trong cùng loại, mức nặng khác nhau phải thấy được bằng hình nói đúng nghĩa của mức, viền dày chỉ là phụ: Issue thường là mũi tên dòng việc vòng qua vật cản, Impediment là mũi tên dừng ở tường (Hình 5.5-4). 2 hàng song song (tốt, xấu) phải cân xứng: hàng này có khối nào thì hàng kia có khối tương ứng. Loại mũi tên khác nhau cũng phải khác dáng: bàn giao Product có biểu tượng gói hàng, thông tin nét mảnh xám, hỗ trợ màu Scrum Master (Hình 2.5-1). Chỉ khác độ đậm là chưa đủ.</dd><dt>Công thức trong hình</dt><dd>Dùng <code>EQ()</code> và <code>FR()</code> trong core.js: vẽ đúng <code>.fml</code>, <code>.frac</code> của bài vào hình, nên phép chia trong hình cũng là phân số, không viết ÷ hay /. Thế số ngay sau công thức chữ: Flow efficiency = Thời gian làm / Lead Time = 5,5 / 26,5 = 21%.</dd><dt>Số liệu đổi theo tương tác</dt><dd>Số đã đổi ghi "cũ → mới" màu chính, khối có số đổi viền màu chính. Bước bị bỏ thì rút hẳn khỏi hình, không chỉ làm mờ. Thanh tỉ lệ giữ bóng xám của độ dài ban đầu để so (Hình 5.6-1).</dd><dt>Khối cùng loại</dt><dd>Cùng 1 kiểu trong mọi hình: tên in đậm, dưới là 1 dòng xám. Khối cùng cấp cùng kích thước. Nhãn loại (EPIC, FEATURE, USER STORY) ở đầu khối.</dd><dt>4 kiểu khối tổ chức</dt><dd>Portfolio và Subportfolio nền hồng nhạt viền hồng. Program và Subprogram nền trắng. Project nền hồng. Operations nền xám.</dd><dt>Bố cục</dt><dd>Phần tử bắt đầu sớm hơn nằm hàng trên. Phần tử theo giai đoạn đặt trong đúng giai đoạn của vùng đồ thị. Hình nhiều bảng con thì mỗi bảng có trục riêng. Mũi tên đơn chỉ thứ tự hay thời gian phải có nhãn.</dd><dt>Vẽ</dt><dd>Chỉ dùng hàm của <code>core.js</code> (<code>fig</code>, <code>T</code>, <code>R</code>, <code>A</code>, <code>Ln</code>, <code>box</code>) và màu <code>C</code>. Trục vẽ bằng <code>A</code> để có mũi tên. Không đặt chữ trực tiếp trong khung flex hay grid có gap cùng span hay dfn. Nhãn trùng thuật ngữ tự có tooltip, chỉ viết tiếng Anh.</dd><dt>Điện thoại</dt><dd>Hình từ 700 rộng cuộn ngang, hình nhỏ không phóng to quá 1,2 lần.</dd>
+    <dt>Tên hình <code>.fcap</code></dt><dd>Mọi hình, bảng có <code>data-cap</code>, JS tự đánh mã theo mục: Hình 1.6-2 là hình thứ 2 của mục 1.6. Căn trái theo mép hình SVG. Tên là cụm danh từ. Hình nằm ngay dưới tiêu đề Phần, ngoài mọi mục, đánh "Hình 4-1". Hình đã có id riêng vẫn nhảy tới được bằng mã (neo <code>.fanc</code>). Mã hình của nguồn luôn có tên tài liệu đứng trước để không lẫn với mã của trang.</dd></dl>
+</section>
+
+<section class="card" id="ds-8">
+  <div class="card-head"><span class="num">8</span><h3>Ví dụ xuyên suốt</h3><span class="en">Dấu nhận biết Shop Áo Gió</span></div>
+  <div class="demo">
+    <div class="gio" style="margin-top:0"><span class="si"><a href="index.html#vd-shop"><svg class="gm" aria-hidden="true"><use href="#i-gio"/></svg>Ở Shop Áo Gió</a></span><span>Hộp ví dụ cuối mục: nền tím nhạt, nhãn tím có biểu tượng áo.</span></div>
+    <div class="fcap" style="margin-top:14px"><b>Hình 4.3-1</b><span>Tên hình có số liệu từ câu chuyện</span><a class="cap-gio" href="index.html#vd-shop"><svg class="gm" aria-hidden="true"><use href="#i-gio"/></svg><span>Shop Áo Gió</span></a></div>
+    <p style="margin:14px 0 0">Trong câu, lần nhắc đầu tiên mỗi mục thành liên kết <a class="vdl" href="index.html#vd-shop"><svg class="gm" aria-hidden="true"><use href="#i-gio"/></svg>Shop Áo Gió</a>.</p>
+  </div>
+  <dl class="spec"><dt>Màu tím</dt><dd>Chỉ dành cho câu chuyện. Không dùng tím cho ý nghĩa khác.</dd>
+    <dt>Khi nào không theo câu chuyện</dt><dd>Chỉ khi có lý do rõ và lý do ghi ngay tại chỗ, như ví dụ framework ở 6.7.</dd></dl>
+</section>
+
+<section class="card" id="ds-9">
+  <div class="card-head"><span class="num">9</span><h3>Quy tắc nội dung</h3><span class="en">Nguồn, cách viết, thuật ngữ, câu chuyện</span></div>
+  <p style="margin:0">Quy tắc nội dung không có mẫu giao diện nên nằm ở tài liệu quy ước nội dung, ngoài trang này. Trang này chỉ giữ quy tắc giao diện, để mỗi quy tắc chỉ nằm ở 1 nơi.</p>
+</section>
+
+<section class="card" id="ds-10">
+  <div class="card-head"><span class="num">10</span><h3>Điều hướng và ngăn kéo</h3><span class="en">Thanh điều hướng, Glossary, Danh mục, Chú giải</span></div>
+  <dl class="spec"><dt>Header</dt><dd>Kicker, tiêu đề, 1 dòng nguồn, căn thẳng với các thẻ bên dưới.</dd>
+    <dt>Thanh điều hướng</dt><dd>Mục lục, Ví dụ (biểu tượng áo), Phần 1 tới 6 (rê chuột hiện mục x.y), rồi Glossary, Danh mục, Chú giải. Dưới 1180px Phần chỉ còn số, Ví dụ chỉ còn biểu tượng. Không cuộn ngang.</dd>
+    <dt>Ngăn kéo</dt><dd>Cùng 1 kiểu bên phải: tiêu đề, phụ đề, nút Đóng. 2 hàng cùng bề rộng, mọi ô cao 38px. Hàng 1 là ô tìm chiếm cả hàng, có ✕. Hàng 2 là các bộ lọc chia đều phần còn lại, Đặt lại, rồi số kết quả kèm đơn vị ("38 / 228 thuật ngữ", "88 hình và bảng") để không bị đọc thành số ký tự đã gõ. Không có chữ "Lọc". Kết quả cuộn về đầu mỗi lần gõ. Bấm trong ngăn kéo không được làm nó tự đóng.</dd>
+    <dt>Glossary</dt><dd>Khi tìm, kết quả xếp theo độ khớp, không chia nhóm vì chữ khớp đã tô vàng trong dòng. Khi không tìm, chia theo chữ cái đầu để nhảy bằng thanh A tới Z. Tiếng Việt là dòng xám dưới tên thuật ngữ, không có cột riêng. Ô nghĩa dựng từ 1 hàm: câu chính, 1 ý phụ là đoạn xám, từ 2 ý phụ thành gạch đầu dòng, rồi các nhãn Cách gọi khác, Tên cũ, Không nhầm với. Nhãn là chữ hoa nhỏ nằm riêng 1 dòng, giá trị bên dưới dùng hết bề rộng ô. Nguồn gốc là chữ hoa nhỏ màu xám không khung (bấm để lọc), để không lẫn với chip nguồn và ô mục. Tên tài liệu thành chip nguồn bấm được, cùng kiểu và cùng danh sách nhãn (<code>REFD</code>) với chip trong bài. Chip không nằm trong ngoặc, nguồn ở cuối câu thì dấu chấm đứng trước chip, chi tiết hình hay mục là chữ xám sau chip. Lọc theo Phần, loại, nguồn gốc.</dd>
+    <dt>Glossary: nhiều nghĩa</dt><dd>Mỗi nghĩa có badge số tròn và tên nghĩa, không kẻ đường ngăn. Lọc nguồn gốc là OR.</dd>
+    <dt>Danh mục</dt><dd>Lọc loại và Phần kết hợp được. Kết quả đầu có 1 dòng chữ nhỏ nói kiểu khớp. Bấm mục thì nhảy tới và tô sáng.</dd>
+    <dt>Phím tắt</dt><dd><code>/</code> Glossary, <code>h</code> Danh mục, <code>1</code> tới <code>6</code> nhảy Phần, <code>t</code> Mục lục, <code>b</code> <code>f</code> quay lại, tiến lên, <code>?</code> Chú giải, <code>Esc</code> đóng lớp phủ. Mỗi phím 1 việc. Cách làm khác của cùng 1 việc ghi ở dòng "Cách khác" riêng, chỉ hiện tổ hợp đúng hệ điều hành đang dùng (class <code>os-mac</code>, <code>os-win</code> trên html).</dd>
+    <dt>Quay lại, tiến lên</dt><dd>Phím <code>b</code>, <code>f</code>, nút Quay lại, nút chuột, vuốt đều đi qua lịch sử trình duyệt (History API). Khi quay lại, tiến lên: nhảy tức thì tới chỗ cũ, mở lại đúng lớp phủ với chữ tìm, bộ lọc cũ. Chỉ bấm link đi tới mới cuộn mượt.</dd>
+    <dt>Focus khi đóng lớp phủ</dt><dd>1 cơ chế chung cho mọi lớp phủ: focus về chỗ trước khi mở. Mở bằng phím tắt khi không có gì đang focus thì đóng xong cũng không focus gì.</dd>
+    <dt>Thanh điều hướng 2 cấp</dt><dd>Tô Phần đang đọc trên thanh, và tô mục x.y đang đọc trong danh sách thả xuống.</dd>
+    <dt>Đếm kết quả</dt><dd>Mọi lớp phủ có tìm, lọc ghi "12 / 230 kết quả" bằng hàm chung <code>CNT()</code>, không lọc thì "230 kết quả". Không ghi tên loại để thêm loại mới không phải sửa chữ.</dd>
+    <dt>Sắp xếp</dt><dd>Tiêu đề cột sắp xếp được có chip viền hồng "⇅ cách đang dùng", để nhìn là biết bấm được.</dd>
+    <dt>Xem cả hình</dt><dd>Màn ≤760px, mỗi hình rộng có nút "⤢ Xem cả hình": lớp phủ trắng, hình xoay ngang vừa màn. Bản tĩnh, không bấm được khối trong hình.</dd>
+    <dt>Lối vào trang này</dt><dd>Dòng nhỏ cuối Chú giải của trang chính, gắn <code>noindex</code>. Trang tĩnh không chặn người đọc thật được.</dd></dl>
+</section>
+
+<section class="card" id="ds-11">
+  <div class="card-head"><span class="num">11</span><h3>Kiến trúc file</h3><span class="en">Sửa ở gốc chung để 1 lần sửa áp cho mọi chỗ</span></div>
+  <dl class="spec"><dt>index.html</dt><dd>Nội dung.</dd><dt>site.css</dt><dd>Toàn bộ CSS của 2 trang.</dd><dt>core.js</dt><dd>Hàm và màu dùng chung: vẽ hình, STEP, CARET, IP, segOn, clickKey, SEGSEL, NAMES.</dd><dt>draw.js</dt><dd>Hình và tương tác riêng của trang chính, Glossary, Danh mục, tô sáng, Quay lại.</dd><dt>terms.js</dt><dd>Dữ liệu Glossary.</dd><dt>design-system.html</dt><dd>Trang này. Thêm thành phần mới thì thêm mẫu vào đây.</dd>
+    <dt>Tên class đã dùng</dt><dd>Không đặt <code>.pm</code>, <code>.kc</code>, <code>.sw</code>, <code>.back</code> cho thứ mới.</dd></dl>
+</section>
+<section class="card" id="ds-12">
+  <div class="card-head"><span class="num">12</span><h3>Ngôn ngữ chung</h3><span class="en">Ubiquitous Language</span></div>
+  <p>Tên các trang, môi trường, cách làm việc và từ kỹ thuật dùng chung nằm ở <a href="product.html#pd-6">trang Sản phẩm, mục 6</a>, để mọi người cộng tác thấy cùng 1 chỗ.</p>
+</section>
+
+
+</main>
+
+<script src="core.js"></script>
+<script>
+/* Biểu tượng: lấy đúng bộ symbol của trang chính */
+fetch('index.html').then(r=>r.text()).then(t=>{const d=new DOMParser().parseFromString(t,'text/html');const s=d.querySelector('body>svg');if(!s)return;
+  const box=document.getElementById('sprite');box.hidden=false;box.style.cssText='position:absolute;width:0;height:0;overflow:hidden';box.innerHTML=s.outerHTML;
+  document.getElementById('icList').innerHTML=[...s.querySelectorAll('symbol')].map(x=>`<div><svg><use href="#${x.id}"/></svg>${x.id}</div>`).join('')}).catch(()=>{});
+
+/* Màu: đọc mọi biến CSS ở :root của site.css */
+(function(){const V={};[...document.styleSheets].forEach(ss=>{let rs;try{rs=ss.cssRules}catch(e){return}[...rs].forEach(r=>{if(r.selectorText===':root')for(const p of r.style)if(p.startsWith('--'))V[p]=r.style.getPropertyValue(p).trim()})});
+  const G=[['Nền và chữ',['--bg','--surface','--soft','--line','--ink','--ink2','--mute','--faint'],{'--bg':'nền trang','--surface':'nền thẻ','--soft':'nền hộp, ô','--line':'đường kẻ','--ink':'chữ chính','--ink2':'chữ phụ','--mute':'phụ đề, nhãn','--faint':'chữ mờ, viền đứt'}],
+    ['Màu chính',['--pri','--pri-mid','--pri-soft','--pri-ink'],{'--pri':'nút, số mục, tô sáng','--pri-mid':'viền nhạt','--pri-soft':'nền hồng','--pri-ink':'chữ hồng'}],
+    ['3 vai trò Scrum',['--po','--po-soft','--po-ink','--sm','--sm-soft','--sm-ink','--team','--team-soft','--team-ink'],{'--po':'Product Owner','--sm':'Scrum Master','--team':'Developers'}],
+    ['Trạng thái',['--good','--good-soft','--good-ink','--bad','--bad-soft','--bad-ink','--warn','--warn-soft','--warn-ink'],{'--good':'đúng, nên làm','--bad':'sai, không nên','--warn':'cảnh báo, tên cũ'}],
+    ['Cột Kanban',['--s-todo','--s-doing','--s-test','--s-done'],{}],
+    ['Shop Áo Gió',['--gio','--gio-mid','--gio-soft','--gio-ink'],{'--gio':'chỉ dành cho câu chuyện'}]];
+  document.getElementById('swCss').innerHTML=G.map(([t,ks,u])=>`<p class="eyebrow">${t}</p><div class="dsw-g">${ks.filter(k=>V[k]).map(k=>`<div class="dsw"><i style="background:var(${k})"></i><div><b>${k}</b><span>${V[k]}</span>${u[k]?`<p>${u[k]}</p>`:''}</div></div>`).join('')}</div>`).join('');
+  const N={pri:'màu chính',po:'Product Owner',sm:'Scrum Master',team:'Developers',good:'đúng',bad:'sai',warn:'cảnh báo',neu:'trung tính, trục',ink:'chữ'};
+  document.getElementById('swC').innerHTML=Object.entries(C).map(([k,v])=>`<div><i style="background:${v[1]};border-color:${v[0]}"></i><span><code>C.${k}</code> ${N[k]||''}<br><span style="color:${v[2]};font-weight:600">${v.join(' ')}</span></span></div>`).join('')})();
+
+/* Khối tương tác mẫu: dùng đúng STEP, CARET, IP của core.js */
+const DSX=[['Forming','hình thành','Team mới gặp nhau, còn dè dặt.','Đức mới vào Team, được mời vào mọi buổi họp.'],['Storming','sóng gió','Bắt đầu bất đồng về cách làm.','Huy và Trang tranh luận cách test PayNhanh.'],['Norming','ổn định','Team có quy ước chung và tin nhau hơn.','Team viết Working agreements về review code.']];
+let DSi=0;function drawDSX(){fig('f-ds1',W,120,()=>{let g='';DSX.forEach((d,i)=>{const x=60+i*350,on=i===DSi;g+=`<g data-d="${i}"${on?' data-sel':''} style="cursor:pointer" role="button" tabindex="0" aria-label="Xem ${d[0]}">`+R(x,20,300,70,on?C.pri[0]:'#fff',{rx:10,stroke:C.pri[0]})+T(x+150,50,d[0],{s:14,w:600,c:on?'#fff':C.pri[2]})+T(x+150,70,d[1],{s:12,c:on?'#fff':MUTE})+'</g>';if(i<2)g+=A(`M${x+306} 55H${x+344}`,'neu',{w:1.5})});return g},{label:'Mẫu khối tương tác'});
+  document.getElementById('dsP').innerHTML=IP(null,null,[['Nghĩa',DSX[DSi][2]],['Ở Shop Áo Gió',DSX[DSi][3]]]);CARET('f-ds1','dsP')}
+drawDSX();CARETS.push(()=>CARET('f-ds1','dsP'));clickKey('#f-ds1 [data-d]',a=>{DSi=+a.dataset.d;drawDSX()});PLAY('dsPl',3,i=>{DSi=i;drawDSX()},2600,DSX.map(d=>d[0]));
+segOn('dsSeg',()=>{});
+document.getElementById('dsHl').onclick=()=>{const b=document.getElementById('dsHlBox');b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit')};
+
+/* Biểu đồ mẫu: 2 trục có mũi tên, tên trục đúng vị trí */
+fig('f-ds2',W,300,()=>{let g='';const X0=90,X1=1060,Y0=240,Y1=20,v=[18,22,19,21,20],x=i=>X0+60+i*190,y=s=>Y0-s*8;
+  [0,10,20].forEach(s=>{g+=Ln(`M${X0} ${y(s)}H${X1}`,LINE,1)+T(X0-10,y(s)+4,s+'',{s:11.5,c:FAINT,a:'end'})});
+  v.forEach((s,i)=>{g+=R(x(i)-30,y(s),60,Y0-y(s),C.pri[1],{rx:4,stroke:C.pri[0]})+T(x(i),y(s)-8,s+'',{s:12,w:600,c:C.pri[2]})+T(x(i),Y0+20,'Sprint '+(i+1),{s:12,c:INK2})});
+  g+=A(`M${X0} ${Y0}H${X1+14}`,'neu',{w:1.5})+A(`M${X0} ${Y0}V${Y1-10}`,'neu',{w:1.5});
+  g+=T((X0+X1)/2,Y0+50,'Sprint',{s:12,c:MUTE})+T(X0-48,(Y0+Y1)/2,'Story Points hoàn thành',{s:12,c:MUTE,rot:-90});
+  return g},{label:'Mẫu biểu đồ cột có đủ 2 trục'});
+
+PGL.done();
+</script>
+</body>
+</html>
