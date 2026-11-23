@@ -157,7 +157,7 @@
 </tr>
 </tbody>
 </table>
-<p>Quy ước: mỗi Epic là 1 issue nhãn <code>epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại (<code>story</code>, <code>task</code>, <code>bug</code>, <code>feedback</code>), nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (Release 1, Release 2).</p>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn persona (<code>P1</code> tới <code>P4</code>), nhãn trạng thái (<code>in progress</code>, <code>in review</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>).</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
@@ -583,6 +583,14 @@
 <td>Production phải ổn định khi có người đọc thật. Persona thử trước trên Staging</td>
 <td>2 môi trường</td>
 <td>Có persona ngoài gia đình (P3): tách chính sách đăng nhập Development riêng</td>
+</tr>
+<tr>
+<td>D18</td>
+<td>24/11</td>
+<td>Phát hành 3 bước: mỗi Sprint tự đẩy Development. Chủ sản phẩm mở Sprint mới mà không phản đối gì thì tự đẩy Development lên Staging. Lên Production chỉ khi chủ sản phẩm nói "phát hành": tạo Pull request, merge, tăng số phiên bản</td>
+<td>Tin nhắn góp ý tiếp theo chính là Sprint Review, không thêm tin nhắn. Bước người đọc thật thấy thì giữ 1 câu duyệt rõ ràng</td>
+<td>Chủ sản phẩm duyệt mọi bước, tự đăng thẳng Production</td>
+<td>Có người đọc ngoài gia đình</td>
 </tr>
 </tbody>
 </table></section>
