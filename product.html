@@ -12,7 +12,7 @@
   <a class="brand" href="index.html" aria-label="Agile Prism, về trang chính"><img src="logo.svg" alt="" width="40" height="40"><span><b>Agile Prism</b><small>Hiểu Agile bằng hình. Ôn PMI-ACP</small></span></a>
   <h1>Sản phẩm</h1>
   <div class="meta"><p>Nguồn duy nhất cho Vision, Persona, Product Backlog, kế hoạch Release, Definition of Done. Quy trình từng chat nằm ở tài liệu bàn giao.</p>
-<p><strong>Nhịp làm việc</strong>: 1 chat là 1 Release. Mỗi Sprint là 1 lượt góp ý trong chat (Sprint Review là lúc người dùng xem Staging). Đầu chat chốt Release Goal và scope cùng người dùng. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
+<p><strong>Nhịp làm việc</strong> (D22): 1 chat là 1 Sprint, có Sprint Goal 1 câu chốt đầu chat. Issue chọn làm kéo vào cột Ready trên bảng, đó là Sprint Backlog. Mỗi lượt góp ý trong chat là 1 vòng Review nhỏ. Cuối chat có Sprint Retrospective 2 chiều. 1 Release gồm nhiều Sprint. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
 </div>
   <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html" aria-current="page">Sản phẩm</a><a href="design-system.html">Design system</a></nav>
   <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của sản phẩm</a><a href="#pd-6"><b>6</b>Ngôn ngữ chung</a><a href="#pd-7"><b>7</b>Nhật ký quyết định</a></nav>
@@ -254,8 +254,13 @@
 <tbody>
 <tr>
 <td>Sprint</td>
-<td>1 lượt: chủ sản phẩm góp ý, sửa, đưa lên Development, chủ sản phẩm xem</td>
-<td>Sprint 38</td>
+<td>1 chat: chốt Sprint Goal, làm các issue ở cột Ready, mỗi lượt góp ý là 1 vòng Review nhỏ, cuối chat Retrospective</td>
+<td>Sprint 2</td>
+</tr>
+<tr>
+<td>Sprint Goal</td>
+<td>1 câu nói Sprint này phải đạt gì. Việc ngoài Sprint Goal thì tạo issue, để Sprint sau</td>
+<td>"P1 xem hết được mọi hình trên điện thoại"</td>
 </tr>
 <tr>
 <td>Release</td>
@@ -523,7 +528,7 @@
 <tr>
 <td>D10</td>
 <td>23/11</td>
-<td>1 chat là 1 Release, 1 lượt góp ý là 1 Sprint. Release 1 kéo sang 2 chat</td>
+<td>(Thay bởi D22) 1 chat là 1 Release, 1 lượt góp ý là 1 Sprint. Release 1 kéo sang 2 chat</td>
 <td>Giữ nhịp phát hành đều, không mất việc khi chat dài</td>
 <td></td>
 <td></td>
@@ -615,6 +620,22 @@
 <td>1 thông tin ở 1 nơi. Sprint của mình là 1 lượt góp ý, không cố định thời gian</td>
 <td>Giữ nhãn song song với cột</td>
 <td>Sprint có độ dài cố định</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>24/11</td>
+<td>Làm Scrum cho đúng: 1 chat là 1 Sprint, có Sprint Goal. Sprint Backlog là cột Ready. Retrospective cuối chat, cả chủ sản phẩm và Claude cùng nói. Release gồm nhiều Sprint. Thay D10</td>
+<td>Trước đây mượn vai trò Scrum nhưng nhịp giống Kanban: Sprint không cố định, không có Sprint Goal, retro 1 chiều. Dùng đúng Scrum trên chính sản phẩm là cách học ACP trực quan nhất</td>
+<td>Gọi đúng tên là Kanban (WIP limit, Lead Time)</td>
+<td>Có thêm người làm sản phẩm</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>24/11</td>
+<td>Chống quên khi chat bị nén: Claude giữ sổ Sprint (Sprint Goal, việc xong, câu hỏi chờ, quyết định chưa ghi), cập nhật sau mỗi câu trả lời. Sau mỗi lần nén thì đọc lại sổ Sprint, tài liệu bàn giao, Nhật ký quyết định rồi mới trả lời. Bàn giao khi xong Sprint Goal, hoặc ngay sau lần nén đầu tiên</td>
+<td>Nén chat làm chủ sản phẩm chờ lâu và Claude quên quyết định cũ</td>
+<td>Để chat dài tới khi nén nhiều lần</td>
+<td>Công cụ chat có bộ nhớ dài hơn</td>
 </tr>
 </tbody>
 </table></section>
