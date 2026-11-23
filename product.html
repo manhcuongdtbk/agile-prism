@@ -12,7 +12,7 @@
   <a class="brand" href="index.html" aria-label="Agile Prism, về trang chính"><img src="logo.svg" alt="" width="40" height="40"><span><b>Agile Prism</b><small>Hiểu Agile bằng hình. Ôn PMI-ACP</small></span></a>
   <h1>Sản phẩm</h1>
   <div class="meta"><p>Nguồn duy nhất cho Vision, Persona, Product Backlog, kế hoạch Release, Definition of Done. Quy trình từng chat nằm ở tài liệu bàn giao.</p>
-<p><strong>Nhịp làm việc</strong>: 1 chat là 1 Release. Mỗi Sprint là 1 lượt góp ý trong chat (Sprint Review là lúc người dùng xem bản thử). Đầu chat chốt Release Goal và scope cùng người dùng. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
+<p><strong>Nhịp làm việc</strong>: 1 chat là 1 Release. Mỗi Sprint là 1 lượt góp ý trong chat (Sprint Review là lúc người dùng xem Staging). Đầu chat chốt Release Goal và scope cùng người dùng. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
 </div>
   <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html" aria-current="page">Sản phẩm</a><a href="design-system.html">Design system</a></nav>
   <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của sản phẩm</a><a href="#pd-6"><b>6</b>Ngôn ngữ chung</a></nav>
@@ -35,19 +35,19 @@
 </tr>
 <tr>
 <td>Release Goal</td>
-<td>Người đọc thật đầu tiên (P1) dùng được Bản phát hành trên tên miền riêng trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới lượt P3</td>
+<td>Người đọc thật đầu tiên (P1) dùng được Production trên tên miền riêng trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới lượt P3</td>
 </tr>
 <tr>
 <td>Sprint</td>
-<td>32 tới 36 đã xong trên Bản thử</td>
+<td>32 tới 36 đã xong trên Staging</td>
 </tr>
 <tr>
 <td>Còn lại trong Release 1</td>
-<td>E1.1 tới E1.3 (repo public, Cloudflare Pages, khoá Bản thử), E2.6 vẽ lại 5.6, E2.4 rà thuật ngữ viết bằng lời thường</td>
+<td>E1.1 tới E1.3 (repo public, Cloudflare Pages, khoá Staging), E2.6 vẽ lại 5.6, E2.4 rà thuật ngữ viết bằng lời thường</td>
 </tr>
 <tr>
 <td>Hạn</td>
-<td>Trong tuần này (tuần 23 tới 29/11), sớm nhất có thể. Phát hành sớm cho P1 ngay khi có Bản phát hành, các việc còn lại cập nhật dần trong lúc chờ góp ý</td>
+<td>Trong tuần này (tuần 23 tới 29/11), sớm nhất có thể. Phát hành sớm cho P1 ngay khi có Production, các việc còn lại cập nhật dần trong lúc chờ góp ý</td>
 </tr>
 <tr>
 <td>Dời sang Release 2</td>
@@ -162,8 +162,8 @@
 </tr>
 <tr>
 <td>E1.2</td>
-<td>Là chủ sản phẩm, tôi muốn bản thử chỉ mình tôi xem được</td>
-<td>Mở bản thử phải đăng nhập (Cloudflare Access). Design system chỉ có ở bản thử</td>
+<td>Là chủ sản phẩm, tôi muốn Staging chỉ mình tôi xem được</td>
+<td>Mở Staging phải đăng nhập (Cloudflare Access). Design system chỉ có ở Staging</td>
 <td>Chưa làm</td>
 </tr>
 <tr>
@@ -269,6 +269,31 @@
 </tr>
 </tbody>
 </table>
+<p class="eyebrow" style="margin-top:20px">Epic E5: Thương hiệu Agile Prism</p>
+<table class="t">
+<thead>
+<tr>
+<th>ID</th>
+<th>Feature hay User Story</th>
+<th>Acceptance Criteria</th>
+<th>Trạng thái</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E5.1</td>
+<td>Logo bản chính thức</td>
+<td><strong>1 logo dùng mọi chỗ</strong>, rõ ở 16px trên tab Chrome tới 512px, không cần bản rút gọn. Đẹp, chuyên nghiệp. Tam giác dễ bị liên tưởng tới Triple Constraint: hoặc tránh, hoặc dùng có chủ đích (ví dụ gợi ý lật tam giác của Agile) và nói được vì sao. Dùng màu của design system</td>
+<td>Chưa làm. Bản tạm ở Sprint 37 bị chủ sản phẩm chê xấu</td>
+</tr>
+<tr>
+<td>E5.2</td>
+<td>Slogan</td>
+<td>1 câu ngắn, bắt tai, tiếng Anh hợp tên Agile Prism (có bản tiếng Việt nếu cần). Tách khỏi câu mô tả "Hiểu Agile bằng hình. Ôn PMI-ACP". Đưa 3 tới 5 phương án, chủ sản phẩm chọn</td>
+<td>Chưa làm</td>
+</tr>
+</tbody>
+</table>
 <p class="eyebrow" style="margin-top:20px">Epic E4: Cách làm việc (nội bộ)</p>
 <table class="t">
 <thead>
@@ -281,7 +306,7 @@
 <tbody>
 <tr>
 <td>E4.0</td>
-<td><strong>Trang Sản phẩm trong bản thử</strong> (product.html, như design system): Release Goal, Product Backlog, Persona, Changelog, mẫu gửi phản hồi, hiện bằng HTML có cấu trúc thay cho đọc file .md. File .md này vẫn là nguồn dữ liệu, trang sinh từ nó bằng mkprod.py</td>
+<td><strong>Trang Sản phẩm trong Staging</strong> (product.html, như design system): Release Goal, Product Backlog, Persona, Changelog, mẫu gửi phản hồi, hiện bằng HTML có cấu trúc thay cho đọc file .md. File .md này vẫn là nguồn dữ liệu, trang sinh từ nó bằng mkprod.py</td>
 <td>Done bản đầu (Sprint 34). Làm đẹp hơn ở Release 2</td>
 </tr>
 <tr>
@@ -361,22 +386,22 @@
 <tr>
 <td>Trang Sản phẩm</td>
 <td>Trang này: Release, Persona, Product Backlog, Ngôn ngữ chung</td>
-<td><code>product.html</code>, chỉ ở Bản thử</td>
+<td><code>product.html</code>, chỉ ở Staging</td>
 </tr>
 <tr>
 <td>Design system</td>
 <td>Quy tắc giao diện, hành vi, mẫu sống</td>
-<td><code>design-system.html</code>, chỉ ở Bản thử</td>
+<td><code>design-system.html</code>, chỉ ở Staging</td>
 </tr>
 <tr>
-<td>Bản thử (staging)</td>
-<td>Bản chỉ chủ sản phẩm xem, có đủ 3 trang</td>
-<td>Bản xem trước trong khung chat, sau này cả nhánh <code>staging</code></td>
+<td>Staging</td>
+<td>Môi trường chủ sản phẩm xem và duyệt sau mỗi Sprint, có đủ 3 trang. Không phải môi trường cho tester</td>
+<td><code>staging.agile-prism.pages.dev</code> (nhánh <code>staging</code>, phải đăng nhập), và bản xem trước trong khung chat</td>
 </tr>
 <tr>
-<td>Bản phát hành (production)</td>
-<td>Bản cho người đọc, chỉ có Bản đồ trực quan</td>
-<td>Nhánh <code>main</code>, chưa có</td>
+<td>Production</td>
+<td>Môi trường người đọc thật dùng, chỉ có Bản đồ trực quan</td>
+<td><code>agile-prism.pages.dev</code> (nhánh <code>main</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -392,12 +417,12 @@
 <tbody>
 <tr>
 <td>Sprint</td>
-<td>1 lượt: chủ sản phẩm góp ý, sửa, đưa lên Bản thử, chủ sản phẩm xem</td>
+<td>1 lượt: chủ sản phẩm góp ý, sửa, đưa lên Staging, chủ sản phẩm xem</td>
 <td>Sprint 35</td>
 </tr>
 <tr>
 <td>Release</td>
-<td>Nhiều Sprint gom lại, đưa lên Bản phát hành cho người đọc</td>
+<td>Nhiều Sprint gom lại, đưa lên Production cho người đọc</td>
 <td>Release 1</td>
 </tr>
 <tr>

@@ -6,8 +6,8 @@ Trang tĩnh: HTML, CSS, JavaScript thuần, không cần cài gì. `build.sh` ch
 
 | Nhánh | Môi trường | Ai xem |
 |---|---|---|
-| `staging` | Bản thử, có thêm trang Sản phẩm và Design system | Chỉ chủ sản phẩm |
-| `main` | Bản phát hành | Người đọc |
+| `staging` | Staging, có thêm trang Sản phẩm và Design system | Chỉ chủ sản phẩm |
+| `main` | Production | Người đọc |
 
 Phát hành: merge `staging` vào `main`. Ghi thay đổi ở `CHANGELOG.md`.
 

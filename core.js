@@ -128,7 +128,7 @@ window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
   return {done,show}})();
 /* Bàn phím: mọi phần tử bấm được không phải nút hay liên kết thật (thuật ngữ dfn, khối trong hình có role=button, data-cf, data-lv) nhận Enter và Space như 1 lần bấm chuột. Phần tử đã tự xử lý phím (gọi preventDefault) thì bỏ qua */
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||(e.key!=='Enter'&&e.key!==' '))return;const el=e.target;if(!el||!el.matches||!el.matches('dfn[tabindex],[role=button]:not(button),[data-cf],[data-lv]'))return;if(el.closest('a[href]'))return;e.preventDefault();el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}))});
-/* Lối vào design system: chỉ hiện khi artifact có file design-system.html (bản thử). Bản phát hành không có file nên không hiện gì */
+/* Lối vào design system: chỉ hiện khi artifact có file design-system.html (Staging). Production không có file nên không hiện gì */
 fetch('design-system.html',{method:'HEAD'}).then(r=>{if(r.ok)document.documentElement.classList.add('has-ds')}).catch(()=>{});
 /* Công thức trong hình SVG: dùng đúng .fml và .frac của bài (design system, Công thức) qua foreignObject, để phép chia trong hình cũng là phân số.
    EQ(x,yGiữa,rộng,html,{s:cỡ chữ,c:màu,a:'start'|'middle'}) */

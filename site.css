@@ -1077,7 +1077,7 @@ nav.top .nvd a.on,nav.top .nvd a[aria-current]{background:var(--pri-soft)!import
 .skel::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:skSweep 1.4s infinite}
 @keyframes skSweep{to{transform:translateX(100%)}}
 @media (prefers-reduced-motion:reduce){.kb-ld i{animation:kbPulse 1.6s ease-in-out infinite;transform:translateX(32px)}.skel::after{animation:none}@keyframes kbPulse{50%{opacity:.35}}}
-/* Lối vào design system chỉ hiện ở bản có file design-system.html (bản thử), bản phát hành không có */
+/* Lối vào design system chỉ hiện ở bản có file design-system.html (Staging), Production không có */
 .lg-dev[hidden]{display:none}
 html.has-ds .lg-dev{display:flex!important}
 .lg-dev{margin:6px 0 0;font-size:12px}
