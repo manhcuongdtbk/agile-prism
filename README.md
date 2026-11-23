@@ -13,3 +13,7 @@ Trang tĩnh: HTML, CSS, JavaScript thuần, không cần cài gì. `build.sh` ch
 Luồng: `dev` → `staging` → `main`. Phiên bản 0.x tới khi ra mắt công khai. Ghi thay đổi ở `CHANGELOG.md`.
 
 Không liên quan và không được PMI bảo trợ. PMI, PMI-ACP, PMP, PMBOK là nhãn hiệu của Project Management Institute, Inc.
+
+## Kiểm tra
+
+`sh tools/check.sh` chạy toàn bộ kiểm tra (cần Python, Playwright, npm). Từng script có dòng `# DOC:` ở đầu nói nó kiểm gì. `tools/` không có trong bản đăng.
