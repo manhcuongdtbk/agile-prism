@@ -31,11 +31,11 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>v0.1, đang ở Production: v0.1.0</td>
+<td>v0.1, đang ở Production: v0.1.0. Lần đăng Production tiếp theo: v0.1.1</td>
 </tr>
 <tr>
 <td>Release Goal</td>
-<td>Người đọc thật đầu tiên (P1) dùng được Production (agile-prism.pages.dev) trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới P3</td>
+<td>Người đọc thật đầu tiên (P1) dùng được sản phẩm trên Staging (staging.agile-prism.pages.dev) trong giai đoạn ôn cuối trước kỳ thi cuối tháng 12, và gửi được góp ý. Sau đó tới P3</td>
 </tr>
 <tr>
 <td>Hạn</td>
@@ -98,7 +98,7 @@
 <td><strong>Người đổi nghề sang quản lý</strong> (người đọc thật đầu tiên)</td>
 <td>Frontend developer, đang học song song PMP và ACP mỗi tuần 1 buổi, học xong giữa tháng 12, thi cuối tháng 12. Đích gần là Scrum Master. Từng làm design system và web app nhỏ bằng React, ít kinh nghiệm hệ thống lớn, ít làm việc với nhiều bên</td>
 <td>Ôn nhanh trước thi. Thấy rõ chỗ PMP và ACP giống, khác nhau. Nhớ đúng thuật ngữ như đề thi</td>
-<td>MacBook, Chrome</td>
+<td>MacBook và Samsung S25+, Chrome. Chỉ dùng Staging</td>
 </tr>
 <tr>
 <td>P2</td>
@@ -157,18 +157,18 @@
 </tr>
 </tbody>
 </table>
-<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In review, Done), không dùng nhãn.</p>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn <code>repeated</code> nếu góp ý đã nêu trước đó (D24), nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In review, Done), không dùng nhãn.</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
   
 <p>Áp cho mọi User Story trước khi phát hành:
-1. err.py sạch ở 1440, 1024, 768, 390px. ov.py, mob2.py ra 0. hov.py không có dòng KHÔNG ĐỔI. ld.py ra toàn True.
-6. Trước mỗi Release: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.
+1. <code>sh tools/check.sh</code> đạt: err sạch ở 1440, 1024, 768, 390px; ov, mob2 ra 0; hov không có dòng KHÔNG ĐỔI; ld toàn True.
 2. Đối chiếu APG 2, PMBOK 8 cho mọi định nghĩa mới.
 3. Ảnh chụp vùng đã sửa ở 1440 và 390px đã xem.
 4. Quy tắc mới ghi ở đúng 1 nơi.
-5. Có dòng trong CHANGELOG.</p>
+5. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26). Tên Pull request viết được thành 1 dòng CHANGELOG.
+6. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
 </section>
 <section class="card" id="pd-5">
   <div class="card-head"><span class="num">5</span><h3>Risk của sản phẩm</h3></div>
@@ -227,7 +227,7 @@
 </tr>
 <tr>
 <td>Development</td>
-<td>Môi trường nhóm làm sản phẩm xem sau mỗi Sprint, có đủ 3 trang</td>
+<td>Môi trường chủ sản phẩm xem sau mỗi lần merge, có đủ 3 trang. Chỉ chủ sản phẩm vào được</td>
 <td><code>dev.agile-prism.pages.dev</code> (nhánh <code>dev</code>, phải đăng nhập)</td>
 </tr>
 <tr>
