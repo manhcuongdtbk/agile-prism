@@ -1,0 +1,21 @@
+# DOC: Điều hướng: nút Quay lại, back và forward của trình duyệt, liên kết trong Glossary và Danh mục. Mọi dòng phải ra True.
+import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b=p.chromium.launch();pg=b.new_page(viewport={'width':1440,'height':900});e=[];pg.on('pageerror',lambda x:e.append(str(x)))
+    pg.goto(T);pg.wait_for_timeout(900)
+    chip=lambda:pg.evaluate("(()=>{const c=document.getElementById('backChip');return c.hidden?null:c.textContent})()")
+    pg.locator('#vd-shop a[href^="#s"]').first.scroll_into_view_if_needed();y0=pg.evaluate('scrollY')
+    pg.locator('#vd-shop a[href^="#s"]').first.click();pg.wait_for_timeout(3500);print('1 chip:',chip())
+    pg.click('#backChip');pg.wait_for_timeout(900);print('  quay về đúng chỗ:',abs(pg.evaluate('scrollY')-y0)<6)
+    pg.go_forward();pg.wait_for_timeout(900);print('  forward lại tới đích:',abs(pg.evaluate('scrollY')-y0)>500,'chip',chip())
+    pg.go_back();pg.wait_for_timeout(900);print('  back trình duyệt:',abs(pg.evaluate('scrollY')-y0)<6)
+    pg.keyboard.press('/');pg.wait_for_timeout(300);pg.fill('#glQ','Continuum');pg.wait_for_timeout(300)
+    pg.locator('#glT a.ref').first.click();pg.wait_for_timeout(1500)
+    print('2 Glossary đóng:',pg.evaluate("document.getElementById('glD').hidden"),'chip:',chip())
+    pg.click('#backChip');pg.wait_for_timeout(900)
+    print('  mở lại Glossary:',not pg.evaluate("document.getElementById('glD').hidden"),'chữ tìm:',pg.evaluate("glQ.value"))
+    pg.keyboard.press('Escape');pg.click('#fgBtn');pg.wait_for_timeout(300);pg.fill('#fgQ','Lean');pg.wait_for_timeout(300)
+    pg.locator('#fgL a').first.click();pg.wait_for_timeout(1500);print('3 Danh mục đóng:',pg.evaluate("document.getElementById('fgD').hidden"),'chip:',chip())
+    pg.go_back();pg.wait_for_timeout(900);print('  back mở lại Danh mục:',not pg.evaluate("document.getElementById('fgD').hidden"),pg.evaluate("fgQ.value"))
+    print(e)
