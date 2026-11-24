@@ -415,7 +415,7 @@ fig('f-ujm',W,380,()=>{let g='';const X0=150,CW=242,cw=230,G='#4a3f94';
       `<div class="rd-g">Chỉ số đọc từ biểu đồ</div>`+row(mm(2,C.pri[0]),'WIP = Doing + Testing',wip)+row(mm(3,INK),'Lead Time ≈',lt==null?'–':lt.toFixed(1).replace('.',',')+' ngày')+row(mm(3,'#fff','color:'+INK+';border:1.5px solid '+INK),'Cycle Time ≈',ct==null?'–':ct.toFixed(1).replace('.',',')+' ngày')+row(mm(4,C.good[0]),'Throughput 7 ngày gần nhất',t>=4?thr.toFixed(1).replace('.',',')+' /ngày':'–');
   }
   window.CFD={show:(t,f)=>{FOC=f||0;show(t)}};
-  document.getElementById('cfdHit').addEventListener('mousemove',e=>{FOC=0;document.querySelector('.how').classList.remove('focus');const r=svg.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*820;show(Math.max(0,Math.min(N,Math.round((x-60)/37))))});
+  const cfdAt=e=>{FOC=0;document.querySelector('.how').classList.remove('focus');const x=SVGPT(svg,e).x;show(Math.max(0,Math.min(N,Math.round((x-60)/37))))};['pointermove','pointerdown'].forEach(t=>document.getElementById('cfdHit').addEventListener(t,cfdAt));/* chuột rê, ngón tay chạm hoặc kéo đều đọc được ngày */
   show(14);
 })();
 (function(){
@@ -572,7 +572,7 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
   AZ.addEventListener('click',e=>{const b=e.target.closest('[data-l]');if(!b)return;const r=document.getElementById('gl-'+b.dataset.l);r&&r.scrollIntoView({block:'start'})});
   PP.addEventListener('change',()=>{hit=-1;render()});
   function open(i){D.hidden=false;B.setAttribute('aria-expanded',true);if(i!=null){q.value='';PP.value='';OO.value='';KK.value='';hit=i}render();
-    if(i!=null){const r=tb.querySelector(`tr[data-i="${i}"]`);r&&r.scrollIntoView({block:'center'})}else q.focus()}
+    if(i!=null){const r=tb.querySelector(`tr[data-i="${i}"]`);r&&r.scrollIntoView({block:'center'})}else AUTOFOCUS(q)}
   function close(){D.hidden=true;B.setAttribute('aria-expanded',false);hit=-1}
   /* Khi tìm: mặc định xếp theo độ khớp. Bấm tiêu đề cột thì xếp A tới Z, bấm lần nữa Z tới A, lần nữa về độ khớp */
   const thl=()=>{const s=q.value.trim();th.innerHTML='Thuật ngữ <span class="srt" title="Bấm để đổi cách sắp xếp">⇅ '+(s&&SM==='rel'?'theo độ khớp':dir>0?'A tới Z':'Z tới A')+'</span>';th.setAttribute('aria-sort',s&&SM==='rel'?'none':dir>0?'ascending':'descending')};
@@ -784,7 +784,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');i
     list.forEach(([it,sc],i)=>{n++;if(!q&&it.part!==last){last=it.part;html+='<div class="fg-p">'+PN[it.part]+'</div>'}
       html+=`${q&&i===0?'<div class="fg-best"><span class="bestl">'+WHY[sc]+'</span></div>':''}<a href="#${it.id}"${q&&i===0?' class="best"':''}><b class="${it.k==='b'?'tb':''}">${it.code}</b><span>${it.name}</span><span>${it.sec}</span></a>`});
     L.innerHTML=html||'<p class="sm">Không có kết quả.</p>';N.textContent=CNT(n,items.length)};
-  const open=v=>{D.hidden=!v;B.setAttribute('aria-expanded',v);if(v){render();Q.focus()}};
+  const open=v=>{D.hidden=!v;B.setAttribute('aria-expanded',v);if(v){render();AUTOFOCUS(Q)}};
   B.onclick=()=>open(D.hidden);document.getElementById('fgClose').onclick=()=>open(false);Q.oninput=()=>{render();L.scrollTop=0};document.getElementById('fgX').onclick=()=>{Q.value='';render();Q.focus()};document.getElementById('fgR').onclick=()=>{Q.value='';kind='';FP.value='';D.querySelectorAll('.seg:not(.segsel) button').forEach(x=>x.setAttribute('aria-checked',x.dataset.k===''));render();Q.focus()};
   D.querySelectorAll('.seg:not(.segsel) button').forEach(b=>b.onclick=()=>{kind=b.dataset.k;D.querySelectorAll('.seg:not(.segsel) button').forEach(x=>x.setAttribute('aria-checked',x===b));render()});
   const mark=id=>{let el=document.getElementById(id);if(el&&el.classList.contains('fanc'))el=el.nextElementSibling;if(!el||!el.dataset.cap)return;HL([el])};
@@ -1158,10 +1158,10 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
 (function(){const RE=/Shop Áo Gió|Website Gió|Shop online|PayNhanh|chị Lan|anh Minh|anh Tuấn|\bHuy\b|thẻ đã lưu/;
   document.querySelectorAll('.fcap').forEach(c=>{const el=c._host;if(!el||c.querySelector('.cap-gio'))return;if(RE.test(el.textContent+' '+(el.dataset.cap||''))){const a=document.createElement('a');a.className='cap-gio';a.href='#vd-shop';a.title='Ví dụ lấy từ Shop Áo Gió, câu chuyện xuyên suốt';a.innerHTML=GM+'<span>Shop Áo Gió</span>';c.appendChild(a)}})})();
 /* ---------- XEM CẢ HÌNH TRÊN ĐIỆN THOẠI ----------
-   Hình rộng trên màn hẹp phải cuộn ngang. Nút "⤢ Xem cả hình" mở 1 lớp phủ: hình xoay ngang, vừa màn hình.
+   Hình rộng trên màn hẹp phải cuộn ngang. Nút "⤢ Xem cả hình" mở 1 lớp phủ: hình xoay ngang, vừa màn hình. Nút hiện khi màn ≤760px rộng hoặc ≤520px cao (điện thoại xoay ngang).
    Lớp phủ chứa chính hình đang sống, không phải bản chụp: chuyển hình, hàng Xem lần lượt và ô kết quả (.ipan, .read) của cùng khối .ixc/.card vào lớp phủ,
    nên bấm khối, tới, lùi, chấm bước đều chạy như bản thường. Đóng thì trả mọi thứ về đúng chỗ, giữ nguyên bước đang xem.
-   Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Nút chỉ hiện khi màn ≤760px (CSS .fz-b) */
+   Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Điều kiện hiện nút nằm ở CSS .fz-b */
 (function(){const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||c.previousElementSibling?.classList.contains('fz-b'))return;
   const b=document.createElement('button');b.type='button';b.className='fz-b';b.textContent='⤢ Xem cả hình';b.onclick=()=>open(c);c.before(b)})};
   let ov=null,moved=[];
@@ -1173,8 +1173,13 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
     if(row&&row!==host&&!row.contains(c))take(row,ov.querySelector('.fz-ctl'));
     take(c,ov.querySelector('.fz-fig'));c.classList.add('fz-live');
     if(host)host.querySelectorAll('.ipan,.read').forEach(p=>{if(!p.closest('.fz'))take(p,ov.querySelector('.fz-pan'))});
+    /* Màn (hoặc khung đã xoay) nằm ngang và có ô kết quả: hình bên trái, ô kết quả bên phải, để đọc số liệu cùng lúc với hình (#50) */
+    if(ov.querySelector('.fz-pan').children.length&&(port||innerWidth>innerHeight))ov.querySelector('.fz-in').classList.add('side');
     ov.addEventListener('click',e=>{if(e.target===ov||e.target.matches('.fz-in,.fz-fig,.fz-ctl,.fz-pan')||e.target.closest('.fz-x'))close()});
-    document.body.append(ov);document.documentElement.style.overflow='hidden';ov.querySelector('.fz-x').focus({preventScroll:true})}
+    document.body.append(ov);document.documentElement.style.overflow='hidden';fit();ov.querySelector('.fz-x').focus({preventScroll:true})}
+  /* Chiều cao tối đa của hình = chiều cao khung trừ hàng điều khiển đo thật (hàng nút có thể 1 hay 2 dòng), không trừ số cố định */
+  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl'),cs=getComputedStyle(fi);const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0);fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
+  addEventListener('resize',()=>fit());
   function close(){if(!ov)return;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov&&!document.querySelector('.drawer:not([hidden])')){e.stopPropagation();close()}},true);
   mk();setTimeout(mk,800);window.FZ={open,close}})();
