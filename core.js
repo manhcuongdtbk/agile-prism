@@ -113,6 +113,10 @@ const clickKey=(sel,fn)=>{document.addEventListener('click',e=>{const a=e.target
 const GM='<svg class="gm" aria-hidden="true"><use href="#i-gio"/></svg>';function IP(t,vi,blocks){return (t?`<div class="ip-h"><b>${t}</b><span class="en">${vi}</span></div>`:'')+`<div class="ip-g">${blocks.map(([l,x])=>`<div><div class="lbl${/Shop Áo Gió/.test(l)?' lgio':''}">${/Shop Áo Gió/.test(l)?GM:''}${l}</div>${x}</div>`).join('')}</div>`}
 
 /* Kết quả tương tác có nhiều nhánh: luôn liệt kê đủ mọi nhánh, tô nhánh đang khớp (cur = -1: chưa nhánh nào). Người đọc không phải thử mới biết còn nhánh nào */
+/* Toạ độ con trỏ trong hệ toạ độ viewBox của 1 SVG. Đúng cả khi hình bị co giãn, cuộn, xoay (lớp phủ "⤢ Xem cả hình" xoay 90°). Mọi hình đọc vị trí chuột, ngón tay phải dùng hàm này, không tự tính từ clientX và getBoundingClientRect */
+function SVGPT(svg,e){const m=svg.getScreenCTM();if(!m)return {x:0,y:0};return new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse())}
+/* Tự focus ô nhập khi mở ngăn kéo: chỉ máy có chuột và bàn phím thật. Máy cảm ứng thì không, để bàn phím ảo không bật lên che nội dung */
+const KBD=()=>matchMedia('(hover:hover) and (pointer:fine)').matches;function AUTOFOCUS(el){if(el&&KBD())el.focus()}
 function BRANCH(items,cur){return '<ul class="brn">'+items.map(([h,d],i)=>`<li${i===cur?' class="on" aria-current="true"':''}><b>${h}</b><span>${d}</span></li>`).join('')+'</ul>'}
 /* LOADING cả trang: khối #pgLoad đặt ngay đầu body của mỗi trang. PGL.done() gỡ khi trang đã vẽ xong và tương tác được.
    Bấm liên kết sang trang khác cùng site (index.html, design-system.html) thì hiện lại ngay, vì trang mới cần vài trăm ms mới vẽ.
