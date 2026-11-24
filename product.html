@@ -699,7 +699,7 @@
 <tr>
 <td>D27</td>
 <td>24/11</td>
-<td>Giữ repo public tới khi có doanh thu. Thông tin kinh doanh (giá bán, đối thủ, pháp lý, chiến lược kiếm tiền) và tài liệu hạ tầng không đưa lên GitHub, chỉ để ở nơi riêng tư. Development chỉ chủ sản phẩm vào được, Staging cho chủ sản phẩm và persona. Không dùng dịch vụ trả phí; mỗi lần bàn giao xem trang Billing của Cloudflare</td>
+<td>Giữ repo public tới khi có doanh thu. Thông tin kinh doanh (giá bán, đối thủ, pháp lý, chiến lược kiếm tiền) và tài liệu hạ tầng không đưa lên GitHub, chỉ để ở nơi riêng tư. Development chỉ chủ sản phẩm vào được, Staging cho chủ sản phẩm và persona. Không dùng dịch vụ trả phí; xem trang Billing của Cloudflare theo D39</td>
 <td>Tận dụng tính năng miễn phí của repo public (GitHub Actions không giới hạn) mà không lộ thứ có giá trị cho đối thủ. Chưa có doanh thu thì chưa chi tiền</td>
 <td>Chuyển repo private ngay</td>
 <td>Có doanh thu, hoặc có tính năng trả phí</td>
@@ -775,6 +775,22 @@
 <td>Persona không cần đọc Decision log, mô tả persona. Thanh địa chỉ ẩn trên điện thoại thì không biết đang ở môi trường nào</td>
 <td>Giữ 2 trang ở Staging</td>
 <td>Có persona cần đọc trang nội bộ</td>
+</tr>
+<tr>
+<td>D38</td>
+<td>24/11</td>
+<td>Retro theo Scrum Guide 2020 và APG 2: nhìn lại 5 khía cạnh (cá nhân, tương tác, quy trình, công cụ, Definition of Done); có dữ liệu (cảm nhận của PO, số đo: issue xong, nhãn <code>repeated</code>, lỗi do chính Developers gây ra); tìm nguyên nhân gốc; chọn 1 cải tiến vừa sức đưa vào Sprint Backlog kế tiếp và đo kết quả của nó ở Retro sau</td>
+<td>Hình 4.8-1 của chính Product đối chiếu nguồn thấy thiếu (#65); dùng đúng kiến thức trên chính Product</td>
+<td>3 câu hỏi cũ</td>
+<td></td>
+</tr>
+<tr>
+<td>D39</td>
+<td>24/11</td>
+<td>Cloudflare: chỉ dùng gói Free (gói Free không tự trừ tiền, vượt giới hạn thì dừng chứ không tính phí). Xem Billing khi thêm, đổi dịch vụ Cloudflare (Pages Functions, D1, Turnstile cho #9) và khi lên Production, không xem mỗi handoff. Bản xem trước chỉ build cho nhánh <code>dev</code>, <code>staging</code> (giới hạn 500 lần build mỗi tháng)</td>
+<td>Giảm việc lặp không có giá trị, vẫn chặn rủi ro ở đúng lúc có thay đổi</td>
+<td>Xem Billing mỗi handoff; build mọi nhánh</td>
+<td>Thêm dịch vụ trả phí, hoặc gần chạm giới hạn build</td>
 </tr>
 </tbody>
 </table>
@@ -861,7 +877,7 @@
 <tr>
 <td>Sprint Retrospective</td>
 <td>Trước handoff</td>
-<td>Developers nêu làm tốt, chưa tốt, thử gì; hỏi PO 3 câu; đếm nhãn <code>repeated</code>; chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp (D35)</td>
+<td>Theo D38: 5 khía cạnh (cá nhân, tương tác, quy trình, công cụ, DoD), dữ liệu, nguyên nhân gốc; đo kết quả cải tiến Sprint trước; chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp</td>
 <td>Issue Sprint, mục Retro</td>
 </tr>
 <tr>
