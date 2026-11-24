@@ -248,12 +248,12 @@
 <tr>
 <td>Trang Sản phẩm</td>
 <td>Trang này: Release, Persona, Product Backlog, Ubiquitous Language</td>
-<td><code>product.html</code>, chỉ ở Staging</td>
+<td><code>product.html</code>, chỉ ở Development (D37, #60)</td>
 </tr>
 <tr>
 <td>Design system</td>
 <td>Quy tắc giao diện, hành vi, mẫu sống</td>
-<td><code>design-system.html</code>, chỉ ở Staging</td>
+<td><code>design-system.html</code>, chỉ ở Development (D37, #60)</td>
 </tr>
 <tr>
 <td>Development</td>
@@ -555,7 +555,7 @@
 <tr>
 <td>D09</td>
 <td>23/11</td>
-<td>Trang Sản phẩm, Design system chỉ có ở Staging. Production có trang 404 riêng</td>
+<td>(Thay bởi D37) Trang Sản phẩm, Design system chỉ có ở Staging. Production có trang 404 riêng</td>
 <td>Người đọc không thấy trang nội bộ. Không có 404 thì Cloudflare trả trang chính cho mọi địa chỉ lạ</td>
 <td>Chặn bằng mật khẩu</td>
 <td></td>
@@ -752,6 +752,30 @@
 <td>Giữ 5 bước rời</td>
 <td>Có GitHub Actions (#19): đầu Sprint đọc kết quả có sẵn, không chạy lại</td>
 </tr>
+<tr>
+<td>D35</td>
+<td>24/11</td>
+<td>Bổ sung theo Scrum Guide 2020: Sprint dài tối đa 3 ngày; Sprint Planning có thêm kế hoạch "làm thế nào" (các bước cho từng issue); Sprint Review có bước sắp xếp lại Product Backlog; Retro chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp</td>
+<td>Đối chiếu Scrum Guide 2020 thấy thiếu 4 điểm này. PO đổi khi cần, Developers chủ động gợi ý</td>
+<td>Giữ Sprint không giới hạn thời gian</td>
+<td>Sprint thường xuyên không xong trong 3 ngày</td>
+</tr>
+<tr>
+<td>D36</td>
+<td>24/11</td>
+<td>Trả lời tiện cho mọi thiết bị: PO có thể trả lời từ điện thoại, tablet qua thông báo của Claude app. Câu trả lời ngắn, bảng tối đa 3 cột, quyết định hỏi bằng ô chọn, chi tiết để trong issue, PR. Ảnh chụp màn hình đính thẳng trong Claude app. Về lâu dài: nút Góp ý trên trang tự kèm thông số máy (#9)</td>
+<td>PO không phải lúc nào cũng ngồi MacBook; chép dán giữa các máy rất phiền</td>
+<td>Chép dòng "Màn hình này" qua lại giữa các máy</td>
+<td>Có #9</td>
+</tr>
+<tr>
+<td>D37</td>
+<td>24/11</td>
+<td>Trang Sản phẩm, Design system chỉ ở Development, có nút chuyển trang luôn thấy. Staging giống Production (thêm nhãn môi trường), là bản sắp phát hành cho persona. Mọi môi trường trừ Production có nhãn môi trường luôn thấy (#60). Thay D09</td>
+<td>Persona không cần đọc Decision log, mô tả persona. Thanh địa chỉ ẩn trên điện thoại thì không biết đang ở môi trường nào</td>
+<td>Giữ 2 trang ở Staging</td>
+<td>Có persona cần đọc trang nội bộ</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -806,14 +830,14 @@
 <tbody>
 <tr>
 <td>Sprint</td>
-<td>1 chat</td>
+<td>1 chat, tối đa 3 ngày (D35)</td>
 <td>Đạt 1 Sprint Goal</td>
 <td>Issue nhãn <code>Sprint</code></td>
 </tr>
 <tr>
 <td>Sprint Planning</td>
 <td>Đầu chat, sau <code>sh tools/setup.sh</code> (D34)</td>
-<td>Developers đề xuất Sprint Goal và việc, PO chốt</td>
+<td>Developers đề xuất Sprint Goal, việc và kế hoạch làm thế nào cho từng việc (D35), PO chốt</td>
 <td>Issue Sprint: Sprint Goal, Sprint Backlog (checkbox nối tới issue)</td>
 </tr>
 <tr>
@@ -831,13 +855,13 @@
 <tr>
 <td>Sprint Review</td>
 <td>Cuối Sprint, và khi P1 dùng Staging</td>
-<td>PO xem kết quả, P1 dùng thật</td>
+<td>PO xem kết quả, P1 dùng thật; sắp xếp lại Product Backlog (D35)</td>
 <td>Issue Sprint, mục Kết quả</td>
 </tr>
 <tr>
 <td>Sprint Retrospective</td>
 <td>Trước handoff</td>
-<td>Developers nêu làm tốt, chưa tốt, thử gì; hỏi PO 3 câu; đếm nhãn <code>repeated</code></td>
+<td>Developers nêu làm tốt, chưa tốt, thử gì; hỏi PO 3 câu; đếm nhãn <code>repeated</code>; chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp (D35)</td>
 <td>Issue Sprint, mục Retro</td>
 </tr>
 <tr>
@@ -913,7 +937,7 @@
 </tbody>
 </table>
 <p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
-<p>Theo D24: mỗi câu trả lời gói trong 1 màn hình (Kết quả, Cần bạn quyết, Tiếp theo), mở đầu bằng dòng Daily Scrum (D33); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
+<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột (Kết quả, Cần bạn quyết, Tiếp theo), mở đầu bằng dòng Daily Scrum (D33); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>
