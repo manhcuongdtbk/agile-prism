@@ -1,10 +1,23 @@
 #!/bin/sh
-# Chạy toàn bộ kiểm tra. Dùng: sh tools/check.sh
-# Kết quả đạt: fz ra [] (2 dòng []); err ra [] và scrollWidth bằng bề rộng; ov, mob2 ra 0 dòng lỗi; geo, zero ra OK; stp không lỗi; hov không có KHÔNG ĐỔI; ld toàn True.
-# Script chạy riêng khi cần (đọc dòng # DOC: đầu file): nav, bt, mob, partial, vi_audit, oldnames, axes, circ, gap, clk, fmap, vigap, gloss_gap, shot, gl, glrows, mont, tcand.js, tstat.js.
-D=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$D")
-sh "$D/prep.sh" || exit 1
+# Chạy toàn bộ kiểm tra. Dùng: sh tools/check.sh   (thêm -v để in đủ kết quả từng script)
+# Đạt thì mỗi script 1 dòng "✓ tên"; lỗi thì "✗ tên" kèm kết quả đầy đủ. Dòng cuối: ĐẠT hoặc LỖI.
+# Luật đạt: leak ra OK; err mỗi dòng "W W []"; ov, stp, fz dòng cuối []; geo, zero ra OK; mob2 ra 0; hov không có KHÔNG ĐỔI; ld không có False, dòng cuối [].
+# Script chạy riêng khi cần (đọc dòng # DOC: đầu file): dev (ma trận thiết bị), tab, nav, bt, mob, partial, vi_audit, oldnames, axes, circ, gap, clk, fmap, vigap, gloss_gap, shot, gl, glrows, mont, tcand.js, tstat.js.
+D=$(cd "$(dirname "$0")" && pwd); R=$(dirname "$D"); V=$1; BAD=0
+sh "$D/prep.sh" >/dev/null || { echo "✗ prep"; exit 1; }
 (cd "$R" && python3 -m http.server 8765 >/dev/null 2>&1 & echo $! > "$D/.out/srv.pid"); sleep 1
-python3 "$D/leak.py" || echo "LỘ TÊN CÔNG CỤ"
-for t in err ov geo zero mob2 stp fz hov ld; do echo "== $t"; python3 "$D/$t.py"; done
+ok(){ t=$1; o=$2; l=$(printf '%s\n' "$o" | tail -n 1)
+  case $t in
+    leak|geo|zero) [ "$l" = "OK" ];;
+    err) printf '%s\n' "$o" | awk '$1!=$2||$3!="[]"{f=1} END{exit f}';;
+    ov|stp|fz) [ "$l" = "[]" ];;
+    mob2) [ "$l" = "0" ];;
+    hov) ! printf '%s\n' "$o" | grep -q "KHÔNG ĐỔI";;
+    ld) [ "$l" = "[]" ] && ! printf '%s\n' "$o" | grep -q "False";;
+  esac; }
+for t in leak err ov geo zero mob2 stp fz hov ld; do
+  o=$(python3 "$D/$t.py" 2>&1)
+  if ok "$t" "$o"; then echo "✓ $t"; [ "$V" = "-v" ] && printf '%s\n' "$o"; else echo "✗ $t"; printf '%s\n' "$o"; BAD=1; fi
+done
 kill "$(cat "$D/.out/srv.pid")" 2>/dev/null
+[ $BAD = 0 ] && echo "ĐẠT" || { echo "LỖI"; exit 1; }
