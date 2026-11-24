@@ -125,7 +125,7 @@
 </table>
 <p><strong>Cách gửi góp ý</strong>: mỗi phản hồi 1 dòng theo mẫu</p>
 <p><code>[P1 | MacBook | Hình 2.5-1] Nội dung góp ý, nguyên văn nếu có</code></p>
-<p>Phản hồi của chính chủ sản phẩm ghi <code>[PO]</code>. Không rõ persona thì ghi <code>[?]</code> kèm 1 câu mô tả người đó.</p>
+<p>Phản hồi của chính chủ sản phẩm ghi <code>[PO]</code>. Không rõ persona thì ghi <code>[?]</code> kèm 1 câu mô tả người đó. Góp ý về giao diện: chép kèm dòng "Màn hình này" ở đầu trang Design system (kích thước, mật độ, chiều xoay).</p>
 </section>
 <section class="card" id="pd-3">
   <div class="card-head"><span class="num">3</span><h3>Product Backlog</h3></div>
@@ -163,13 +163,13 @@
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
   
 <p>Áp cho mọi User Story trước khi phát hành:
-1. <code>sh tools/check.sh</code> đạt: err sạch ở 1440, 1024, 768, 390px; ov, mob2 ra 0; hov không có dòng KHÔNG ĐỔI; ld toàn True.
+1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>.
 2. Đối chiếu APG 2, PMBOK 8 cho mọi định nghĩa mới.
 3. Ảnh chụp vùng đã sửa ở 1440 và 390px đã xem.
 4. Quy tắc mới ghi ở đúng 1 nơi.
 5. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26). Tên Pull request viết được thành 1 dòng CHANGELOG.
 7. Đọc lại mọi thứ vừa tạo ra bên ngoài (issue, PR, trang, cài đặt) đúng như người khác sẽ thấy, không chỉ tin kết quả lệnh trả về.
-6. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
+6. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra (S23U) hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
 </section>
 <section class="card" id="pd-5">
   <div class="card-head"><span class="num">5</span><h3>Risk của Product</h3></div>
@@ -291,6 +291,11 @@
 <td>Sprint Goal</td>
 <td>1 câu nói Sprint này phải đạt gì. Việc ngoài Sprint Goal thì tạo issue, để Sprint sau</td>
 <td>"P1 xem hết được mọi hình trên điện thoại"</td>
+</tr>
+<tr>
+<td>Daily Scrum</td>
+<td>Dòng đầu mỗi câu trả lời một lượt feedback: tiến độ tới Sprint Goal, việc tiếp theo, trở ngại (D33)</td>
+<td>"Sprint Goal 5/6 issue; tiếp: #18; trở ngại: chưa có số đo Y700"</td>
 </tr>
 <tr>
 <td>Release</td>
@@ -422,7 +427,7 @@
 <tr>
 <td>Responsive, breakpoint</td>
 <td>Đổi bố cục theo độ rộng màn hình, và các mốc đổi</td>
-<td>760px, 1000px</td>
+<td>760px, 1180px</td>
 </tr>
 <tr>
 <td>Viewport</td>
@@ -442,7 +447,7 @@
 <tr>
 <td>Test script, headless</td>
 <td>Script tự kiểm trang bằng trình duyệt không giao diện</td>
-<td><code>geo.py</code>, <code>mob.py</code> chạy Playwright</td>
+<td><code>geo.py</code>, <code>dev.py</code> chạy Playwright</td>
 </tr>
 <tr>
 <td>Refactor</td>
@@ -731,6 +736,22 @@
 <td>Repo private; dọn qua giao diện</td>
 <td>Bắt đầu thu phí, hoặc có đối tác xem repo</td>
 </tr>
+<tr>
+<td>D33</td>
+<td>24/11</td>
+<td>Daily Scrum mỗi lượt feedback: dòng đầu mỗi câu trả lời nói tiến độ tới Sprint Goal, việc tiếp theo, trở ngại</td>
+<td>Scrum Guide 2020 có Daily Scrum để Developers xem tiến độ tới Sprint Goal và điều chỉnh kế hoạch. Đội không làm theo ngày; mỗi lượt feedback là nhịp tự nhiên, không tốn thêm tin nhắn</td>
+<td>Daily Scrum mỗi ngày; không có Daily Scrum</td>
+<td>Có thêm người làm sản phẩm, hoặc Sprint kéo nhiều ngày</td>
+</tr>
+<tr>
+<td>D34</td>
+<td>24/11</td>
+<td>Đầu Sprint dựng môi trường bằng 1 lệnh <code>sh tools/setup.sh</code>. <code>check.sh</code> đạt thì in 1 dòng mỗi script. 2 PDF chỉ chép khi Sprint có issue <code>content</code> (#54)</td>
+<td>Bỏ lãng phí (Elimination of waste) đầu mỗi Sprint: lệnh rời, kết quả in dài, tài liệu không dùng tới</td>
+<td>Giữ 5 bước rời</td>
+<td>Có GitHub Actions (#19): đầu Sprint đọc kết quả có sẵn, không chạy lại</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -791,9 +812,15 @@
 </tr>
 <tr>
 <td>Sprint Planning</td>
-<td>Đầu chat</td>
+<td>Đầu chat, sau <code>sh tools/setup.sh</code> (D34)</td>
 <td>Developers đề xuất Sprint Goal và việc, PO chốt</td>
 <td>Issue Sprint: Sprint Goal, Sprint Backlog (checkbox nối tới issue)</td>
+</tr>
+<tr>
+<td>Daily Scrum</td>
+<td>Dòng đầu mỗi câu trả lời một lượt feedback (D33)</td>
+<td>Developers nói tiến độ tới Sprint Goal, việc tiếp theo, trở ngại</td>
+<td>Câu trả lời trong chat, Sprint notes</td>
 </tr>
 <tr>
 <td>Vòng Review nhỏ</td>
@@ -859,6 +886,11 @@
 </thead>
 <tbody>
 <tr>
+<td><code>sh tools/setup.sh</code> đầu Sprint (D34)</td>
+<td>Developers</td>
+<td>Git user, Playwright, font, chạy check.sh</td>
+</tr>
+<tr>
 <td>Mỗi issue 1 branch <code>loại/số-mô-tả</code>, Pull request vào <code>dev</code> có "Closes #số"</td>
 <td>Developers</td>
 <td>Mở PR: thẻ sang In progress. Merge: issue đóng, thẻ sang Done, branch tự xoá, Cloudflare deploy Development</td>
@@ -874,14 +906,14 @@
 <td>Cloudflare deploy Production; Release notes tự gom từ Pull request</td>
 </tr>
 <tr>
-<td><code>sh tools/check.sh</code></td>
+<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code></td>
 <td>Developers, trước mỗi Pull request</td>
 <td>Chạy tay, chưa có GitHub Actions (#19)</td>
 </tr>
 </tbody>
 </table>
 <p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
-<p>Theo D24: mỗi câu trả lời gói trong 1 màn hình (Kết quả, Cần bạn quyết, Tiếp theo); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
+<p>Theo D24: mỗi câu trả lời gói trong 1 màn hình (Kết quả, Cần bạn quyết, Tiếp theo), mở đầu bằng dòng Daily Scrum (D33); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>
