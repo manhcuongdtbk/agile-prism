@@ -1159,13 +1159,23 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
   document.querySelectorAll('.fcap').forEach(c=>{const el=c._host;if(!el||c.querySelector('.cap-gio'))return;if(RE.test(el.textContent+' '+(el.dataset.cap||''))){const a=document.createElement('a');a.className='cap-gio';a.href='#vd-shop';a.title='Ví dụ lấy từ Shop Áo Gió, câu chuyện xuyên suốt';a.innerHTML=GM+'<span>Shop Áo Gió</span>';c.appendChild(a)}})})();
 /* ---------- XEM CẢ HÌNH TRÊN ĐIỆN THOẠI ----------
    Hình rộng trên màn hẹp phải cuộn ngang. Nút "⤢ Xem cả hình" mở 1 lớp phủ: hình xoay ngang, vừa màn hình.
-   Bấm vào lớp phủ, nút ✕ hoặc Esc để đóng. Nút chỉ hiện khi màn ≤760px (CSS .fz-b) */
-(function(){const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig')||c.previousElementSibling?.classList.contains('fz-b'))return;
+   Lớp phủ chứa chính hình đang sống, không phải bản chụp: chuyển hình, hàng Xem lần lượt và ô kết quả (.ipan, .read) của cùng khối .ixc/.card vào lớp phủ,
+   nên bấm khối, tới, lùi, chấm bước đều chạy như bản thường. Đóng thì trả mọi thứ về đúng chỗ, giữ nguyên bước đang xem.
+   Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Nút chỉ hiện khi màn ≤760px (CSS .fz-b) */
+(function(){const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||c.previousElementSibling?.classList.contains('fz-b'))return;
   const b=document.createElement('button');b.type='button';b.className='fz-b';b.textContent='⤢ Xem cả hình';b.onclick=()=>open(c);c.before(b)})};
-  let ov=null;function open(c){const s=c.querySelector(':scope>svg.fig');if(!s)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-label','Xem cả hình');
-    const vb=s.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">✕</button><div class="fz-in${port?' rot':''}"></div>`;
-    const k=s.cloneNode(true);k.removeAttribute('id');k.style.minWidth='0';ov.querySelector('.fz-in').append(k);ov.onclick=close;document.body.append(ov);document.documentElement.style.overflow='hidden';ov.querySelector('.fz-x').focus({preventScroll:true})}
-  function close(){if(!ov)return;ov.remove();ov=null;document.documentElement.style.overflow=''}
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov){e.stopPropagation();close()}},true);
+  let ov=null,moved=[];
+  const take=(el,box)=>{const m=document.createComment('fz');el.before(m);moved.push([el,m]);box.append(el)};
+  function open(c){const s=c.querySelector(':scope>svg.fig');if(!s||ov)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Xem cả hình');
+    const vb=s.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">✕</button><div class="fz-in${port?' rot':''}"><div class="fz-ctl"></div><div class="fz-fig"></div><div class="fz-pan"></div></div>`;
+    /* Thanh Xem lần lượt, ô kết quả chỉ lấy khi khối .ixc chứa đúng 1 hình: .card nhiều hình thì thanh đó điều khiển phần khác, không phải hình này */
+    const ix=c.closest('.ixc'),host=ix&&[...ix.querySelectorAll('[id^="f-"]')].filter(x=>x.querySelector(':scope>svg.fig')).length===1?ix:null,stp=host&&host.querySelector('.stp'),row=stp&&stp.parentElement;
+    if(row&&row!==host&&!row.contains(c))take(row,ov.querySelector('.fz-ctl'));
+    take(c,ov.querySelector('.fz-fig'));c.classList.add('fz-live');
+    if(host)host.querySelectorAll('.ipan,.read').forEach(p=>{if(!p.closest('.fz'))take(p,ov.querySelector('.fz-pan'))});
+    ov.addEventListener('click',e=>{if(e.target===ov||e.target.matches('.fz-in,.fz-fig,.fz-ctl,.fz-pan')||e.target.closest('.fz-x'))close()});
+    document.body.append(ov);document.documentElement.style.overflow='hidden';ov.querySelector('.fz-x').focus({preventScroll:true})}
+  function close(){if(!ov)return;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov&&!document.querySelector('.drawer:not([hidden])')){e.stopPropagation();close()}},true);
   mk();setTimeout(mk,800);window.FZ={open,close}})();
 PGL.done();
