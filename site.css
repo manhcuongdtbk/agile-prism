@@ -1218,3 +1218,7 @@ html.has-ds .lg-dev{display:flex!important}
 .fz-in.side{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,27%);grid-template-rows:auto minmax(0,1fr);gap:8px 12px;align-items:center}
 .fz-in.side .fz-ctl{grid-column:1/-1}.fz-in.side .fz-fig{grid-column:1;grid-row:2;min-height:0;align-self:center}.fz-in.side .fz-pan{grid-column:2;grid-row:2;align-self:stretch;overflow-y:auto;max-height:100%}
 .fz-in.side .fz-pan .read,.fz-in.side .fz-pan .ipan{padding:8px 10px;font-size:12px;line-height:1.35}.fz-in.side .fz-pan .read *{font-size:inherit}
+/* Hình 2.5-1 xếp dọc (≤1180px, #18): nhãn Stakeholders là dòng đầu; khung Scrum Team thành tiêu đề nhóm ngay trên 3 vai trò, không đè nhãn khác */
+@media (max-width:1180px){.rmap{display:flex!important;flex-direction:column;padding-top:16px!important}.rmap .shb{position:static!important;order:0;padding:0!important;background:none!important}.rmap .rm-cust{order:1}
+.rmap .stb{order:2;border:0!important;margin:14px 0 -2px!important;height:auto;grid-column:auto;grid-row:auto}.rmap .stb span{position:static!important;padding:0!important;background:none!important}
+.rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}}
