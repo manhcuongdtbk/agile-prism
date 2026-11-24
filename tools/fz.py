@@ -1,4 +1,4 @@
-# DOC: "⤢ Xem cả hình" ở 390px: mỗi hình mở lớp phủ, hình nằm gọn trong màn hình; hình có Xem lần lượt thì bấm tới, chấm bước được và đóng lại giữ đúng bước; hình có khối bấm được thì bấm được trong lớp phủ. In [] là đạt.
+# DOC: "⤢ Xem cả hình" ở 390px (hoặc tham số, ví dụ 582x931): mỗi hình mở lớp phủ, hình nằm gọn trong màn hình; hình có Xem lần lượt thì bấm tới, chấm bước được và đóng lại giữ đúng bước; hình có khối bấm được thì bấm được trong lớp phủ. In [] là đạt.
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 from playwright.sync_api import sync_playwright
 JS=r'''async()=>{const out=[],ok=[];const W=innerWidth,H=innerHeight,sl=ms=>new Promise(r=>setTimeout(r,ms));
@@ -25,8 +25,10 @@ JS=r'''async()=>{const out=[],ok=[];const W=innerWidth,H=innerHeight,sl=ms=>new 
    if(stp&&!blk&&stp.querySelector('.stp-n').textContent!==lbl)out.push([id,'đóng mất bước đang xem']);
    ok.push(id)}
  return [ok.length,out]}'''
+import sys
+W,H=(map(int,sys.argv[1].split('x')) if len(sys.argv)>1 else (390,844))
 with sync_playwright() as p:
-    b=p.chromium.launch();pg=b.new_page(viewport={'width':390,'height':844});errs=[]
+    b=p.chromium.launch();pg=b.new_page(viewport={'width':W,'height':H});errs=[]
     pg.on('pageerror',lambda e:errs.append(str(e)));pg.goto(T);pg.wait_for_timeout(1500)
     n,out=pg.evaluate(JS);print('số hình:',n)
     for x in out:print(x)
