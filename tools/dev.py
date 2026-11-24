@@ -56,6 +56,7 @@ with sync_playwright() as p:
         if sw>cw:res.append(['TRÀN NGANG',sw,cw])
         res+=pg.evaluate(MOB)[:5]
         nb=pg.evaluate("()=>[...document.querySelectorAll('.fz-b')].filter(b=>b.offsetParent).length")
+        if W>760 and H>520 and nb:res.append(['màn rộng mà hiện nút Xem cả hình',nb])  # nút chỉ dành cho màn hẹp hoặc thấp
         if nb:res+=pg.evaluate(FZ)[1]
         res+=pg.evaluate(CFD,False)
         if nb:res+=pg.evaluate(CFD,True)

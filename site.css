@@ -1224,5 +1224,5 @@ html.has-ds .lg-dev{display:flex!important}
 .rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}}
 /* Icon SVG trong nút (.bi): cùng cỡ, giữa theo chiều dọc với chữ, mọi máy như nhau */
 .bi{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px}
-:is(button,.btn,.fz-b,.back):has(>.bi):not([hidden]){display:inline-flex;align-items:center;justify-content:center;gap:5px}
+:is(button,.btn,.fz-b,.back):has(>.bi){align-items:center;justify-content:center;gap:5px}/* không đặt display ở đây: mỗi nút tự quyết hiện, ẩn (PR #58 từng làm hiện nút ⤢ trên máy tính) */
 .stp-nav .btn.sq .bi{width:16px;height:16px}.fz-x .bi{width:16px;height:16px}
