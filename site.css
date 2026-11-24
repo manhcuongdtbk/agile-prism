@@ -1041,7 +1041,7 @@ html:has(.fz) .drawer,html:has(.fz) .lg-pop{z-index:210}html:has(.fz) .back{z-in
 .sense+.sense{border-top:0!important;margin-top:12px!important;padding-top:0!important}
 table.gl th .srt{text-transform:none;letter-spacing:0;display:inline-flex;align-items:center;gap:3px;font-weight:500;font-size:12px;color:var(--pri-ink);border:1.5px solid var(--pri-mid);border-radius:999px;padding:1px 8px;margin-left:4px;cursor:pointer;background:#fff}
 table.gl th:has(.srt):hover .srt{background:var(--pri-soft,#fdeef4)}
-#fgD .seg,#fgD .seg button{flex:none}
+@media (min-width:761px){#fgD .seg,#fgD .seg button{flex:none}}/* chỉ máy tính: ≤760px Danh mục dùng chung luật .dr-r2 .seg.segsel với Glossary (#47) */
 .lg-alt{display:block;margin-top:4px;font-size:12px;color:var(--mute)}
 .os-mac .os-w,.os-win .os-m{display:none}
 .lg-dev{grid-column:1/-1;margin:14px 0 0;font-size:12px;color:var(--mute)}.lg-dev a{color:var(--ink2)}
@@ -1211,3 +1211,5 @@ html.has-ds .lg-dev{display:flex!important}
 .brand b{display:block;font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
 .brand small{display:block;font-size:12.5px;color:var(--mute);font-weight:500}
 .brand:hover b{color:var(--pri-ink)}
+/* Chú giải trên điện thoại (#47): ngăn kéo rộng hết màn như mọi ngăn kéo khác (luật .drawer ≤760px bị .lgd ghi đè), mỗi dòng 2 cột: ký hiệu | tên, mô tả nằm dưới tên */
+@media (max-width:760px){.drawer.lgd{width:100vw!important}.lgd .lg{grid-template-columns:62px minmax(0,1fr)!important;align-items:start;row-gap:2px}.lgd .lg>.lg-d{grid-column:2}}
