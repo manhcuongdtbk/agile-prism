@@ -340,7 +340,8 @@ section.part{margin-top:56px;scroll-margin-top:64px}
 .up span{position:absolute;left:12px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--sm-ink)}
 .up.u1{grid-column:3}
 .up.u2{grid-column:5}
-@media (max-width:900px){
+/* Hình 2.5-1 (.rmap): dưới 1180px xếp dọc (cùng mốc 1180 của thanh điều hướng). Mốc này dùng ở 4 media query của .rmap, .rm-svg, .rm-ar; JS (rmap trong draw.js) đọc theo CSS: .rm-svg bị ẩn thì không vẽ. Bố cục lưới cần >1180px, hẹp hơn thì cột vai trò còn ~100px và nhãn Impediment tràn mép */
+@media (max-width:1180px){
 .rmap{display:block}
 .rmap>*{margin:10px 0}
 .rm-ar,.up,.lp{display:none}
@@ -972,10 +973,10 @@ dl.nm dt.o{color:var(--warn-ink,#704a00);background:#fcf2e3}
 .rm-key{margin-top:12px}
 .ln{display:inline-block;width:22px;height:0;border-top:2px solid var(--ink2);vertical-align:4px;margin-right:6px}
 .ln.ln-d{border-top:3px solid var(--ink)}.ln.ln-s{border-top-color:var(--sm)}
-@media (max-width:760px){.rmap{padding:34px 12px 12px}.rm-key{flex-wrap:wrap}}
+@media (max-width:1180px){.rmap{padding:34px 12px 12px}.rm-key{flex-wrap:wrap}}
 .rz h4 span{display:block;font-size:12px;margin-top:2px}
 @media (max-width:760px){.rz.sm,.rz.sm ul{grid-template-columns:1fr!important}.rz.sm{gap:10px}}
-@media (max-width:760px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
+@media (max-width:1180px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
 
 /* Vòng 28: Glossary, thiết kế lại.
    Ô Nghĩa: nhãn Cách gọi khác, Tên cũ, Không nhầm với nằm riêng 1 dòng, giá trị bên dưới dùng hết bề rộng ô (không bị dồn sang phải). 1 ý phụ là đoạn xám, không gạch đầu dòng.
@@ -1004,7 +1005,7 @@ nav.top a.nv-gio.on .gm,nav.top a.nv-gio[aria-current] .gm{color:#fff!important}
 .rm-l b{font-weight:600;color:var(--ink)}
 .rm-l a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
 .rm-l.rl-st,.rm-l.rl-sp,.rm-l.rl-sd,.rm-l.rl-so{color:var(--sm-ink)}
-@media (max-width:760px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
+@media (max-width:1180px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
 /* Vòng 29: số mục trong chữ của hình, ví dụ (4.9), là liên kết: gạch chân chấm, rê chuột đổi màu hồng */
 svg.fig a.secl{cursor:pointer}svg.fig a.secl text{text-decoration:underline dotted;text-underline-offset:2px}
 svg.fig a.secl:hover text{fill:var(--pri-ink)!important;text-decoration-style:solid}

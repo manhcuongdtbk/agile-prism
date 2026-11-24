@@ -1,6 +1,6 @@
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 from playwright.sync_api import sync_playwright
-JS=r'''()=>{const out=[];const W=innerWidth;
+JS=r'''()=>{const out=[];const W=document.documentElement.clientWidth;/* không dùng innerWidth: trang tràn thì innerWidth nới theo, che mất lỗi */
  const scroller=e=>{for(let p=e.parentElement;p&&p!==document.body;p=p.parentElement){const s=getComputedStyle(p);if(/(auto|scroll)/.test(s.overflowX)&&p.scrollWidth>p.clientWidth+1)return true}return false};
  document.querySelectorAll('main *').forEach(e=>{if(e.closest('svg'))return;const r=e.getBoundingClientRect();if(!r.width||!r.height)return;
    if(r.right>W+1&&!scroller(e)){const s=e.closest('[id^=s],[id^=phan],#vd-shop');out.push(['TRÀN',(s||{}).id,e.tagName+'.'+String(e.className).slice(0,25),Math.round(r.right)])}});

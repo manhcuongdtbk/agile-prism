@@ -327,7 +327,7 @@ fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
 (function(){const M=document.querySelector('.rmap');if(!M)return;const sv=M.querySelector('.rm-svg');
   const COL={d:'#23252b',i:'#6b6f7a',s:'#258b95'};
   const mk=k=>`<marker id="rma-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${COL[k]}"/></marker>`;
-  function draw(){if(innerWidth<=760){sv.innerHTML='';return}
+  function draw(){if(getComputedStyle(sv).display==='none'){sv.innerHTML='';return}
     const o=M.getBoundingClientRect(),r=s=>{const b=M.querySelector(s).getBoundingClientRect();return {l:b.left-o.left,t:b.top-o.top,r:b.right-o.left,b:b.bottom-o.top,w:b.width,h:b.height,cx:b.left-o.left+b.width/2,cy:b.top-o.top+b.height/2}};
     const K=r('.rm-cust'),P=r('.rz.po'),D=r('.rz.team'),S=r('.rz.sm'),F=r('.stb');
     const ln=(d,k,w=2)=>`<path d="${d}" fill="none" stroke="${COL[k]}" stroke-width="${w}" stroke-linejoin="round" marker-end="url(#rma-${k})"/>`;
@@ -339,7 +339,7 @@ fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
     g+=ln(`M${P.r+4} ${y1}H${D.l-4}`,'i')+ln(`M${D.l-4} ${y2}H${P.r+4}`,'i');
     g+=seg(`M${xt} ${S.t-2}V${yb}`,'s')+seg(`M${P.cx} ${yb}H${D.cx}`,'s')+ln(`M${P.cx} ${yb}V${P.b+4}`,'s')+ln(`M${D.cx} ${yb}V${D.b+4}`,'s');
     g+=ln(`M${S.l-4} ${S.cy}H${K.r+4}`,'s');
-    const xi=D.cx+46;g+=ln(`M${xi} ${D.b+4}V${S.t-4}`,'i');
+    const lw=(()=>{const e=M.querySelector('.rl-ds');e.style.width='min-content';const w=e.getBoundingClientRect().width;return w})(),xi=Math.max(D.cx+24,Math.min(D.cx+46,F.r-22-lw))/* mũi tên Impediment lùi trái vừa đủ chỗ cho chữ dài nhất của nhãn bên phải, cách mũi tên teal ở D.cx ít nhất 24px */;g+=ln(`M${xi} ${D.b+4}V${S.t-4}`,'i');
     sv.innerHTML=g;
     const put=(k,x,y,w,al='c')=>{const e=M.querySelector('.rl-'+k);if(al==='l')w=Math.min(w,M.clientWidth-x-4);e.style.width=w+'px';e.style.left=(al==='c'?x-w/2:al==='l'?x:x-w)+'px';e.style.top=y+'px';e.style.textAlign=al==='c'?'center':al==='l'?'left':'right';return e};
     const gap1=F.l-K.r-20,gap2=D.l-P.r-16,c1=(K.r+F.l)/2;/* nhãn bên trái nằm ngoài khung Scrum Team */
