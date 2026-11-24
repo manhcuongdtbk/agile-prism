@@ -90,9 +90,16 @@ function CARET(fid,pid){requestAnimationFrame(()=>{const f=document.getElementBy
   const s=f.querySelector('[data-sel]');if(!s){p.classList.remove('car');return}const a=s.getBoundingClientRect(),b=p.getBoundingClientRect();const cx=Math.max(20,Math.min(b.width-20,a.left+a.width/2-b.left));p.style.setProperty('--cx',cx+'px');p.classList.add('car')})}
 const CARETS=[];window.addEventListener('resize',()=>CARETS.forEach(f=>f()));
 /* Bộ điều khiển xem lần lượt dùng chung: nút chạy, lùi, tiến, chấm từng bước (bấm để nhảy), "Bước i/n", vạch chạy thời gian của bước đang chiếu */
+/* Icon trong nút luôn là SVG (class .bi), không dùng ký tự (✕ ⤢ ↩ ‹ ›): ký tự nằm theo dòng chữ và mỗi máy vẽ bằng 1 font khác nên lệch tâm nút. Bộ icon chung cho cả 3 trang, chèn 1 lần ở đây.
+   BI('x') trả về <svg class="bi"> dùng trong mã; HTML viết thẳng <svg class="bi"><use href="#i-x"/></svg> */
+(function(){if(document.getElementById('i-x'))return;const P={x:'<path d="M4 4l8 8M12 4l-8 8"/>',expand:'<path d="M9.5 2.5h4v4M13.5 2.5L9 7M6.5 13.5h-4v-4M2.5 13.5L7 9"/>',back:'<path d="M6 3.5L2.5 7 6 10.5"/><path d="M3 7h6.5a4 4 0 0 1 0 8H8"/>',prev:'<path d="M10 3L5 8l5 5"/>',next:'<path d="M6 3l5 5-5 5"/>'};
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('aria-hidden','true');s.style.cssText='position:absolute;width:0;height:0;overflow:hidden';
+  s.innerHTML=Object.entries(P).map(([k,d])=>`<symbol id="i-${k}" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${d}</symbol>`).join('');
+  (document.body||document.documentElement).prepend(s)})();
+const BI=k=>`<svg class="bi" aria-hidden="true"><use href="#i-${k}"/></svg>`;
 function STEP(id,steps,{reset,replay,ms=2800,root}={}){const b=document.getElementById(id);if(!b)return {stop(){},get on(){return false}};const n=steps.length;
   const w=document.createElement('span');w.className='stp';w.id=id;
-  w.innerHTML=`<button type="button" class="btn play" data-a="play">${b.innerHTML}</button><span class="stp-nav"><button type="button" class="btn sq" data-a="prev" aria-label="Bước trước" disabled>‹</button><span class="stp-d">${steps.map((s,i)=>`<button type="button" data-i="${i}" aria-label="Bước ${i+1}${s.label?': '+s.label:''}" title="Bước ${i+1}${s.label?': '+s.label:''}"><i></i></button>`).join('')}</span><button type="button" class="btn sq" data-a="next" aria-label="Bước sau">›</button><span class="stp-n" aria-live="polite"></span></span>`;
+  w.innerHTML=`<button type="button" class="btn play" data-a="play">${b.innerHTML}</button><span class="stp-nav"><button type="button" class="btn sq" data-a="prev" aria-label="Bước trước" disabled>${BI('prev')}</button><span class="stp-d">${steps.map((s,i)=>`<button type="button" data-i="${i}" aria-label="Bước ${i+1}${s.label?': '+s.label:''}" title="Bước ${i+1}${s.label?': '+s.label:''}"><i></i></button>`).join('')}</span><button type="button" class="btn sq" data-a="next" aria-label="Bước sau">${BI('next')}</button><span class="stp-n" aria-live="polite"></span></span>`;
   const host=root||b.closest('.ixc,.card');const row=b.parentElement;b.replaceWith(w);
   /* Mọi bộ điều khiển đều có Làm lại sát phải. Hàng nào đã có nút Làm lại riêng thì dùng nút đó */
   if(row&&![...row.querySelectorAll('button')].some(x=>/Làm lại/.test(x.textContent))){const rb=document.createElement('button');rb.type='button';rb.className='btn stp-rs';rb.innerHTML='<svg><use href="#i-reset"/></svg>Làm lại';row.appendChild(rb);rb.onclick=()=>{stop();if(reset)reset();else steps[0].run();clear()}}const pb=w.querySelector('[data-a=play]'),lbl=pb.innerHTML;let cur=-1,tm=null;
@@ -138,3 +145,13 @@ fetch('design-system.html',{method:'HEAD'}).then(r=>{if(r.ok)document.documentEl
    EQ(x,yGiữa,rộng,html,{s:cỡ chữ,c:màu,a:'start'|'middle'}) */
 function EQ(x,y,w,html,o={}){const h=o.h||44,al=o.a==='middle'?'center':'flex-start';return `<foreignObject x="${o.a==='middle'?x-w/2:x}" y="${y-h/2}" width="${w}" height="${h}"><div xmlns="http://www.w3.org/1999/xhtml" class="fo-eq" style="height:${h}px;justify-content:${al};font-size:${o.s||13}px;color:${o.c||'inherit'}">${html}</div></foreignObject>`}
 function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></span>`}
+/* Xoay máy, đổi bề ngang cửa sổ: giữ chỗ đang đọc. Khi cuộn, nhớ phần tử đang nằm ngay dưới thanh điều hướng và khoảng cách của nó tới mép trên.
+   Bề ngang đổi (xoay máy) thì trang chảy lại, nên cuộn cho phần tử đó về đúng khoảng cách cũ, lặp vài lần vì hình vẽ lại sau đó. Chỉ đổi bề cao (thanh địa chỉ ẩn hiện) thì không làm gì */
+(function(){let a=null,dy=0,w=innerWidth,busy=0,raf=0;
+  const navB=()=>{const n=document.querySelector('nav.top');return n?Math.max(0,n.getBoundingClientRect().bottom):0};
+  const pick=()=>{raf=0;if(busy||document.querySelector('.fz')||document.documentElement.style.overflow==='hidden')return;const y=navB()+12;let e=document.elementFromPoint(innerWidth/2,y);if(!e||e===document.documentElement||e===document.body||e.closest('.drawer,nav.top,.back'))return;const s=e.closest('svg');if(s)e=s.parentElement;a=e;dy=e.getBoundingClientRect().top};
+  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(pick)},{passive:true});
+  addEventListener('resize',()=>{if(innerWidth===w)return;w=innerWidth;if(!a||!document.contains(a))return;const el=a,d=dy;busy++;
+    const fix=()=>{if(document.contains(el))scrollBy({top:el.getBoundingClientRect().top-d,behavior:'instant'})};
+    requestAnimationFrame(fix);[120,350,700].forEach((t,i,arr)=>setTimeout(()=>{fix();if(i===arr.length-1)busy--},t))});
+  setTimeout(pick,500)})();
