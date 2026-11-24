@@ -622,7 +622,7 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
     st.v.forEach(([id,v])=>{const x=document.getElementById(id);if(x&&x.value!==v){x.value=v;x.dispatchEvent(new Event(x.tagName==='SELECT'?'change':'input',{bubbles:true}))}});
     st.seg.forEach(k=>{const b=d.querySelector(`.seg:not(.segsel) button[data-k="${k}"]`);b&&b.click()});
     setTimeout(()=>{const sc=d.querySelector('.dr-b,#fgL,.lg-b')||d;sc.scrollTop=st.st},30)};
-  const show=()=>{const s=history.state;if(s&&s.from){c.textContent='↩ Về '+s.from;c.hidden=false}else c.hidden=true};
+  const show=()=>{const s=history.state;if(s&&s.from){c.innerHTML=BI('back')+'Về '+s.from;c.hidden=false}else c.hidden=true};
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.getAttribute('href')==='#'||e.defaultPrevented)return;
     const d=a.closest('.drawer');const y=scrollY;const from=d?DL[d.id]:where(a,y);
     rep({...(history.state||{}),y,ds:d?dstate(d):null});
@@ -1163,24 +1163,24 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
    nên bấm khối, tới, lùi, chấm bước đều chạy như bản thường. Đóng thì trả mọi thứ về đúng chỗ, giữ nguyên bước đang xem.
    Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Điều kiện hiện nút nằm ở CSS .fz-b */
 (function(){const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||c.previousElementSibling?.classList.contains('fz-b'))return;
-  const b=document.createElement('button');b.type='button';b.className='fz-b';b.textContent='⤢ Xem cả hình';b.onclick=()=>open(c);c.before(b)})};
-  let ov=null,moved=[];
+  const b=document.createElement('button');b.type='button';b.className='fz-b';b.innerHTML=BI('expand')+'Xem cả hình';b.onclick=()=>open(c);c.before(b)})};
+  let ov=null,moved=[],live=null;
   const take=(el,box)=>{const m=document.createComment('fz');el.before(m);moved.push([el,m]);box.append(el)};
   function open(c){const s=c.querySelector(':scope>svg.fig');if(!s||ov)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Xem cả hình');
-    const vb=s.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">✕</button><div class="fz-in${port?' rot':''}"><div class="fz-ctl"></div><div class="fz-fig"></div><div class="fz-pan"></div></div>`;
+    const vb=s.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">${BI('x')}</button><div class="fz-in${port?' rot':''}"><div class="fz-ctl"></div><div class="fz-fig"></div><div class="fz-pan"></div></div>`;
     /* Thanh Xem lần lượt, ô kết quả chỉ lấy khi khối .ixc chứa đúng 1 hình: .card nhiều hình thì thanh đó điều khiển phần khác, không phải hình này */
     const ix=c.closest('.ixc'),host=ix&&[...ix.querySelectorAll('[id^="f-"]')].filter(x=>x.querySelector(':scope>svg.fig')).length===1?ix:null,stp=host&&host.querySelector('.stp'),row=stp&&stp.parentElement;
     if(row&&row!==host&&!row.contains(c))take(row,ov.querySelector('.fz-ctl'));
     take(c,ov.querySelector('.fz-fig'));c.classList.add('fz-live');
     if(host)host.querySelectorAll('.ipan,.read').forEach(p=>{if(!p.closest('.fz'))take(p,ov.querySelector('.fz-pan'))});
     /* Màn (hoặc khung đã xoay) nằm ngang và có ô kết quả: hình bên trái, ô kết quả bên phải, để đọc số liệu cùng lúc với hình (#50) */
-    if(ov.querySelector('.fz-pan').children.length&&(port||innerWidth>innerHeight))ov.querySelector('.fz-in').classList.add('side');
+    live=c;/* xoay (rot) và bố cục cạnh nhau (side) tính trong fit(), chạy lại mỗi lần đổi cỡ màn, kể cả xoay máy khi lớp phủ đang mở */
     ov.addEventListener('click',e=>{if(e.target===ov||e.target.matches('.fz-in,.fz-fig,.fz-ctl,.fz-pan')||e.target.closest('.fz-x'))close()});
     document.body.append(ov);document.documentElement.style.overflow='hidden';fit();ov.querySelector('.fz-x').focus({preventScroll:true})}
   /* Chiều cao tối đa của hình = chiều cao khung trừ hàng điều khiển đo thật (hàng nút có thể 1 hay 2 dòng), không trừ số cố định */
-  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl'),cs=getComputedStyle(fi);const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0);fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
+  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl');const sv=live&&live.querySelector(':scope>svg.fig');if(sv){const vb=sv.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;fi.classList.toggle('rot',port);fi.classList.toggle('side',!!ov.querySelector('.fz-pan').children.length&&(port||innerWidth>innerHeight))}const cs=getComputedStyle(fi);const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0);fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
   addEventListener('resize',()=>fit());
-  function close(){if(!ov)return;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
+  function close(){if(!ov)return;live=null;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov&&!document.querySelector('.drawer:not([hidden])')){e.stopPropagation();close()}},true);
   mk();setTimeout(mk,800);window.FZ={open,close}})();
 PGL.done();
