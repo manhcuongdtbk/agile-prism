@@ -10,12 +10,12 @@ ok(){ t=$1; o=$2; l=$(printf '%s\n' "$o" | tail -n 1)
   case $t in
     leak|geo|zero) [ "$l" = "OK" ];;
     err) printf '%s\n' "$o" | awk '$1!=$2||$3!="[]"{f=1} END{exit f}';;
-    ov|stp|fz) [ "$l" = "[]" ];;
+    ov|stp|stp0|fz) [ "$l" = "[]" ];;
     mob2) [ "$l" = "0" ];;
     hov) ! printf '%s\n' "$o" | grep -q "KHÔNG ĐỔI";;
     ld) [ "$l" = "[]" ] && ! printf '%s\n' "$o" | grep -q "False";;
   esac; }
-for t in leak err ov geo zero mob2 stp fz hov ld; do
+for t in leak err ov geo zero mob2 stp stp0 fz hov ld; do
   o=$(python3 "$D/$t.py" 2>&1)
   if ok "$t" "$o"; then echo "✓ $t"; [ "$V" = "-v" ] && printf '%s\n' "$o"; else echo "✗ $t"; printf '%s\n' "$o"; BAD=1; fi
 done

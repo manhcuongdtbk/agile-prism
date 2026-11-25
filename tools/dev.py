@@ -1,8 +1,8 @@
 # DOC: Ma trận thiết bị của chủ sản phẩm và persona (S23U, S25+, Y700 dọc và ngang, MacBook, laptop Windows): không lỗi JS, không tràn ngang; "⤢ Xem cả hình" (fz.py) chạy khi nút hiện; chạm và kéo ngón tay trên CFD đọc đúng ngày, ô Ngày thấy được cùng hình; xoay máy giữa chừng (đang mở lớp phủ, đang đọc giữa trang) không vỡ, không mất chỗ đang đọc. Đạt: mọi dòng sau tên thiết bị là []. Dùng: python3 tools/dev.py [tên thiết bị…]
 import os as _o,re,sys;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 from playwright.sync_api import sync_playwright
-# Viewport CSS khi đã trừ thanh địa chỉ của Chrome. Y700 dọc là số đo thật (dòng "Màn hình này", 24/11), ngang suy ra từ 2560×1600 ÷ 2.5 trừ thanh trình duyệt
-DEV={'S23U dọc':(384,740,3.75,1),'S23U ngang':(823,310,3.75,1),'S25+ dọc':(384,750,3.75,1),'S25+ ngang':(832,310,3.75,1),
+# Viewport CSS khi đã trừ thanh địa chỉ của Chrome. Số đo thật từ dòng "Màn hình này": S23U dọc 384×719 mật độ 2.8125 (25/11; máy để độ phân giải FHD+, không phải QHD nên mật độ không phải 3.75), Y700 dọc. S25+ và các chiều ngang là ước tính cùng cách (dòng "Màn hình này", 24/11), ngang suy ra từ 2560×1600 ÷ 2.5 trừ thanh trình duyệt
+DEV={'S23U dọc':(384,719,2.8125,1),'S23U ngang':(823,300,2.8125,1),'S25+ dọc':(384,720,2.8125,1),'S25+ ngang':(832,300,2.8125,1),
      'Y700 dọc':(640,889,2.5,1),'Y700 ngang':(1024,560,2.5,1),
      'MacBook':(1440,800,2,0),'Windows':(1366,650,1,0),'Windows 125%':(1229,600,1.25,0)}
 FZ=re.search(r"JS=r'''(.*?)'''",open(_o.path.join(ROOT,'tools','fz.py')).read(),re.S).group(1)
@@ -56,6 +56,7 @@ with sync_playwright() as p:
         if sw>cw:res.append(['TRÀN NGANG',sw,cw])
         res+=pg.evaluate(MOB)[:5]
         nb=pg.evaluate("()=>[...document.querySelectorAll('.fz-b')].filter(b=>b.offsetParent).length")
+        res+=[['nhãn bước tràn khung',x] for x in pg.evaluate("()=>{const o=[];document.querySelectorAll('.stp').forEach(s=>{const d=s.querySelectorAll('.stp-d button');d[d.length-1].click();const n=s.querySelector('.stp-n').getBoundingClientRect(),c=s.closest('.ixc,.card').getBoundingClientRect();if(n.right>c.right+1)o.push(s.id);s.closest('.ixc,.card').querySelector('.stp-rs,[id$=Reset],#svRs')?.click()});return o}")]
         if W>760 and H>520 and nb:res.append(['màn rộng mà hiện nút Xem cả hình',nb])  # nút chỉ dành cho màn hẹp hoặc thấp
         if nb:res+=pg.evaluate(FZ)[1]
         res+=pg.evaluate(CFD,False)

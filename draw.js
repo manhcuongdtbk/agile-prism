@@ -885,13 +885,13 @@ const PS=[['Inclusion safety','Được thuộc về','Được chấp nhận l�
  ['Learner safety','Dám hỏi, dám sai để học','Dám hỏi, thử nghiệm, học qua thử và sai.','Không ngại xin giúp, nói ra điều mình chưa biết, coi lỗi là dữ liệu để học.','Mai hỏi một câu "ngây ngô" về cách PayNhanh trả lỗi trong Backlog Refinement, cả Team cùng tra và không ai cười.'],
  ['Contributor safety','Dám đóng góp','Được trao quyền góp ý tưởng và tham gia quyết định, góp ý được đón nhận và dùng.','Coi điểm mạnh yếu khác nhau là lợi thế, chia việc theo điểm mạnh, Pairing để bù chỗ thiếu, chia công cho mọi người.','Nam đề xuất bỏ bước nhập lại địa chỉ khi thanh toán, Team đồng ý làm thử trong Sprint sau.'],
  ['Challenger safety','Dám thách thức hiện trạng','Dám thách thức giả định, đề xuất thay đổi mà không sợ hậu quả xấu. Đây là nơi sinh ra đổi mới và cải tiến liên tục.','Đặt câu hỏi về cách làm hiện tại đúng lúc và tôn trọng, làm thử nghiệm nhỏ có kết quả rõ, cùng xem kết quả rồi cùng quyết.','Trang nói thẳng ở Retrospective rằng quy tắc "mọi code đều được review" đang làm chậm, đề xuất thử Pairing thay thế trong 1 Sprint.']];
-let PSi=0;function drawPS(){fig('f-ps4',W,300,()=>{let g='';const X=i=>70+i*258,BW=246,Y=i=>184-i*44,B=246,OX=44;
+let PSi=-1;function drawPS(){fig('f-ps4',W,300,()=>{let g='';const X=i=>70+i*258,BW=246,Y=i=>184-i*44,B=246,OX=44;
   PS.forEach((p,i)=>{const on=i===PSi,done=i<PSi;g+=`<g data-ps="${i}"${on?' data-sel':''} style="cursor:pointer" role="button" tabindex="0" aria-label="Xem giai đoạn ${i+1} ${p[0]}">`+R(X(i),Y(i),BW,B-Y(i),on?C.pri[0]:done?PWORK:C.pri[1],{rx:8,stroke:C.pri[0]})+T(X(i)+16,Y(i)+28,(i+1)+'',{s:20,w:700,c:on?'#fff':C.pri[0],a:'start'})+T(X(i)+44,Y(i)+26,p[0],{s:14,w:600,c:on?'#fff':C.pri[2],a:'start'})+T(X(i)+44,Y(i)+45,p[1],{s:12.5,c:on?'#fff':INK2,a:'start'})+'</g>'});
   g+=A(`M${OX} ${B}H${W-8}`,'neu',{w:1.5})+A(`M${OX} ${B}V${Y(3)-24}`,'neu',{w:1.5});
   g+=T((OX+W-8)/2,B+26,'Mức trưởng thành của Team',{s:12,c:MUTE})+T(OX-16,(B+Y(3)-24)/2,'Psychological safety',{s:12,c:MUTE,rot:-90});
   return g},{label:'4 giai đoạn của Psychological safety theo Clark'});
-  const p=PS[PSi],el=document.getElementById('psP');if(el)el.innerHTML=IP(null,null,[['Nghĩa theo APG 2',p[2]],['Team làm gì',p[3]],['Ở Shop Áo Gió',p[4]]]);CARET('f-ps4','psP')}
-drawPS();CARETS.push(()=>CARET('f-ps4','psP'));clickKey('#f-ps4 [data-ps]',a=>{PSi=+a.dataset.ps;drawPS()});PLAY('psPl',4,i=>{PSi=i;drawPS()},3200,PS.map(p=>p[0]));
+  const p=PS[PSi],el=document.getElementById('psP');if(el)el.innerHTML=p?IP(null,null,[['Nghĩa theo APG 2',p[2]],['Team làm gì',p[3]],['Ở Shop Áo Gió',p[4]]]):IP(null,null,[['Cách xem','Bấm 1 giai đoạn để xem chi tiết, hoặc bấm Xem lần lượt để đi qua từng giai đoạn.']]);CARET('f-ps4','psP')}
+drawPS();CARETS.push(()=>CARET('f-ps4','psP'));clickKey('#f-ps4 [data-ps]',a=>{PSi=+a.dataset.ps;drawPS()});PLAY('psPl',4,i=>{PSi=i;drawPS()},3200,PS.map(p=>p[0]),()=>{PSi=-1;drawPS()});
 
 const PE=[['Hỏi câu "ngây ngô", thách thức giả định, chia việc thành phần nhỏ test được mà không ngại. DoR và Working agreements bảo vệ việc hỏi và phản biện, giảm mơ hồ và Risk ẩn trước khi lập kế hoạch.','Không ai hỏi lại Acceptance Criteria chưa rõ của User Story #12. Tới giữa Sprint mới thấy mỗi người hiểu một kiểu.'],
  ['Nói ra giới hạn Capacity, lo ngại kỹ thuật và Risk bàn giao từ sớm, thương lượng Scope công khai, chốt Sprint Goal theo bằng chứng chứ không theo áp lực.','Velocity quá khứ là 20 điểm nhưng Team nhận 30 điểm vì ngại nói không với anh Tuấn.'],
@@ -931,15 +931,15 @@ const LV=[['Problem to Solve','Có vấn đề cần giải','Giải quyết v�
  ['Contest','Tranh thắng thua','Thắng quan trọng hơn giải quyết','Công kích cá nhân, phóng đại "luôn luôn", "không bao giờ": "Frontend lúc nào cũng làm hỏng."','Điều hoà, thương lượng, đưa mọi người về sự việc cụ thể.'],
  ['Crusade','Chiến dịch','Bảo vệ phe mình, loại bỏ phe kia','Ý thức hệ, quy chụp cả phe: "Dân backend không bao giờ hiểu người dùng."','Làm trung gian, gặp riêng từng bên, đưa xung đột về mức 3 hoặc thấp hơn.'],
  ['World War','Chiến tranh','Làm hại bên kia','Gần như không còn đối thoại.','Làm mọi cách để không ai bị tổn hại, có thể phải tách các bên.']];
-let LVi=0;function drawLV(){fig('f-lvl',W,190,()=>{let g='';const OX=36,bw=200,gap=12,B=140;
+let LVi=-1;function drawLV(){fig('f-lvl',W,190,()=>{let g='';const OX=36,bw=200,gap=12,B=140;
   LV.forEach((l,i)=>{const x=OX+10+i*(bw+gap),h=60+i*16,y=B-h,on=i===LVi,tone=['good','good','warn','bad','bad'][i];g+=`<g data-lv="${i}"${on?' data-sel':''} style="cursor:pointer" role="button" tabindex="0" aria-label="Xem mức ${i+1} ${l[0]}">`+R(x,y,bw,h,on?C[tone][0]:C[tone][1],{rx:8,stroke:C[tone][0]})+T(x+14,y+24,(i+1)+'. '+l[0],{s:13.5,w:600,c:on?'#fff':C[tone][2],a:'start'})+T(x+14,y+42,l[1],{s:12,c:on?'#fff':INK2,a:'start'})+'</g>'});
   /* Ngưỡng Adkins 2010: mức 1, 2 Team tự giải quyết, từ mức 3 Agile Coach can thiệp */
   {const xd=OX+10+2*(bw+gap)-gap/2;g+=Ln(`M${xd} 6V${B-2}`,INK2,1.5,'4 4')+T(xd-10,20,'Team tự giải quyết',{s:12,w:600,c:C.good[2],a:'end'})+T(xd+10,20,'Agile Coach can thiệp',{s:12,w:600,c:C.bad[2],a:'start'})}
   g+=A(`M${OX} ${B}H${W-8}`,'neu',{w:1.5})+A(`M${OX} ${B}V8`,'neu',{w:1.5});
   g+=T((OX+W-8)/2,B+26,'Mức xung đột',{s:12,c:MUTE})+T(OX-14,B/2+4,'Độ căng',{s:12,c:MUTE,rot:-90});
   return g},{label:'5 mức xung đột của Leas'});
-  const l=LV[LVi],el=document.getElementById('lvP');if(el)el.innerHTML=IP(null,null,[['Mục tiêu của các bên',l[2]],['Ngôn ngữ',l[3]],['Agile Coach làm gì',l[4]]]);CARET('f-lvl','lvP')}
-drawLV();CARETS.push(()=>CARET('f-lvl','lvP'));clickKey('#f-lvl [data-lv]',a=>{LVi=+a.dataset.lv;drawLV()});PLAY('lvPl',5,i=>{LVi=i;drawLV()},3200,LV.map(l=>l[0]));
+  const l=LV[LVi],el=document.getElementById('lvP');if(el)el.innerHTML=l?IP(null,null,[['Mục tiêu của các bên',l[2]],['Ngôn ngữ',l[3]],['Agile Coach làm gì',l[4]]]):IP(null,null,[['Cách xem','Bấm 1 mức để xem chi tiết, hoặc bấm Xem lần lượt để đi qua từng mức.']]);CARET('f-lvl','lvP')}
+drawLV();CARETS.push(()=>CARET('f-lvl','lvP'));clickKey('#f-lvl [data-lv]',a=>{LVi=+a.dataset.lv;drawLV()});PLAY('lvPl',5,i=>{LVi=i;drawLV()},3200,LV.map(l=>l[0]),()=>{LVi=-1;drawLV()});
 
 /* 2.8 I-shaped và T-shaped */
 const SM0=[[[3,1,0,1,1,3],[1,3,1,1,0,0],[0,1,3,0,0,0],[0,0,0,3,0,0],[1,0,0,1,3,0]],[[3,2,0,2,1,3],[2,3,1,1,0,2],[0,2,3,1,0,0],[1,1,1,3,1,2],[2,0,0,1,3,0]]];
@@ -1133,7 +1133,7 @@ const SRV=[['Remove impediments','xoá trở ngại','Xoá bỏ các trở ngạ
  ['Facilitate|problem solving','giải quyết vấn đề','Tạo điều kiện giải quyết vấn đề thay vì chỉ đạo.','Huy và Mai bất đồng chuyện lưu thẻ. Anh Minh không chọn thay, mà dẫn buổi bàn để Team tự chọn dùng token của PayNhanh (Risk 2 ở 5.5).'],
  ['Grow the team','phát triển Team','Phát triển năng lực của các thành viên.','Anh Minh xếp lịch Pairing để Trang học thêm frontend và thiết kế, từ I-shaped thành T-shaped (2.8).'],
  ['Pave the way','mở đường|để mọi người cống hiến','Mở đường để mọi người cùng cống hiến.','Anh Tuấn muốn thêm ví điện tử giữa Sprint. Anh Minh hướng yêu cầu về chị Lan để đưa vào Product Backlog, Team giữ được Sprint Goal (4.7).']];
-let SRi=0;function drawSRV(){fig('f-srv',W,330,()=>{let g='';
+let SRi=-1;/* -1: chưa chọn khối nào, để Xem lần lượt bước 1 thấy ngay khối sáng lên (#80) */function drawSRV(){fig('f-srv',W,330,()=>{let g='';
   /* Trái: điều phối, thông tin đi từ trên xuống */
   const L=210;g+=T(L,20,'Quản lý điều phối',{s:14,w:600,c:INK})+T(L,38,'Co-ordination',{s:12,c:MUTE});
   g+=R(L-100,64,200,48,C.neu[1],{rx:10,stroke:C.neu[0]})+T(L,85,'Project Manager',{s:13,w:600,c:INK})+T(L,102,'lập kế hoạch, giao việc',{s:12,c:MUTE});
@@ -1151,8 +1151,8 @@ let SRi=0;function drawSRV(){fig('f-srv',W,330,()=>{let g='';
   g+=R(R0-120,246,240,48,C.pri[0],{rx:10})+T(R0,267,'Servant Leader',{s:13,w:600,c:'#fff'})+T(R0,284,'ví dụ: anh Minh, Scrum Master',{s:11.5,c:'#fff'});
   g+=T(R0,318,'Leader đứng dưới, đỡ Team bằng 4 trách nhiệm',{s:12,c:MUTE});
   return g},{label:'Từ quản lý điều phối sang Servant Leadership'});
-  const s=SRV[SRi],el=document.getElementById('srvP');if(el)el.innerHTML=IP(null,null,[['Ở Shop Áo Gió',s[3]]]);CARET('f-srv','srvP')}
-if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','srvP'));clickKey('#f-srv [data-sr]',a=>{SRi=+a.dataset.sr;drawSRV()});PLAY('srvPl',4,i=>{SRi=i;drawSRV()},3200,SRV.map(s=>s[0].replace('|',' ')))}
+  const s=SRV[SRi],el=document.getElementById('srvP');if(el)el.innerHTML=s?IP(null,null,[['Ở Shop Áo Gió',s[3]]]):IP(null,null,[['Cách xem','Bấm 1 trách nhiệm để xem chi tiết, hoặc bấm Xem lần lượt để đi qua từng trách nhiệm.']]);CARET('f-srv','srvP')}
+if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','srvP'));clickKey('#f-srv [data-sr]',a=>{SRi=+a.dataset.sr;drawSRV()});PLAY('srvPl',4,i=>{SRi=i;drawSRV()},3200,SRV.map(s=>s[0].replace('|',' ')),()=>{SRi=-1;drawSRV()})}
 
 /* Hình, bảng có số liệu từ câu chuyện xuyên suốt: thêm dấu Shop Áo Gió vào tên hình (chạy sau khi mọi hình đã vẽ) */
 (function(){const RE=/Shop Áo Gió|Website Gió|Shop online|PayNhanh|chị Lan|anh Minh|anh Tuấn|\bHuy\b|thẻ đã lưu/;
