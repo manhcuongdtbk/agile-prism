@@ -765,18 +765,20 @@ document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/
 /* ---------- Tô sáng điểm đến: giữ tới khi cuộn ra khỏi màn hình ---------- */
 /* Tô sáng khi nhảy tới: vầng sáng mờ dần trong 2,6 giây, không để lại viền. Mã hình đang xem giữ nền hồng tới khi nhảy chỗ khác, để biết mình đang ở đâu */
 /* Quầng tô sáng bám đúng khung nhìn thấy của hình (#86). Khung vẽ trong SVG (1 rect gần bằng cả hình, có nét viền): đặt quầng vào đúng rect đó, bo góc theo rx đã quy đổi. Không có thì quầng theo khung CSS của phần tử, giữ bo góc của nó */
-function HLFIT(el){el.classList.remove('hlin','hlsc');el.style.setProperty('--hlrad',HLRAD(el));const s=el.querySelector(':scope svg.fig');if(!s)return;const scr=el.scrollWidth>el.clientWidth+2;const hb=el.getBoundingClientRect();
+/* Quầng là 1 lớp riêng trên trang (dùng cho hình cuộn ngang): quầng vẽ trong hình bị khung cuộn cắt, vẽ ở viền ngoài thì bao cả thanh cuộn (#102, #105) */
+function HLOV(el,L,T,R,B,rl,rr){el.classList.add('hlsc');const o=document.createElement('div');o.className='hl-ov';Object.assign(o.style,{left:(L+scrollX)+'px',top:(T+scrollY)+'px',width:(R-L)+'px',height:(B-T)+'px',borderRadius:`${rl}px ${rr}px ${rr}px ${rl}px`});
+  document.querySelectorAll('.hl-ov').forEach(x=>x.remove());document.body.appendChild(o);o.addEventListener('animationend',()=>o.remove(),{once:true})}
+function HLFIT(el){el.classList.remove('hlin','hlsc');const rad=HLRAD(el);el.style.setProperty('--hlrad',rad);const hb=el.getBoundingClientRect();
+  /* hình cuộn ngang: vùng thấy = vùng nội dung, không gồm thanh cuộn */
+  const scr=el.scrollWidth>el.clientWidth+2,cl=hb.left+el.clientLeft,ct=hb.top+el.clientTop,cr=cl+el.clientWidth,cb=ct+el.clientHeight;
+  const s=el.querySelector(':scope svg.fig');
   /* khung = 1 rect có viền gần bằng cả hình, hoặc vài rect cao gần bằng hình đặt cạnh nhau (4.3-3: 2 khung) — lấy hộp bao của chúng (#92) */
-  const tall=[...s.querySelectorAll('rect')].filter(r=>{const b=r.getBoundingClientRect();return b.height>=hb.height*0.85&&(r.getAttribute('stroke')||'none')!=='none'});if(!tall.length)return;
+  const tall=s?[...s.querySelectorAll('rect')].filter(r=>{const b=r.getBoundingClientRect();return b.height>=hb.height*0.85&&(r.getAttribute('stroke')||'none')!=='none'}):[];
+  if(!tall.length){if(scr){const r=parseFloat(rad)||0;HLOV(el,cl,ct,cr,cb,r,r)}return}
   const U=tall.map(r=>r.getBoundingClientRect()),b={left:Math.min(...U.map(u=>u.left)),top:Math.min(...U.map(u=>u.top)),right:Math.max(...U.map(u=>u.right)),bottom:Math.max(...U.map(u=>u.bottom))};if(!scr&&b.right-b.left<hb.width*0.9)return;const fr=tall[0];
-  /* hình đang cuộn ngang (điện thoại): quầng vẽ ở chính khung cuộn, vì quầng bên trong bị khung cuộn cắt mất; lấy bo góc của khung SVG (#95) */
-  if(scr){/* hình đang cuộn ngang: quầng là 1 lớp riêng đặt trên trang, đúng phần khung đang thấy (không gồm thanh cuộn), vì quầng vẽ trong hình bị khung cuộn cắt (#102) */
-    const rx=(+fr.getAttribute('rx')||0)*s.getBoundingClientRect().width/(s.viewBox.baseVal.width||1),cl=hb.left+el.clientLeft,ct=hb.top+el.clientTop,cr=cl+el.clientWidth,cb=ct+el.clientHeight;
-    const L=Math.max(b.left,cl),T=Math.max(b.top,ct),R=Math.min(b.right,cr),B=Math.min(b.bottom,cb),rl=b.left>=cl-1?rx:0,rr=b.right<=cr+1?rx:0;
-    el.classList.add('hlsc');const o=document.createElement('div');o.className='hl-ov';Object.assign(o.style,{left:(L+scrollX)+'px',top:(T+scrollY)+'px',width:(R-L)+'px',height:(B-T)+'px',borderRadius:`${rl}px ${rr}px ${rr}px ${rl}px`});
-    document.querySelectorAll('.hl-ov').forEach(x=>x.remove());document.body.appendChild(o);o.addEventListener('animationend',()=>o.remove(),{once:true});return}
-  const k0=0,k=s.getBoundingClientRect().width/(s.viewBox.baseVal.width||s.getBoundingClientRect().width);
-  el.style.setProperty('--hlt',(b.top-hb.top)+'px');el.style.setProperty('--hll',(b.left-hb.left)+'px');el.style.setProperty('--hlr',(hb.right-b.right)+'px');el.style.setProperty('--hlb',(hb.bottom-b.bottom)+'px');el.style.setProperty('--hlrad',((+fr.getAttribute('rx')||0)*k)+'px');el.classList.add('hlin')}
+  const k=s.getBoundingClientRect().width/(s.viewBox.baseVal.width||s.getBoundingClientRect().width),rx=(+fr.getAttribute('rx')||0)*k;
+  if(scr){HLOV(el,Math.max(b.left,cl),Math.max(b.top,ct),Math.min(b.right,cr),Math.min(b.bottom,cb),b.left>=cl-1?rx:0,b.right<=cr+1?rx:0);return}
+  el.style.setProperty('--hlt',(b.top-hb.top)+'px');el.style.setProperty('--hll',(b.left-hb.left)+'px');el.style.setProperty('--hlr',(hb.right-b.right)+'px');el.style.setProperty('--hlb',(hb.bottom-b.bottom)+'px');el.style.setProperty('--hlrad',rx+'px');el.classList.add('hlin')}
 /* Bo góc của quầng: khung của chính phần tử nếu có; không có khung thì lấy bo góc của khối con nằm ở góc trên trái (thẻ, ô của hình), để quầng ôm theo các góc nhìn thấy. Không tìm được: 10px (#89) */
 function HLRAD(el){const vis=e=>{const c=getComputedStyle(e);return c.borderTopWidth!=='0px'||c.backgroundColor!=='rgba(0, 0, 0, 0)'||c.boxShadow!=='none'};if(vis(el))return getComputedStyle(el).borderRadius;
   const hb=el.getBoundingClientRect();for(const e of el.querySelectorAll('*')){if(e.closest('svg'))continue;const b=e.getBoundingClientRect();if(Math.abs(b.left-hb.left)<3&&Math.abs(b.top-hb.top)<3&&b.width>20&&vis(e))return getComputedStyle(e).borderRadius;if(b.top-hb.top>3)break}return '10px'}
