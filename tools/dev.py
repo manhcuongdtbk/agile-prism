@@ -8,7 +8,7 @@ DEV={'S23U dọc':(384,740,3.75,1),'S23U ngang':(823,310,3.75,1),'S25+ dọc':(3
 FZ=re.search(r"JS=r'''(.*?)'''",open(_o.path.join(ROOT,'tools','fz.py')).read(),re.S).group(1)
 MOB=re.search(r"JS=r'''(.*?)'''",open(_o.path.join(ROOT,'tools','mob2.py')).read(),re.S).group(1)
 CFD=r'''async(inOv)=>{const out=[],sl=ms=>new Promise(r=>setTimeout(r,ms));const c=document.getElementById('f-cfd');
- if(inOv){const b=c.previousElementSibling;if(!b||!b.offsetParent)return ['không có nút Xem cả hình'];b.click();await sl(80)}else{c.scrollIntoView({block:'center',behavior:'instant'});await sl(80)}
+ if(inOv){const b=document.querySelector(`[data-fz="${c.id}"]`);if(!b||!b.offsetParent)return ['không có nút Xem cả hình'];b.click();await sl(80)}else{c.scrollIntoView({block:'center',behavior:'instant'});await sl(80)}
  const svg=c.querySelector('svg'),rd=document.getElementById('cfdRead'),m=svg.getScreenCTM(),got=[];
  for(const d of [3,10,17]){const p=new DOMPoint(60+37*d,180).matrixTransform(m);if(!inOv&&(p.x<0||p.x>innerWidth))continue;/* ngoài trang, hình rộng cuộn ngang: điểm ngoài màn thì bỏ qua */const el=document.elementFromPoint(p.x,p.y);
    if(!el||el.id!=='cfdHit'){out.push(['ngày '+d+': chỗ chạm bị che bởi',el&&(el.id||el.className.baseVal||el.className||el.tagName)]);continue}
@@ -21,7 +21,7 @@ CFD=r'''async(inOv)=>{const out=[],sl=ms=>new Promise(r=>setTimeout(r,ms));const
 
 def drag(pg):
     """Kéo ngón tay thật (CDP touch) trên CFD trong lớp phủ: ngày phải đổi theo từng bước kéo"""
-    pg.evaluate("()=>{FZ.close();document.getElementById('f-cfd').previousElementSibling.click()}");pg.wait_for_timeout(150)
+    pg.evaluate("()=>{FZ.close();document.querySelector('[data-fz=f-cfd]').click()}");pg.wait_for_timeout(150)
     pts=pg.evaluate("()=>{const s=document.querySelector('#f-cfd svg'),m=s.getScreenCTM();return [3,6,9,12].map(d=>{const q=new DOMPoint(60+37*d,180).matrixTransform(m);return [q.x,q.y]})}")
     c=pg.context.new_cdp_session(pg);c.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':pts[0][0],'y':pts[0][1]}]});got=[]
     for x,y in pts[1:]:
@@ -34,8 +34,8 @@ def rot(pg,a,b):
     """Xoay máy giữa chừng: đọc ở 6.1, mở lớp phủ CFD, xoay; đóng, xoay lại: chỗ đang đọc vẫn trong màn, không tràn ngang"""
     out=[];pg.set_viewport_size({'width':a[0],'height':a[1]});pg.wait_for_timeout(200)
     pg.evaluate("()=>document.getElementById('s6-1').scrollIntoView({behavior:'instant'})");pg.wait_for_timeout(100)
-    if pg.evaluate("()=>!!document.getElementById('f-cfd').previousElementSibling.offsetParent"):
-        pg.evaluate("()=>document.getElementById('f-cfd').previousElementSibling.click()");pg.wait_for_timeout(150)
+    if pg.evaluate("()=>!!document.querySelector('[data-fz=f-cfd]').offsetParent"):
+        pg.evaluate("()=>document.querySelector('[data-fz=f-cfd]').click()");pg.wait_for_timeout(150)
         for v in (b,a):
             pg.set_viewport_size({'width':v[0],'height':v[1]});pg.wait_for_timeout(250);out+=pg.evaluate(ROTJS)
         pg.evaluate("()=>FZ.close()")
