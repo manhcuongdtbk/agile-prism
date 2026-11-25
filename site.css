@@ -1024,8 +1024,8 @@ html:focus,body:focus,main:focus{outline:none}
 .spec code,.ds-dev code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 4px;white-space:nowrap}
 .ds-dev{font-size:13px;color:var(--ink2);background:var(--warn-soft,#fcf2e3);border:1px solid #ecd9b0;border-radius:8px;padding:8px 12px;margin:12px 0}
 /* Vòng 29: xem cả hình trên điện thoại */
-.fz-b{display:none}
-@media (max-width:760px),(max-height:520px){.fz-b{display:flex;width:fit-content;align-items:center;gap:4px;margin:0 0 6px auto;font:inherit;font-size:12.5px;color:var(--pri-ink);background:#fff;border:1.5px solid var(--pri-mid);border-radius:999px;padding:4px 12px;cursor:pointer}
+.fz-b,.fz-b.btn{display:none}
+@media (max-width:760px),(max-height:520px){.fz-b.btn{display:inline-flex;margin:0 0 6px auto;color:var(--pri-ink)}:is(.scen,.dctl)>.fz-b.btn{margin:0}
 }
 .fz{position:fixed;inset:0;z-index:200;background:#fff;overflow:hidden}
 .fz-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:stretch;justify-content:safe center;gap:6px;padding:8px 52px 8px 8px;overflow-y:auto;overscroll-behavior:contain}
@@ -1226,3 +1226,8 @@ html.has-ds .lg-dev{display:flex!important}
 .bi{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px}
 :is(button,.btn,.fz-b,.back):has(>.bi){align-items:center;justify-content:center;gap:5px}/* không đặt display ở đây: mỗi nút tự quyết hiện, ẩn (PR #58 từng làm hiện nút ⤢ trên máy tính) */
 .stp-nav .btn.sq .bi{width:16px;height:16px}.fz-x .bi{width:16px;height:16px}
+/* Phone: số trên thanh điều hướng giữa pill (tên mục ẩn thì bỏ lề chừa cho tên) */
+@media (max-width:760px){nav.top .nv b{margin-right:0}}
+/* Xem lần lượt: 1 nhịp mờ trước bước 1 (core.js STEP) */
+svg.fig,.ipan,.read{transition:opacity .3s}.pl-pre svg.fig,.pl-pre .ipan,.pl-pre .read{opacity:.15}
+.fz .fz-ctl .fz-b{display:none!important}
