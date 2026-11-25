@@ -340,7 +340,8 @@ section.part{margin-top:56px;scroll-margin-top:64px}
 .up span{position:absolute;left:12px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--sm-ink)}
 .up.u1{grid-column:3}
 .up.u2{grid-column:5}
-@media (max-width:900px){
+/* Hình 2.5-1 (.rmap): dưới 1180px xếp dọc (cùng mốc 1180 của thanh điều hướng). Mốc này dùng ở 4 media query của .rmap, .rm-svg, .rm-ar; JS (rmap trong draw.js) đọc theo CSS: .rm-svg bị ẩn thì không vẽ. Bố cục lưới cần >1180px, hẹp hơn thì cột vai trò còn ~100px và nhãn Impediment tràn mép */
+@media (max-width:1180px){
 .rmap{display:block}
 .rmap>*{margin:10px 0}
 .rm-ar,.up,.lp{display:none}
@@ -635,7 +636,7 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 .lg.hit{background:var(--pri-soft);border-radius:6px}
 @keyframes hlr{0%,55%{box-shadow:0 0 0 2px var(--pri),0 0 0 9px rgba(214,69,122,.16)}100%{box-shadow:0 0 0 2px rgba(214,69,122,0),0 0 0 9px rgba(214,69,122,0)}}
 @keyframes hlb{0%,55%{background-color:var(--pri-soft)}100%{background-color:transparent}}
-main .hit:not(tr):not(.k):not(.d){animation:hlr 3.2s ease-out;border-radius:10px}.refs .k.hit,.refs .d.hit,tr.hit td{animation:hlb 3.2s ease-out}
+main .hit:not(tr):not(.k):not(.d):not(.hlin){animation:hlr 3.2s ease-out;border-radius:var(--hlrad,10px)}.refs .k.hit,.refs .d.hit,tr.hit td{animation:hlb 3.2s ease-out}
 
 .stp{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}.stp-nav{display:inline-flex;align-items:center;gap:6px}
 .btn.sq{width:30px;height:30px;padding:0;justify-content:center;font-size:17px;line-height:1}.btn.sq:disabled{opacity:.35;cursor:default}
@@ -652,7 +653,7 @@ table.smt{table-layout:fixed}table.smt th:first-child{width:150px}table.smt th:l
 .pers{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin:0 0 14px}.pc{border:1.5px solid var(--line);border-radius:var(--r);padding:12px 16px;background:var(--surface)}.pc h4{margin:0 0 2px;font-size:15px}.pc .pmeta{font-size:12.5px;color:var(--mute);margin-bottom:8px}.pc dl{display:grid;grid-template-columns:86px 1fr;gap:4px 10px;margin:0;font-size:13.5px}.pc dt{color:var(--mute);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}.pc dd{margin:0;color:var(--ink2)}
 .chap{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:0 0 14px}.chap a{display:flex;gap:8px;align-items:flex-start;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:8px 10px;text-decoration:none;color:var(--ink2);font-size:13px;background:var(--surface)}.chap a:hover{border-color:var(--pri)}.chap b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--pri-soft);color:var(--pri-ink);display:grid;place-items:center;font-size:12px}.chap small{display:block;color:var(--mute);font-size:11.5px}
 .ixc{position:relative;isolation:isolate}.ixc>.lead{position:absolute;width:2px;background:var(--pri-mid);pointer-events:none}.ixc .ipan{box-shadow:inset 0 0 0 1.5px var(--pri-mid)}.ipan.car::after{content:'';position:absolute;top:-11.5px;left:calc(var(--cx) - 11px);border:11px solid transparent;border-top:0;border-bottom-color:var(--pri-mid);z-index:-1}
-*{scrollbar-width:thin;scrollbar-color:#d4d6dc transparent}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d6dc;border-radius:999px;border:3px solid var(--surface)}::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}
+
 .smx{position:relative}.smm{position:absolute;z-index:5;width:200px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);box-shadow:0 10px 28px rgba(20,22,30,.16);padding:4px}.smm button{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;padding:6px 8px;border-radius:6px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer;text-align:left}.smm button:hover,.smm button:focus{background:var(--soft);outline:none}.smm button[aria-checked=true]{font-weight:600}.smm i{font-style:normal;width:22px;height:20px;border-radius:5px;display:grid;place-items:center;font-size:12px;font-weight:600}
 .dr-t{display:flex!important;flex-direction:column;gap:10px;align-items:stretch!important}.dr-r1{display:flex;gap:14px;align-items:center}.dr-r1 .srch{flex:1;min-width:0}.dr-r1 .srch input{width:100%!important;max-width:none!important;box-sizing:border-box;padding-right:34px}.dr-r2{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.flt-l{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-right:2px}.dr-t .cnt{margin-left:auto;white-space:nowrap}
 .fg-best{font-size:11.5px;font-weight:600;color:var(--pri-ink);padding:8px 10px 2px}#fgL a.best{background:var(--pri-soft)}
@@ -816,13 +817,14 @@ nav.top a.nv-gio{display:inline-flex;align-items:center;border-color:var(--gio-m
 .lg-st{display:inline-flex;gap:3px;align-items:center;width:26px;justify-content:center}.lg-st i{width:6px;height:6px;border-radius:50%;background:var(--line)}.lg-st i.on{background:var(--pri);width:9px;border-radius:4px}
 /* Tô sáng khi nhảy tới: chỉ 1 quầng mềm, không viền; giữ 2 giây rồi tắt dần */
 @keyframes hlr{0%,60%{box-shadow:0 0 24px 8px rgba(214,69,122,.5)}100%{box-shadow:0 0 24px 8px rgba(214,69,122,0)}}
-main .hit:not(tr):not(.k):not(.d){animation:hlr 3.4s ease-out;border-radius:10px}
+main .hit:not(tr):not(.k):not(.d):not(.hlin){animation:hlr 3.4s ease-out;border-radius:var(--hlrad,10px)}/* giữ bo góc của chính khung, không ép 10px (#86) */
+main .hit.hlin{position:relative}main .hit.hlin::after{content:'';position:absolute;top:var(--hlt);left:var(--hll);right:var(--hlr);bottom:var(--hlb);border-radius:var(--hlrad);animation:hlr 3.4s ease-out;pointer-events:none}
 /* Mọi đích nhảy tới chừa chỗ cho thanh điều hướng và quầng tô sáng */
 main [id]{scroll-margin-top:96px}main section.part{scroll-margin-top:64px}main .card{scroll-margin-top:72px}
 /* Thanh cuộn: trình duyệt hỗ trợ ::-webkit-scrollbar (Chrome, Edge, Safari) dùng bản có màu khi rê chuột, Firefox dùng bản mảnh */
 *{scrollbar-width:auto;scrollbar-color:auto}
-@supports not selector(::-webkit-scrollbar){*{scrollbar-width:thin;scrollbar-color:#d4d6dc transparent}}
-::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}::-webkit-scrollbar-thumb:active{background:var(--pri)}
+@supports not selector(::-webkit-scrollbar){}
+
 /* Khung chi tiết: không còn đường nối, chỉ mũi nhọn sát hình */
 .ixc>.lead{display:none}.ixc .ipan{margin-top:10px}
 /* Hàng điều khiển: cùng 1 kiểu ở mọi hình. Bộ chọn → Xem lần lượt và bước → Làm lại sát phải */
@@ -891,7 +893,7 @@ table.t th,table.t td{min-width:140px}table.t th:first-child,table.t td:first-ch
 /* Vòng 25: khung chi tiết kiểu ô thoại. Đuôi cong vẽ bằng SVG, cạnh dưới đè lên viền khung nên liền mạch */
 .ipan{border:0!important;background:var(--pri-soft)!important;box-shadow:inset 0 0 0 1.5px var(--pri-mid)!important;border-radius:14px!important;margin-top:18px!important}
 .ipan.car::after{display:none!important}
-.ipan.car::before{content:''!important;position:absolute;top:-19px!important;left:calc(var(--cx) - 15px)!important;width:46px!important;height:21px!important;border:0!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 21'%3E%3Cpath d='M0 20.2C9 19 14 12 15 1c4 9 13 17 31 19.2V21H0z' fill='%23fdedf3'/%3E%3Cpath d='M0 20.2C9 19 14 12 15 1c4 9 13 17 31 19.2' fill='none' stroke='%23f2a7c1' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat!important}
+.ipan.car::before{content:''!important;position:absolute;top:-19px!important;left:calc(var(--cx) - 15px)!important;width:46px!important;height:21px!important;border:0!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 21'%3E%3Cpath d='M0 19.75C8 19.75 13.5 13 15 1C17 11 27 19.75 46 19.75V21H0z' fill='%23fdedf3'/%3E%3Cpath d='M0 19.75C8 19.75 13.5 13 15 1C17 11 27 19.75 46 19.75' fill='none' stroke='%23f2a7c1' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat!important}
 /* Vòng 25: Increment do cả Scrum Team bàn giao (Scrum Guide 2020), nên mũi tên đi ra từ viền Scrum Team, màu trung tính */
 .rmap .lp{border-color:var(--ink2)!important}.rmap .lp1::after{border-top-color:var(--ink2)!important}.rmap .lp2 span{color:var(--ink)!important}.rmap .lp3{height:30px!important}
 /* Vòng 25: mọi vùng bấm được trong SVG đậm viền khi rê chuột, để biết đang trỏ vào phần tử nào */
@@ -972,10 +974,10 @@ dl.nm dt.o{color:var(--warn-ink,#704a00);background:#fcf2e3}
 .rm-key{margin-top:12px}
 .ln{display:inline-block;width:22px;height:0;border-top:2px solid var(--ink2);vertical-align:4px;margin-right:6px}
 .ln.ln-d{border-top:3px solid var(--ink)}.ln.ln-s{border-top-color:var(--sm)}
-@media (max-width:760px){.rmap{padding:34px 12px 12px}.rm-key{flex-wrap:wrap}}
+@media (max-width:1180px){.rmap{padding:34px 12px 12px}.rm-key{flex-wrap:wrap}}
 .rz h4 span{display:block;font-size:12px;margin-top:2px}
 @media (max-width:760px){.rz.sm,.rz.sm ul{grid-template-columns:1fr!important}.rz.sm{gap:10px}}
-@media (max-width:760px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
+@media (max-width:1180px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
 
 /* Vòng 28: Glossary, thiết kế lại.
    Ô Nghĩa: nhãn Cách gọi khác, Tên cũ, Không nhầm với nằm riêng 1 dòng, giá trị bên dưới dùng hết bề rộng ô (không bị dồn sang phải). 1 ý phụ là đoạn xám, không gạch đầu dòng.
@@ -1004,7 +1006,7 @@ nav.top a.nv-gio.on .gm,nav.top a.nv-gio[aria-current] .gm{color:#fff!important}
 .rm-l b{font-weight:600;color:var(--ink)}
 .rm-l a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
 .rm-l.rl-st,.rm-l.rl-sp,.rm-l.rl-sd,.rm-l.rl-so{color:var(--sm-ink)}
-@media (max-width:760px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
+@media (max-width:1180px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
 /* Vòng 29: số mục trong chữ của hình, ví dụ (4.9), là liên kết: gạch chân chấm, rê chuột đổi màu hồng */
 svg.fig a.secl{cursor:pointer}svg.fig a.secl text{text-decoration:underline dotted;text-underline-offset:2px}
 svg.fig a.secl:hover text{fill:var(--pri-ink)!important;text-decoration-style:solid}
@@ -1023,20 +1025,24 @@ html:focus,body:focus,main:focus{outline:none}
 .spec code,.ds-dev code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 4px;white-space:nowrap}
 .ds-dev{font-size:13px;color:var(--ink2);background:var(--warn-soft,#fcf2e3);border:1px solid #ecd9b0;border-radius:8px;padding:8px 12px;margin:12px 0}
 /* Vòng 29: xem cả hình trên điện thoại */
-.fz-b{display:none}
-@media (max-width:760px){.fz-b{display:flex;width:fit-content;align-items:center;gap:4px;margin:0 0 6px auto;font:inherit;font-size:12.5px;color:var(--pri-ink);background:#fff;border:1.5px solid var(--pri-mid);border-radius:999px;padding:4px 12px;cursor:pointer}
+.fz-b,.fz-b.btn{display:none}
+@media (max-width:760px),(max-height:520px){.fz-b.btn{display:inline-flex;margin:0 0 6px auto;color:var(--pri-ink)}:is(.scen,.dctl)>.fz-b.btn{margin:0}
 }
 .fz{position:fixed;inset:0;z-index:200;background:#fff;overflow:hidden}
-.fz-in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px}
-.fz-in svg{width:100%;height:auto;max-height:100%}
-.fz-in.rot{inset:auto;left:0;top:0;width:100vh;height:100vw;transform:rotate(90deg) translateY(-100%);transform-origin:top left}
+.fz-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:stretch;justify-content:safe center;gap:6px;padding:8px 52px 8px 8px;overflow-y:auto;overscroll-behavior:contain}
+.fz-in.rot{inset:auto;left:0;top:0;width:100vh;width:100dvh;height:100vw;padding:8px 8px 8px 52px;transform:rotate(90deg) translateY(-100%);transform-origin:top left}
+.fz-ctl:empty,.fz-pan:empty{display:none}.fz-ctl>*{margin:0!important}.fz-fig{flex:0 0 auto;display:flex;justify-content:center}
+.fz-live{overflow:visible!important;width:100%;display:flex;justify-content:center}.fz-live>svg.fig{min-width:0!important;width:100%;max-width:100%!important;height:auto;max-height:var(--fzh,calc(100vw - 24px))}
+
+.fz-pan{flex:0 0 auto;font-size:13px}.fz-pan>*{margin:0!important}
+html:has(.fz) .drawer,html:has(.fz) .lg-pop{z-index:210}html:has(.fz) .tip{z-index:220}
 .fz-x{position:absolute;right:10px;top:10px;z-index:2;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:16px;cursor:pointer}
 /* Vòng 30 */
 .fanc{display:block;height:0;scroll-margin-top:90px}
 .sense+.sense{border-top:0!important;margin-top:12px!important;padding-top:0!important}
 table.gl th .srt{text-transform:none;letter-spacing:0;display:inline-flex;align-items:center;gap:3px;font-weight:500;font-size:12px;color:var(--pri-ink);border:1.5px solid var(--pri-mid);border-radius:999px;padding:1px 8px;margin-left:4px;cursor:pointer;background:#fff}
 table.gl th:has(.srt):hover .srt{background:var(--pri-soft,#fdeef4)}
-#fgD .seg,#fgD .seg button{flex:none}
+@media (min-width:761px){#fgD .seg,#fgD .seg button{flex:none}}/* chỉ máy tính: ≤760px Danh mục dùng chung luật .dr-r2 .seg.segsel với Glossary (#47) */
 .lg-alt{display:block;margin-top:4px;font-size:12px;color:var(--mute)}
 .os-mac .os-w,.os-win .os-m{display:none}
 .lg-dev{grid-column:1/-1;margin:14px 0 0;font-size:12px;color:var(--mute)}.lg-dev a{color:var(--ink2)}
@@ -1206,3 +1212,116 @@ html.has-ds .lg-dev{display:flex!important}
 .brand b{display:block;font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
 .brand small{display:block;font-size:12.5px;color:var(--mute);font-weight:500}
 .brand:hover b{color:var(--pri-ink)}
+/* Chú giải trên điện thoại (#47): ngăn kéo rộng hết màn như mọi ngăn kéo khác (luật .drawer ≤760px bị .lgd ghi đè), mỗi dòng 2 cột: ký hiệu | tên, mô tả nằm dưới tên */
+@media (max-width:760px){.drawer.lgd{width:100vw!important}.lgd .lg{grid-template-columns:62px minmax(0,1fr)!important;align-items:start;row-gap:2px}.lgd .lg>.lg-d{grid-column:2}}
+/* CFD trong lớp phủ: kéo hướng nào cũng chỉ đọc ngày, không cuộn (#50) */
+.fz #f-cfd>svg{touch-action:none}/* touch-action phải đặt ở thẻ svg, Chrome bỏ qua nó trên phần tử con trong SVG. Ngoài lớp phủ giữ mặc định: kéo ngang là cuộn hình rộng, chạm để đọc ngày */
+.fz-in.side{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,27%);grid-template-rows:auto minmax(0,1fr);gap:8px 12px;align-items:center}
+.fz-in.side .fz-ctl{grid-column:1/-1}.fz-in.side .fz-fig{grid-column:1;grid-row:2;min-height:0;align-self:center}.fz-in.side .fz-pan{grid-column:2;grid-row:2;align-self:stretch;overflow-y:auto;max-height:100%}
+.fz-in.side .fz-pan .read,.fz-in.side .fz-pan .ipan{padding:8px 10px;font-size:12px;line-height:1.35}.fz-in.side .fz-pan .read *{font-size:inherit}
+/* Hình 2.5-1 xếp dọc (≤1180px, #18): nhãn Stakeholders là dòng đầu; khung Scrum Team thành tiêu đề nhóm ngay trên 3 vai trò, không đè nhãn khác */
+@media (max-width:1180px){.rmap{display:flex!important;flex-direction:column;padding-top:16px!important}.rmap .shb{position:static!important;order:0;padding:0!important;background:none!important}.rmap .rm-cust{order:1}
+.rmap .stb{order:2;border:0!important;margin:14px 0 -2px!important;height:auto;grid-column:auto;grid-row:auto}.rmap .stb span{position:static!important;padding:0!important;background:none!important}
+.rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}}
+/* Icon SVG trong nút (.bi): cùng cỡ, giữa theo chiều dọc với chữ, mọi máy như nhau */
+.bi{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px}
+:is(button,.btn,.fz-b,.back):has(>.bi){align-items:center;justify-content:center;gap:5px}/* không đặt display ở đây: mỗi nút tự quyết hiện, ẩn (PR #58 từng làm hiện nút ⤢ trên máy tính) */
+.stp-nav .btn.sq .bi{width:16px;height:16px}.fz-x .bi{width:16px;height:16px}
+/* Phone: số trên thanh điều hướng giữa pill (tên mục ẩn thì bỏ lề chừa cho tên) */
+@media (max-width:760px){nav.top .nv b{margin-right:0}}
+/* Xem lần lượt: mỗi bước khối đang chọn và ô kết quả loé viền (core.js STEP hit) */
+@keyframes plhit{0%,100%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}25%,65%{filter:drop-shadow(0 0 10px rgba(214,69,122,.9))}45%{filter:drop-shadow(0 0 3px rgba(214,69,122,.4))}}
+@keyframes plbox{0%,100%{box-shadow:0 0 0 0 rgba(214,69,122,0)}25%,65%{box-shadow:0 0 0 5px rgba(214,69,122,.45)}45%{box-shadow:0 0 0 2px rgba(214,69,122,.2)}}
+g.pl-hit,[data-sel].pl-hit{animation:plhit 1.3s ease-out}.ipan.pl-hit,.read.pl-hit{animation:plbox 1.3s ease-out}
+@media (prefers-reduced-motion:reduce){.pl-hit{animation:none!important}}
+.fz .fz-ctl .fz-b{display:none!important}
+/* Phone: thanh điều khiển hình căn trái hết, không so le trái phải (#77) */
+@media (max-width:760px){.stp-rs,#kReset,#pReset,#svRs,.dctl .btn:has(use[href="#i-reset"]),.scen .btn:has(use[href="#i-reset"]){margin-left:0}:is(.scen,.dctl)>.fz-b.btn{margin-left:0}}
+/* Lớp phủ: ô kết quả dưới hình giữ chiều cao cố định (fit() đặt min-height), hình không nhảy khi chữ xuống dòng (#77) */
+.fz-in:not(.side) .fz-pan{flex:0 0 auto}
+/* Nhãn "Bước x/n: …": phone đặt riêng 1 dòng, không xuống dòng, để các bước dài ngắn khác nhau không đẩy hình lên xuống (#80) */
+@media (max-width:760px){.stp,.stp-nav{flex-wrap:wrap!important;max-width:100%}.stp-n{flex:1 0 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.5em;max-width:100%}}
+/* 1 kiểu tô sáng cho mọi nơi (nhảy tới hình, bảng, dòng; Xem lần lượt): quầng hồng mềm theo góc bo của khung, hiện dần rồi tắt dần, 1 nhịp (#83). Khối trong SVG dùng drop-shadow, bám theo hình khối */
+@keyframes hlr{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes hlr2{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes plbox{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes plhit{0%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}18%,62%{filter:drop-shadow(0 0 7px rgba(214,69,122,.75))}100%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}}
+g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-hit{animation:plbox 2s ease-in-out}
+/* Nút "◀ tên khối" khi khối đang chọn bị khung cuộn che (#83) */
+.car-hint{position:absolute;top:-13px;left:14px;display:inline-flex;align-items:center;gap:3px;max-width:75%;padding:3px 10px;font:inherit;font-size:12px;color:var(--pri-ink);background:#fff;border:1.5px solid var(--pri-mid);border-radius:999px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:2}
+.car-hint.r{left:auto;right:14px}.car-hint[hidden]{display:none}.car-hint .bi{width:12px;height:12px}
+/* Lớp phủ: thanh điều khiển 1 hàng (luật phone theo bề ngang thật không áp vào khung đã xoay) (#83) */
+.fz .fz-ctl>*{flex-wrap:nowrap!important}.fz .stp,.fz .stp-nav{flex-wrap:nowrap!important}.fz .stp-n{flex:0 1 auto!important;min-width:0}
+.fz :is(.scen,.dctl){display:flex;align-items:center;gap:10px;flex-wrap:nowrap}.fz .stp-rs,.fz .scen .btn:has(use[href="#i-reset"]),.fz .dctl .btn:has(use[href="#i-reset"]){margin-left:auto!important}
+/* Hình 2.4-1 trải đủ bề ngang như 2 khối Information Radiator/Dashboard bên dưới (#86) */
+.rad{flex-wrap:nowrap}.rad figure{flex:1 1 0;min-width:0}@media (max-width:760px){.rad{gap:8px}.rad figure{padding:6px;font-size:12px}}
+.rad figure>div{width:100%;height:auto;aspect-ratio:300/140}
+.rad figure>div>svg{width:100%;height:100%;display:block}
+@media (max-width:760px){.irad{grid-template-columns:1fr}}
+/* Khung chi tiết chỉ có 1 ý: bỏ thẻ trắng lồng bên trong, tránh hộp trong hộp lệch phong cách với hình (#86) */
+.ip-g>div:only-child{background:none!important;padding:0;font-size:14px;color:var(--ink)}
+
+/* Lớp phủ Xem cả hình không dùng nút chỉ khối (#89) */
+.fz .car-hint{display:none!important}
+/* Nút chỉ khối: tên dài thì cắt ở cuối bằng "…", không tràn ra khỏi ô (#89) */
+.car-hint{max-width:calc(100% - 28px)}.car-hint>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.car-hint .bi{flex:none}
+/* Ô chỉ số trong Xem cả hình: mỗi dòng 1 hàng, nhãn dài cắt "…", số cố định bề ngang, để kéo trên biểu đồ không làm chữ xuống dòng (#95). Bố cục dưới hình: chia 2 cột cho vừa, thừa thì cuộn */
+.fz .read .row{flex-wrap:nowrap;align-items:baseline}
+.fz .read .row>:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fz .read .row b,.read .row b{font-variant-numeric:tabular-nums;flex:none}
+.fz-in:not(.side) .fz-pan{overflow-y:auto;max-height:45%}
+/* Nút bật/tắt (aria-pressed, chọn nhiều): dạng chip nhỏ có ô đánh dấu, khác hẳn nút hành động (Xem lần lượt, Làm lại). Nhóm có tên hiện ở đầu (#95, Hình 5.6-1) */
+.btn[aria-pressed]{border-radius:999px;padding:5px 12px 5px 9px;font-size:13px;min-height:0;gap:6px}
+.btn[aria-pressed]::before{content:'';width:12px;height:12px;border-radius:3px;border:1.5px solid var(--ink3,#9aa0aa);flex:none;box-sizing:border-box}
+.btn[aria-pressed=true]{background:var(--pri-soft);color:var(--pri-ink);border-color:var(--pri-mid)}
+.btn[aria-pressed=true]::before{border-color:var(--pri);background:var(--pri) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
+[role=group]:has(>.btn[aria-pressed])::before{content:attr(aria-label);font-size:12.5px;color:var(--ink2);font-weight:500}
+@media (max-width:760px){[role=group]:has(>.btn[aria-pressed])::before{flex-basis:100%}
+  :is(.vtg)>.fz-b.btn{margin-left:0}}
+/* Lớp phủ: chữ trong nút không bao giờ xuống dòng; hàng điều khiển dài (nhiều chip như 5.6-1) thì xuống thành nhiều hàng, không ép nút hẹp lại (#95) */
+.fz .fz-ctl .btn{white-space:nowrap;flex:none}
+.fz .fz-ctl>*:has(>.btn[aria-pressed]){flex-wrap:wrap!important;row-gap:6px}
+.fz [role=group]:has(>.btn[aria-pressed])::before{display:none}
+.fz .btn[aria-pressed]{padding:3px 10px 3px 8px;font-size:12px}
+
+/* Thanh "Có bản mới" (#95) */
+
+/* Quầng trên hình có mép mờ (đang cuộn ngang): bỏ mép mờ trong lúc tô sáng, vì mask cắt mất quầng vẽ ra ngoài (#99) */
+/* 5.6-1: chọn được nhiều cải tiến cùng lúc, nên trình bày đúng là ô đánh dấu (checkbox) kèm chữ: không viền nút, không nền (#99) */
+.btn[aria-pressed],.btn[aria-pressed=true]{border-color:transparent;background:none;border-radius:6px;padding:4px 8px 4px 2px;color:var(--ink);font-weight:500;box-shadow:none}
+.btn[aria-pressed]::before{width:16px;height:16px;border-radius:4px}
+.btn[aria-pressed=true]::before{background-size:12px}
+@media (hover:hover){.btn[aria-pressed]:hover{background:var(--soft)}}
+
+/* Dòng Chú giải được mở tới: cùng 1 kiểu quầng tô sáng như mọi chỗ (#99) */
+.lg.hit{background:none!important;border-radius:8px;animation:hlr 3.4s ease-out}
+/* Điện thoại: thanh điều khiển xếp theo thứ tự Xem lần lượt / ‹ chấm › / Làm lại, Xem cả hình / nhãn bước. Nhãn bước nằm cuối, sát hình, chỗ của nó giữ sẵn nên không nhảy; Làm lại, Xem cả hình nằm ngay dưới hàng chấm, không bị tách xa (#102) */
+@media (max-width:760px){
+  main .stp,main .stp>.stp-nav{display:contents}
+  main :has(>.stp)>.stp>.play{order:2}
+  main :has(>.stp)>.stp::after{content:'';flex-basis:100%;order:3}
+  main :has(>.stp)>.stp>.stp-nav>:not(.stp-n){order:4}
+  main :has(>.stp)>.stp>.stp-nav::after{content:'';flex-basis:100%;order:5}
+  main :has(>.stp)>:is(.stp-rs,.fz-b,[id$=Reset],#svRs,.btn:has(use[href="#i-reset"])){order:6}
+  main :has(>.stp)>.stp>.stp-nav>.stp-n{order:7;flex-basis:100%}
+  main [role=group]:has(>.btn[aria-pressed])>.btn[aria-pressed]{flex-basis:100%;justify-content:flex-start}
+}
+
+/* Quầng của hình đang cuộn ngang: lớp riêng trên trang (#102) */
+main .hit.hlsc{animation:none!important}
+.hl-ov{position:absolute;pointer-events:none;z-index:5;animation:hlr 3.4s ease-out}
+
+/* Chỗ cuộn ngang được: bóng mờ ở mép còn nội dung, vẽ bằng nền (background-attachment local/scroll), trình duyệt tự lo khi cuộn, không cần JavaScript, không giật (#108). core.js gắn .sc-x 1 lần cho phần tử cuộn ngang được */
+.sc-x{background:linear-gradient(to right,var(--sc-bg,var(--surface)) 30%,transparent) left center/40px 100% no-repeat local,linear-gradient(to left,var(--sc-bg,var(--surface)) 30%,transparent) right center/40px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(20,22,30,.22),transparent) left center/18px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(20,22,30,.22),transparent) right center/18px 100% no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+.sc-y{background:linear-gradient(var(--sc-bg,var(--surface)) 30%,transparent) center top/100% 40px no-repeat local,linear-gradient(to top,var(--sc-bg,var(--surface)) 30%,transparent) center bottom/100% 40px no-repeat local,radial-gradient(farthest-side at 50% 0,rgba(20,22,30,.22),transparent) center top/100% 18px no-repeat scroll,radial-gradient(farthest-side at 50% 100%,rgba(20,22,30,.22),transparent) center bottom/100% 18px no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+/* Thanh cuộn: màu đổi khi giữ (:active), thả ra trở lại. Màu khi rê chuột chỉ cho máy có chuột: trên cảm ứng :hover dính lại sau khi thả tay (#108) */
+
+@media (hover:hover){}
+
+/* Xem cả hình: không cho cuộn ngang trong lớp phủ (thanh cuộn hiện ở mép, làm lệch hình) (#108) */
+.fz-in{overflow-x:hidden}
+
+@media (hover:hover) and (pointer:fine){*{scrollbar-width:thin;scrollbar-color:#d4d6dc transparent}::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d6dc;border-radius:999px;border:3px solid var(--surface)}::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}*{scrollbar-width:thin;scrollbar-color:#d4d6dc transparent}::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}::-webkit-scrollbar-thumb:active{background:var(--pri)}::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}::-webkit-scrollbar-thumb:active{background:var(--pri)}}
+/* Thanh cuộn tự vẽ chỉ cho máy có chuột. Máy cảm ứng dùng thanh cuộn của hệ điều hành (mảnh, tự ẩn): kéo thanh cuộn tự vẽ bằng ngón tay trên Chrome Android bị giật và giữ màu (#112) */
+/* Xem cả hình khi xoay: chừa khoảng ở mép dưới màn hình, để hình không sát thanh điều hướng của máy (#112) */
+.fz-in.rot{padding-right:24px}
