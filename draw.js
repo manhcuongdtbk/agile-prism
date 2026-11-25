@@ -763,8 +763,10 @@ document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/
 /* Tô sáng khi nhảy tới: vầng sáng mờ dần trong 2,6 giây, không để lại viền. Mã hình đang xem giữ nền hồng tới khi nhảy chỗ khác, để biết mình đang ở đâu */
 /* Quầng tô sáng bám đúng khung nhìn thấy của hình (#86). Khung vẽ trong SVG (1 rect gần bằng cả hình, có nét viền): đặt quầng vào đúng rect đó, bo góc theo rx đã quy đổi. Không có thì quầng theo khung CSS của phần tử, giữ bo góc của nó */
 function HLFIT(el){el.classList.remove('hlin');el.style.setProperty('--hlrad',HLRAD(el));const s=el.querySelector(':scope svg.fig');if(!s)return;const hb=el.getBoundingClientRect();
-  const fr=[...s.querySelectorAll('rect')].find(r=>{const b=r.getBoundingClientRect();return b.width>=hb.width*0.95&&b.height>=hb.height*0.85&&(r.getAttribute('stroke')||'none')!=='none'});if(!fr)return;
-  const b=fr.getBoundingClientRect(),k=s.getBoundingClientRect().width/(s.viewBox.baseVal.width||s.getBoundingClientRect().width);
+  /* khung = 1 rect có viền gần bằng cả hình, hoặc vài rect cao gần bằng hình đặt cạnh nhau (4.3-3: 2 khung) — lấy hộp bao của chúng (#92) */
+  const tall=[...s.querySelectorAll('rect')].filter(r=>{const b=r.getBoundingClientRect();return b.height>=hb.height*0.85&&(r.getAttribute('stroke')||'none')!=='none'});if(!tall.length)return;
+  const U=tall.map(r=>r.getBoundingClientRect()),b={left:Math.min(...U.map(u=>u.left)),top:Math.min(...U.map(u=>u.top)),right:Math.max(...U.map(u=>u.right)),bottom:Math.max(...U.map(u=>u.bottom))};if(b.right-b.left<hb.width*0.9)return;const fr=tall[0];
+  const k0=0,k=s.getBoundingClientRect().width/(s.viewBox.baseVal.width||s.getBoundingClientRect().width);
   el.style.setProperty('--hlt',(b.top-hb.top)+'px');el.style.setProperty('--hll',(b.left-hb.left)+'px');el.style.setProperty('--hlr',(hb.right-b.right)+'px');el.style.setProperty('--hlb',(hb.bottom-b.bottom)+'px');el.style.setProperty('--hlrad',((+fr.getAttribute('rx')||0)*k)+'px');el.classList.add('hlin')}
 /* Bo góc của quầng: khung của chính phần tử nếu có; không có khung thì lấy bo góc của khối con nằm ở góc trên trái (thẻ, ô của hình), để quầng ôm theo các góc nhìn thấy. Không tìm được: 10px (#89) */
 function HLRAD(el){const vis=e=>{const c=getComputedStyle(e);return c.borderTopWidth!=='0px'||c.backgroundColor!=='rgba(0, 0, 0, 0)'||c.boxShadow!=='none'};if(vis(el))return getComputedStyle(el).borderRadius;
