@@ -87,10 +87,10 @@ document.documentElement.classList.add(/Mac|iPhone|iPad/.test(navigator.platform
 function EXT(x,y){return `<g class="svext" style="cursor:pointer" transform="translate(${x-11} ${y-11})" color="${INK2}"><circle cx="11" cy="11" r="10.5" fill="#fff" stroke="${FAINT}" stroke-width="1.5" stroke-dasharray="3 2"/><use href="#i-plus" x="4.5" y="4.5" width="13" height="13"/></g>`}
 /* Khối tương tác: mũi nhọn của khung chi tiết chỉ vào phần tử đang chọn, nút xem lần lượt */
 function CARET(fid,pid){requestAnimationFrame(()=>{const f=document.getElementById(fid),p=document.getElementById(pid);if(!f||!p)return;
-  const s=f.querySelector('[data-sel]');if(!s||p.closest('.fz')){p.classList.remove('car');return}const a=s.getBoundingClientRect(),b=p.getBoundingClientRect();/* Phần khối thật sự thấy được: cắt theo khung cuộn ngang của hình và theo ô. Thấy chưa tới nửa khối thì không vẽ đuôi; có thì đuôi trỏ vào giữa phần thấy được */
+  const s=f.querySelector('[data-sel]');if(!s||p.closest('.fz')){p.classList.remove('car');return}const a=s.getBoundingClientRect(),b=p.getBoundingClientRect();/* Phần khối thật sự thấy được: cắt theo khung cuộn ngang của hình và theo ô. Khối bị che dù 1 phần thì không vẽ đuôi (#80) */
   let sc=f;while(sc&&sc!==document.body&&!(sc.scrollWidth>sc.clientWidth+1&&/(auto|scroll)/.test(getComputedStyle(sc).overflowX)))sc=sc.parentElement;const v=sc&&sc!==document.body?sc.getBoundingClientRect():b;
-  const l=Math.max(a.left,v.left,b.left),r=Math.min(a.right,v.right,b.right);if(r-l<a.width*0.5){p.classList.remove('car');return}const x=(l+r)/2-b.left;if(x<20||x>b.width-20){p.classList.remove('car');return}const cx=x;p.style.setProperty('--cx',cx+'px');p.classList.add('car')})}
-const CARETS=[];window.addEventListener('resize',()=>CARETS.forEach(f=>f()));
+  const l=Math.max(a.left,v.left,b.left),r=Math.min(a.right,v.right,b.right);if(r-l<a.width*0.98){p.classList.remove('car');return}const x=(l+r)/2-b.left;if(x<20||x>b.width-20){p.classList.remove('car');return}const cx=x;p.style.setProperty('--cx',cx+'px');p.classList.add('car')})}
+const CARETS=[];window.addEventListener('resize',()=>CARETS.forEach(f=>f()));/* cuộn ngang 1 hình (phone) thì vẽ lại đuôi bong bóng theo phần khối thấy được */{let rq=0;document.addEventListener('scroll',e=>{if(e.target===document||rq)return;rq=requestAnimationFrame(()=>{rq=0;CARETS.forEach(f=>f())})},{capture:true,passive:true})}
 /* Bộ điều khiển xem lần lượt dùng chung: nút chạy, lùi, tiến, chấm từng bước (bấm để nhảy), "Bước i/n", vạch chạy thời gian của bước đang chiếu */
 /* Icon trong nút luôn là SVG (class .bi), không dùng ký tự (✕ ⤢ ↩ ‹ ›): ký tự nằm theo dòng chữ và mỗi máy vẽ bằng 1 font khác nên lệch tâm nút. Bộ icon chung cho cả 3 trang, chèn 1 lần ở đây.
    BI('x') trả về <svg class="bi"> dùng trong mã; HTML viết thẳng <svg class="bi"><use href="#i-x"/></svg> */
@@ -109,15 +109,19 @@ function STEP(id,steps,{reset,replay,ms=2800,root}={}){const b=document.getEleme
     w.querySelector('.stp-n').textContent=cur<0?'':`Bước ${cur+1}/${n}`+(steps[cur].label?': '+steps[cur].label:'');w.querySelector('[data-a=prev]').disabled=cur<=0;w.querySelector('[data-a=next]').disabled=cur>=n-1};
   const go=i=>{i=Math.max(0,Math.min(n-1,i));if(replay){reset&&reset();for(let k=0;k<=i;k++)steps[k].run()}else steps[i].run();cur=i;w.style.setProperty('--d',(steps[i].ms||ms)+'ms');show();hit()};
   /* Mỗi bước: khối đang chọn và ô kết quả loé viền 1 lần, để thấy bước vừa đổi kể cả khi trạng thái trùng trước đó (thay nhịp mờ cả hình, PO thấy giống lỗi tải lại) */
-  const hit=()=>{requestAnimationFrame(()=>{const h=w.closest('.fz')||w.closest('.ixc,.card');if(!h)return;h.querySelectorAll('[data-sel],.ipan,.read').forEach(e=>{e.classList.remove('pl-hit');void e.getBoundingClientRect();e.classList.add('pl-hit')})})};
+  const hit=()=>{requestAnimationFrame(()=>{const h=w.closest('.fz')||w.closest('.ixc,.card');if(!h)return;const sel=h.querySelector('[data-sel]');if(sel){/* hình cuộn ngang (phone): cuộn khung tới khối đang chọn, chỉ theo chiều ngang, không kéo cả trang */let sc=sel.parentElement;while(sc&&sc!==h&&!(sc.scrollWidth>sc.clientWidth+1&&/(auto|scroll)/.test(getComputedStyle(sc).overflowX)))sc=sc.parentElement;
+      if(sc&&sc!==h){const a=sel.getBoundingClientRect(),v=sc.getBoundingClientRect();if(a.left<v.left||a.right>v.right)sc.scrollTo({left:sc.scrollLeft+(a.left+a.width/2)-(v.left+v.width/2),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}}
+    h.querySelectorAll('[data-sel],.ipan,.read').forEach(e=>{e.classList.remove('pl-hit');void e.getBoundingClientRect();e.classList.add('pl-hit')});setTimeout(()=>CARETS.forEach(f=>f()),450)})};
   const stop=()=>{clearTimeout(tm);tm=null;pb.classList.remove('on');pb.innerHTML=lbl;w.classList.remove('run')};const clear=()=>{stop();cur=-1;show()};
   const tick=()=>{tm=setTimeout(()=>{if(cur>=n-1){stop();return}go(cur+1);tick()},steps[cur].ms||ms)};
-  pb.addEventListener('click',()=>{if(tm){stop();return}pb.classList.add('on');pb.innerHTML=BI('pause')+'Tạm dừng';w.classList.add('run');if(cur<0||cur>=n-1)go(0);else show();tick()});
+  pb.addEventListener('click',()=>{if(tm){stop();return}pb.classList.add('on');pb.innerHTML=BI('pause')+'Tạm dừng';w.classList.add('run');if(cur<0||cur>=n-1){const h=w.closest('.fz')||w.closest('.ixc,.card'),snap=()=>h?[...h.querySelectorAll('svg.fig,.ipan,.read')].map(e=>e.innerHTML.replace(/ ?pl-hit/g,'').replace(/\bm\d+(?=[a-z])/g,'m')).join('|'):'';
+    /* Bước 1 trùng trạng thái đang hiện (kiểu "hiện trạng" như VSM, Kanban): chỉ giữ 1,2 giây rồi sang bước 2, để không có quãng đứng yên (#80) */const a=snap();go(0);if(snap()===a){tm=setTimeout(()=>{go(1);tick()},1200);return}}else show();tick()});
   w.querySelector('[data-a=prev]').onclick=()=>{stop();go(cur-1)};w.querySelector('[data-a=next]').onclick=()=>{stop();go(cur+1)};
   w.querySelectorAll('.stp-d button').forEach(x=>x.onclick=()=>{stop();go(+x.dataset.i)});
   if(host)host.addEventListener('click',e=>{if(e.isTrusted&&!e.target.closest('.stp')&&e.target.closest('button,[role=button],[data-i],[data-k],[data-p],.sc,.kc,a,input'))clear()},true);
   return {stop,clear,get on(){return !!tm}}}
-function PLAY(id,n,set,ms,labels){return STEP(id,[...Array(n).keys()].map(i=>({run:()=>set(i),label:labels&&labels[i]})),{ms:ms||2800})}
+/* reset: trạng thái lúc mở trang (nút Làm lại về đây). Hình kiểu chọn khối nên mở ở trạng thái chưa chọn, để bước 1 thấy ngay thay đổi */
+function PLAY(id,n,set,ms,labels,reset){return STEP(id,[...Array(n).keys()].map(i=>({run:()=>set(i),label:labels&&labels[i]})),{ms:ms||2800,reset})}
 const NF=x=>(Math.round(x*10)/10).toString().replace('.',',');
 const segOn=(id,fn)=>{const s=document.getElementById(id);if(!s)return;s.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;s.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));fn(b.dataset.v)})};
 const clickKey=(sel,fn)=>{document.addEventListener('click',e=>{const a=e.target.closest(sel);if(a)fn(a)});document.addEventListener('keydown',e=>{const a=e.target.closest&&e.target.closest(sel);if(a&&a.tagName!=='BUTTON'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();fn(a)}})};

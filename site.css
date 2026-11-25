@@ -892,7 +892,7 @@ table.t th,table.t td{min-width:140px}table.t th:first-child,table.t td:first-ch
 /* Vòng 25: khung chi tiết kiểu ô thoại. Đuôi cong vẽ bằng SVG, cạnh dưới đè lên viền khung nên liền mạch */
 .ipan{border:0!important;background:var(--pri-soft)!important;box-shadow:inset 0 0 0 1.5px var(--pri-mid)!important;border-radius:14px!important;margin-top:18px!important}
 .ipan.car::after{display:none!important}
-.ipan.car::before{content:''!important;position:absolute;top:-19px!important;left:calc(var(--cx) - 15px)!important;width:46px!important;height:21px!important;border:0!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 21'%3E%3Cpath d='M0 20.2C9 19 14 12 15 1c4 9 13 17 31 19.2V21H0z' fill='%23fdedf3'/%3E%3Cpath d='M0 20.2C9 19 14 12 15 1c4 9 13 17 31 19.2' fill='none' stroke='%23f2a7c1' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat!important}
+.ipan.car::before{content:''!important;position:absolute;top:-19px!important;left:calc(var(--cx) - 15px)!important;width:46px!important;height:21px!important;border:0!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 21'%3E%3Cpath d='M0 19.75C8 19.75 13.5 13 15 1C17 11 27 19.75 46 19.75V21H0z' fill='%23fdedf3'/%3E%3Cpath d='M0 19.75C8 19.75 13.5 13 15 1C17 11 27 19.75 46 19.75' fill='none' stroke='%23f2a7c1' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat!important}
 /* Vòng 25: Increment do cả Scrum Team bàn giao (Scrum Guide 2020), nên mũi tên đi ra từ viền Scrum Team, màu trung tính */
 .rmap .lp{border-color:var(--ink2)!important}.rmap .lp1::after{border-top-color:var(--ink2)!important}.rmap .lp2 span{color:var(--ink)!important}.rmap .lp3{height:30px!important}
 /* Vòng 25: mọi vùng bấm được trong SVG đậm viền khi rê chuột, để biết đang trỏ vào phần tử nào */
@@ -1229,12 +1229,14 @@ html.has-ds .lg-dev{display:flex!important}
 /* Phone: số trên thanh điều hướng giữa pill (tên mục ẩn thì bỏ lề chừa cho tên) */
 @media (max-width:760px){nav.top .nv b{margin-right:0}}
 /* Xem lần lượt: mỗi bước khối đang chọn và ô kết quả loé viền (core.js STEP hit) */
-@keyframes plhit{0%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}35%{filter:drop-shadow(0 0 6px rgba(214,69,122,.75))}100%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}}
-@keyframes plbox{0%{box-shadow:0 0 0 0 rgba(214,69,122,0)}35%{box-shadow:0 0 0 3px rgba(214,69,122,.35)}100%{box-shadow:0 0 0 0 rgba(214,69,122,0)}}
-g.pl-hit,[data-sel].pl-hit{animation:plhit .7s ease-out}.ipan.pl-hit,.read.pl-hit{animation:plbox .7s ease-out}
+@keyframes plhit{0%,100%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}25%,65%{filter:drop-shadow(0 0 10px rgba(214,69,122,.9))}45%{filter:drop-shadow(0 0 3px rgba(214,69,122,.4))}}
+@keyframes plbox{0%,100%{box-shadow:0 0 0 0 rgba(214,69,122,0)}25%,65%{box-shadow:0 0 0 5px rgba(214,69,122,.45)}45%{box-shadow:0 0 0 2px rgba(214,69,122,.2)}}
+g.pl-hit,[data-sel].pl-hit{animation:plhit 1.3s ease-out}.ipan.pl-hit,.read.pl-hit{animation:plbox 1.3s ease-out}
 @media (prefers-reduced-motion:reduce){.pl-hit{animation:none!important}}
 .fz .fz-ctl .fz-b{display:none!important}
 /* Phone: thanh điều khiển hình căn trái hết, không so le trái phải (#77) */
 @media (max-width:760px){.stp-rs,#kReset,#pReset,#svRs,.dctl .btn:has(use[href="#i-reset"]),.scen .btn:has(use[href="#i-reset"]){margin-left:0}:is(.scen,.dctl)>.fz-b.btn{margin-left:0}}
 /* Lớp phủ: ô kết quả dưới hình giữ chiều cao cố định (fit() đặt min-height), hình không nhảy khi chữ xuống dòng (#77) */
 .fz-in:not(.side) .fz-pan{flex:0 0 auto}
+/* Nhãn "Bước x/n: …": phone đặt riêng 1 dòng, không xuống dòng, để các bước dài ngắn khác nhau không đẩy hình lên xuống (#80) */
+@media (max-width:760px){.stp,.stp-nav{flex-wrap:wrap!important;max-width:100%}.stp-n{flex:1 0 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.5em;max-width:100%}}
