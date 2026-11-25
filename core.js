@@ -191,5 +191,5 @@ function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></
 /* Tải lại trang (tự hoặc tay) thì về đúng chỗ đang đọc (#105, #112). Trang tắt khôi phục cuộn của trình duyệt (để nút Quay lại tự lo), nên tự lưu vị trí khi rời trang và cuộn lại sau khi tải; trang dài dần khi vẽ hình nên cuộn lại vài lần, dừng nếu người dùng tự cuộn */
 (function(){addEventListener('pagehide',()=>{try{sessionStorage.setItem('apY',String(scrollY))}catch(e){}});
   const rl=(performance.getEntriesByType('navigation')[0]||{}).type==='reload'||window.AP_RELOAD;let y=null;try{y=sessionStorage.getItem('apY')}catch(e){}
-  if(!rl||y===null||location.hash)return;window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
+  if(!rl||y===null)return;/* tải lại: về chỗ đang đọc kể cả khi địa chỉ có #mục (bấm mục lục, nút Quay lại đều để #mục trên địa chỉ) (#115) */window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
   [0,200,500,900,1500,2500].forEach(t=>setTimeout(()=>{if(!stop)scrollTo({top:+y,behavior:'instant'})},t))})();
