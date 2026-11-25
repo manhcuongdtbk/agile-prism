@@ -182,8 +182,8 @@ function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></
     requestAnimationFrame(fix);[120,350,700].forEach((t,i,arr)=>setTimeout(()=>{fix();if(i===arr.length-1)busy--},t))});
   setTimeout(pick,500)})();
 /* Chỗ cuộn được phải cho thấy là cuộn được (#95): vùng còn nội dung ở bên phải, trái, dưới, trên thì mép đó mờ dần. Áp cho mọi phần tử tự cuộn (hình rộng trên điện thoại, Chú giải, Glossary, ô chỉ số trong Xem cả hình) */
-(function(){let els=[];const scan=()=>{els=[...document.querySelectorAll('body *')].filter(e=>{const s=getComputedStyle(e);return /(auto|scroll)/.test(s.overflowX+s.overflowY)});mark()};
-  const mark=()=>els.forEach(e=>{const x=e.scrollWidth-e.clientWidth>4,y=e.scrollHeight-e.clientHeight>4;if(!x&&!y){if(e.dataset.more)delete e.dataset.more;return}
+(function(){let els=[];const scan=()=>{els=[...document.querySelectorAll('body *')].filter(e=>{const s=getComputedStyle(e);return /(auto|scroll)/.test(s.overflowX+s.overflowY)});document.querySelectorAll('[data-more]').forEach(e=>{if(!els.includes(e))delete e.dataset.more});mark()};/* phần tử thôi cuộn (chuyển vào Xem cả hình) thì bỏ mép mờ cũ (#102) */
+  const mark=()=>els.forEach(e=>{if(e.closest('.fz')&&!e.closest('.fz-pan')){if(e.dataset.more)delete e.dataset.more;return}/* lớp phủ Xem cả hình luôn vừa màn hình, không phải chỗ cuộn */const x=e.scrollWidth-e.clientWidth>8,y=e.scrollHeight-e.clientHeight>8;if(!x&&!y){if(e.dataset.more)delete e.dataset.more;return}
     const m=(x&&e.scrollLeft>2?'l':'')+(x&&e.scrollLeft<e.scrollWidth-e.clientWidth-2?'r':'')+(y&&e.scrollTop>2?'t':'')+(y&&e.scrollTop<e.scrollHeight-e.clientHeight-2?'b':'');if(e.dataset.more!==m)e.dataset.more=m});
   let t=0;const later=()=>{clearTimeout(t);t=setTimeout(scan,350)};addEventListener('load',later);addEventListener('resize',later);document.addEventListener('click',later,true);
   let r=0;document.addEventListener('scroll',()=>{if(r)return;r=requestAnimationFrame(()=>{r=0;mark()})},{capture:true,passive:true})})();
