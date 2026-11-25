@@ -1240,3 +1240,15 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 1.3s ease-out}.ipan.pl-hit,.read.pl-h
 .fz-in:not(.side) .fz-pan{flex:0 0 auto}
 /* Nhãn "Bước x/n: …": phone đặt riêng 1 dòng, không xuống dòng, để các bước dài ngắn khác nhau không đẩy hình lên xuống (#80) */
 @media (max-width:760px){.stp,.stp-nav{flex-wrap:wrap!important;max-width:100%}.stp-n{flex:1 0 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.5em;max-width:100%}}
+/* 1 kiểu tô sáng cho mọi nơi (nhảy tới hình, bảng, dòng; Xem lần lượt): quầng hồng mềm theo góc bo của khung, hiện dần rồi tắt dần, 1 nhịp (#83). Khối trong SVG dùng drop-shadow, bám theo hình khối */
+@keyframes hlr{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes hlr2{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes plbox{0%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}18%,62%{box-shadow:0 0 18px 4px rgba(214,69,122,.45)}100%{box-shadow:0 0 18px 4px rgba(214,69,122,0)}}
+@keyframes plhit{0%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}18%,62%{filter:drop-shadow(0 0 7px rgba(214,69,122,.75))}100%{filter:drop-shadow(0 0 0 rgba(214,69,122,0))}}
+g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-hit{animation:plbox 2s ease-in-out}
+/* Nút "◀ tên khối" khi khối đang chọn bị khung cuộn che (#83) */
+.car-hint{position:absolute;top:-13px;left:14px;display:inline-flex;align-items:center;gap:3px;max-width:75%;padding:3px 10px;font:inherit;font-size:12px;color:var(--pri-ink);background:#fff;border:1.5px solid var(--pri-mid);border-radius:999px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:2}
+.car-hint.r{left:auto;right:14px}.car-hint[hidden]{display:none}.car-hint .bi{width:12px;height:12px}
+/* Lớp phủ: thanh điều khiển 1 hàng (luật phone theo bề ngang thật không áp vào khung đã xoay) (#83) */
+.fz .fz-ctl>*{flex-wrap:nowrap!important}.fz .stp,.fz .stp-nav{flex-wrap:nowrap!important}.fz .stp-n{flex:0 1 auto!important;min-width:0}
+.fz :is(.scen,.dctl){display:flex;align-items:center;gap:10px;flex-wrap:nowrap}.fz .stp-rs,.fz .scen .btn:has(use[href="#i-reset"]),.fz .dctl .btn:has(use[href="#i-reset"]){margin-left:auto!important}
