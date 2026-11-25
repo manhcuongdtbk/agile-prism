@@ -636,7 +636,7 @@ input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;display
 .lg.hit{background:var(--pri-soft);border-radius:6px}
 @keyframes hlr{0%,55%{box-shadow:0 0 0 2px var(--pri),0 0 0 9px rgba(214,69,122,.16)}100%{box-shadow:0 0 0 2px rgba(214,69,122,0),0 0 0 9px rgba(214,69,122,0)}}
 @keyframes hlb{0%,55%{background-color:var(--pri-soft)}100%{background-color:transparent}}
-main .hit:not(tr):not(.k):not(.d){animation:hlr 3.2s ease-out;border-radius:10px}.refs .k.hit,.refs .d.hit,tr.hit td{animation:hlb 3.2s ease-out}
+main .hit:not(tr):not(.k):not(.d):not(.hlin){animation:hlr 3.2s ease-out}.refs .k.hit,.refs .d.hit,tr.hit td{animation:hlb 3.2s ease-out}
 
 .stp{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}.stp-nav{display:inline-flex;align-items:center;gap:6px}
 .btn.sq{width:30px;height:30px;padding:0;justify-content:center;font-size:17px;line-height:1}.btn.sq:disabled{opacity:.35;cursor:default}
@@ -817,7 +817,8 @@ nav.top a.nv-gio{display:inline-flex;align-items:center;border-color:var(--gio-m
 .lg-st{display:inline-flex;gap:3px;align-items:center;width:26px;justify-content:center}.lg-st i{width:6px;height:6px;border-radius:50%;background:var(--line)}.lg-st i.on{background:var(--pri);width:9px;border-radius:4px}
 /* Tô sáng khi nhảy tới: chỉ 1 quầng mềm, không viền; giữ 2 giây rồi tắt dần */
 @keyframes hlr{0%,60%{box-shadow:0 0 24px 8px rgba(214,69,122,.5)}100%{box-shadow:0 0 24px 8px rgba(214,69,122,0)}}
-main .hit:not(tr):not(.k):not(.d){animation:hlr 3.4s ease-out;border-radius:10px}
+main .hit:not(tr):not(.k):not(.d):not(.hlin){animation:hlr 3.4s ease-out}/* giữ bo góc của chính khung, không ép 10px (#86) */
+main .hit.hlin{position:relative}main .hit.hlin::after{content:'';position:absolute;top:var(--hlt);left:var(--hll);right:var(--hlr);bottom:var(--hlb);border-radius:var(--hlrad);animation:hlr 3.4s ease-out;pointer-events:none}
 /* Mọi đích nhảy tới chừa chỗ cho thanh điều hướng và quầng tô sáng */
 main [id]{scroll-margin-top:96px}main section.part{scroll-margin-top:64px}main .card{scroll-margin-top:72px}
 /* Thanh cuộn: trình duyệt hỗ trợ ::-webkit-scrollbar (Chrome, Edge, Safari) dùng bản có màu khi rê chuột, Firefox dùng bản mảnh */
@@ -1252,3 +1253,10 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 /* Lớp phủ: thanh điều khiển 1 hàng (luật phone theo bề ngang thật không áp vào khung đã xoay) (#83) */
 .fz .fz-ctl>*{flex-wrap:nowrap!important}.fz .stp,.fz .stp-nav{flex-wrap:nowrap!important}.fz .stp-n{flex:0 1 auto!important;min-width:0}
 .fz :is(.scen,.dctl){display:flex;align-items:center;gap:10px;flex-wrap:nowrap}.fz .stp-rs,.fz .scen .btn:has(use[href="#i-reset"]),.fz .dctl .btn:has(use[href="#i-reset"]){margin-left:auto!important}
+/* Hình 2.4-1 trải đủ bề ngang như 2 khối Information Radiator/Dashboard bên dưới (#86) */
+.rad{flex-wrap:nowrap}.rad figure{flex:1 1 0;min-width:0}@media (max-width:760px){.rad{gap:8px}.rad figure{padding:6px;font-size:12px}}
+.rad figure>div{width:100%;height:auto;aspect-ratio:300/140}
+.rad figure>div>svg{width:100%;height:100%;display:block}
+@media (max-width:760px){.irad{grid-template-columns:1fr}}
+/* Khung chi tiết chỉ có 1 ý: bỏ thẻ trắng lồng bên trong, tránh hộp trong hộp lệch phong cách với hình (#86) */
+.ip-g>div:only-child{background:none!important;padding:0;font-size:14px;color:var(--ink)}

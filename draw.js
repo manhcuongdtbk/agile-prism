@@ -761,7 +761,12 @@ document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/
 
 /* ---------- Tô sáng điểm đến: giữ tới khi cuộn ra khỏi màn hình ---------- */
 /* Tô sáng khi nhảy tới: vầng sáng mờ dần trong 2,6 giây, không để lại viền. Mã hình đang xem giữ nền hồng tới khi nhảy chỗ khác, để biết mình đang ở đâu */
-window.HL=(function(){let cur=[];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>.25){const el=e.target;io.unobserve(el);el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit');el.addEventListener('animationend',()=>el.classList.remove('hit'),{once:true})}}),{threshold:[.25,.5]});
+/* Quầng tô sáng bám đúng khung nhìn thấy của hình (#86). Khung vẽ trong SVG (1 rect gần bằng cả hình, có nét viền): đặt quầng vào đúng rect đó, bo góc theo rx đã quy đổi. Không có thì quầng theo khung CSS của phần tử, giữ bo góc của nó */
+function HLFIT(el){el.classList.remove('hlin');const s=el.querySelector(':scope svg.fig');if(!s)return;const hb=el.getBoundingClientRect();
+  const fr=[...s.querySelectorAll('rect')].find(r=>{const b=r.getBoundingClientRect();return b.width>=hb.width*0.95&&b.height>=hb.height*0.85&&(r.getAttribute('stroke')||'none')!=='none'});if(!fr)return;
+  const b=fr.getBoundingClientRect(),k=s.getBoundingClientRect().width/(s.viewBox.baseVal.width||s.getBoundingClientRect().width);
+  el.style.setProperty('--hlt',(b.top-hb.top)+'px');el.style.setProperty('--hll',(b.left-hb.left)+'px');el.style.setProperty('--hlr',(hb.right-b.right)+'px');el.style.setProperty('--hlb',(hb.bottom-b.bottom)+'px');el.style.setProperty('--hlrad',((+fr.getAttribute('rx')||0)*k)+'px');el.classList.add('hlin')}
+window.HL=(function(){let cur=[];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>.25){const el=e.target;io.unobserve(el);el.classList.remove('hit');void el.offsetWidth;HLFIT(el);el.classList.add('hit');el.addEventListener('animationend',()=>el.classList.remove('hit'),{once:true})}}),{threshold:[.25,.5]});
   return els=>{cur.forEach(e=>{e.classList.remove('hit');io.unobserve(e)});cur=els.filter(Boolean);cur.forEach(e=>setTimeout(()=>io.observe(e),60))}})();
 /* Mọi liên kết trong trang nhảy tới 1 khối cụ thể (không phải cả mục) đều được tô sáng khi tới nơi */
 document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute('href').slice(1);if(!id||/^s\d-\d+$|^phan-|^toc$/.test(id))return;const t=document.getElementById(id);if(t&&!t.closest('.drawer'))setTimeout(()=>HL([t]),30)});
