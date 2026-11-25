@@ -1265,3 +1265,29 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 .fz .car-hint{display:none!important}
 /* Nút chỉ khối: tên dài thì cắt ở cuối bằng "…", không tràn ra khỏi ô (#89) */
 .car-hint{max-width:calc(100% - 28px)}.car-hint>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.car-hint .bi{flex:none}
+/* Ô chỉ số trong Xem cả hình: mỗi dòng 1 hàng, nhãn dài cắt "…", số cố định bề ngang, để kéo trên biểu đồ không làm chữ xuống dòng (#95). Bố cục dưới hình: chia 2 cột cho vừa, thừa thì cuộn */
+.fz .read .row{flex-wrap:nowrap;align-items:baseline}
+.fz .read .row>:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fz .read .row b,.read .row b{font-variant-numeric:tabular-nums;flex:none}
+.fz-in:not(.side) .fz-pan{overflow-y:auto;max-height:45%}
+/* Nút bật/tắt (aria-pressed, chọn nhiều): dạng chip nhỏ có ô đánh dấu, khác hẳn nút hành động (Xem lần lượt, Làm lại). Nhóm có tên hiện ở đầu (#95, Hình 5.6-1) */
+.btn[aria-pressed]{border-radius:999px;padding:5px 12px 5px 9px;font-size:13px;min-height:0;gap:6px}
+.btn[aria-pressed]::before{content:'';width:12px;height:12px;border-radius:3px;border:1.5px solid var(--ink3,#9aa0aa);flex:none;box-sizing:border-box}
+.btn[aria-pressed=true]{background:var(--pri-soft);color:var(--pri-ink);border-color:var(--pri-mid)}
+.btn[aria-pressed=true]::before{border-color:var(--pri);background:var(--pri) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat}
+[role=group]:has(>.btn[aria-pressed])::before{content:attr(aria-label);font-size:12.5px;color:var(--ink2);font-weight:500}
+@media (max-width:760px){[role=group]:has(>.btn[aria-pressed])::before{flex-basis:100%}
+  :is(.vtg)>.fz-b.btn{margin-left:0}}
+/* Lớp phủ: chữ trong nút không bao giờ xuống dòng; hàng điều khiển dài (nhiều chip như 5.6-1) thì xuống thành nhiều hàng, không ép nút hẹp lại (#95) */
+.fz .fz-ctl .btn{white-space:nowrap;flex:none}
+.fz .fz-ctl>*:has(>.btn[aria-pressed]){flex-wrap:wrap!important;row-gap:6px}
+.fz [role=group]:has(>.btn[aria-pressed])::before{display:none}
+.fz .btn[aria-pressed]{padding:3px 10px 3px 8px;font-size:12px}
+
+/* Thanh "Có bản mới" (#95) */
+.newver{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;background:var(--ink,#2b2d33);color:#fff;border-radius:999px;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.newver .btn{padding:4px 12px;font-size:13px}
+/* Mép còn nội dung cuộn tới thì mờ dần (core.js gắn data-more) (#95) */
+[data-more]{--mL:#000;--mR:#000;--mT:#000;--mB:#000}
+[data-more]:not([data-more=""]){-webkit-mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));mask-composite:intersect}
+[data-more][data-more*=l]{--mL:transparent}[data-more][data-more*=r]{--mR:transparent}[data-more][data-more*=t]{--mT:transparent}[data-more][data-more*=b]{--mB:transparent}
