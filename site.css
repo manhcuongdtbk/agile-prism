@@ -1285,16 +1285,11 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 .fz .btn[aria-pressed]{padding:3px 10px 3px 8px;font-size:12px}
 
 /* Thanh "Có bản mới" (#95) */
-/* Cùng kiểu với nút nổi "Về Danh mục hình và bảng" (.back): nền trắng, viền, bo tròn, bóng; chữ căn giữa (#105) */
-.newver{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 8px 24px rgba(20,22,30,.14);white-space:nowrap}
-.newver:has(.btn){padding:5px 5px 5px 16px}.newver .btn{padding:5px 12px;font-size:13px;color:var(--pri-ink);border-color:var(--pri-mid)}
-/* Mép còn nội dung cuộn tới thì mờ dần (core.js gắn data-more) (#95) */
-[data-more]{--mL:#000;--mR:#000;--mT:#000;--mB:#000}
-[data-more]:not([data-more=""]){-webkit-mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));mask-composite:intersect}
-[data-more][data-more*=l]{--mL:transparent}[data-more][data-more*=r]{--mR:transparent}[data-more][data-more*=t]{--mT:transparent}[data-more][data-more*=b]{--mB:transparent}
+/* Thông báo trạng thái (không phải nút): cùng kiểu với tooltip của trang (nền tối, chữ trắng, bo 10px), căn giữa, tự tắt. Có việc cần làm thì kèm 1 nút chữ (#108) */
+.newver{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;justify-content:center;gap:12px;font-size:13.5px;line-height:1.4;padding:10px 16px;border-radius:10px;background:var(--ink);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap}
+.newver button{font:inherit;font-weight:600;color:#f9b8cf;background:none;border:0;padding:0;cursor:pointer}
 
 /* Quầng trên hình có mép mờ (đang cuộn ngang): bỏ mép mờ trong lúc tô sáng, vì mask cắt mất quầng vẽ ra ngoài (#99) */
-[data-more].hit{-webkit-mask-image:none!important;mask-image:none!important}
 /* 5.6-1: chọn được nhiều cải tiến cùng lúc, nên trình bày đúng là ô đánh dấu (checkbox) kèm chữ: không viền nút, không nền (#99) */
 .btn[aria-pressed],.btn[aria-pressed=true]{border-color:transparent;background:none;border-radius:6px;padding:4px 8px 4px 2px;color:var(--ink);font-weight:500;box-shadow:none}
 .btn[aria-pressed]::before{width:16px;height:16px;border-radius:4px}
@@ -1318,3 +1313,13 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 /* Quầng của hình đang cuộn ngang: lớp riêng trên trang (#102) */
 main .hit.hlsc{animation:none!important}
 .hl-ov{position:absolute;pointer-events:none;z-index:5;animation:hlr 3.4s ease-out}
+
+/* Chỗ cuộn ngang được: bóng mờ ở mép còn nội dung, vẽ bằng nền (background-attachment local/scroll), trình duyệt tự lo khi cuộn, không cần JavaScript, không giật (#108). core.js gắn .sc-x 1 lần cho phần tử cuộn ngang được */
+.sc-x{background:linear-gradient(to right,var(--sc-bg,var(--surface)) 30%,transparent) left center/40px 100% no-repeat local,linear-gradient(to left,var(--sc-bg,var(--surface)) 30%,transparent) right center/40px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(20,22,30,.12),transparent) left center/14px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(20,22,30,.12),transparent) right center/14px 100% no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+.sc-y{background:linear-gradient(var(--sc-bg,var(--surface)) 30%,transparent) center top/100% 40px no-repeat local,linear-gradient(to top,var(--sc-bg,var(--surface)) 30%,transparent) center bottom/100% 40px no-repeat local,radial-gradient(farthest-side at 50% 0,rgba(20,22,30,.12),transparent) center top/100% 14px no-repeat scroll,radial-gradient(farthest-side at 50% 100%,rgba(20,22,30,.12),transparent) center bottom/100% 14px no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+/* Thanh cuộn: màu đổi khi giữ (:active), thả ra trở lại. Màu khi rê chuột chỉ cho máy có chuột: trên cảm ứng :hover dính lại sau khi thả tay (#108) */
+::-webkit-scrollbar-thumb:hover{background:#d4d6dc}
+@media (hover:hover){::-webkit-scrollbar-thumb:hover{background:var(--pri-mid)}}
+::-webkit-scrollbar-thumb:active{background:var(--pri)}
+/* Xem cả hình: không cho cuộn ngang trong lớp phủ (thanh cuộn hiện ở mép, làm lệch hình) (#108) */
+.fz-in{overflow-x:hidden}
