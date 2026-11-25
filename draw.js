@@ -412,7 +412,7 @@ fig('f-ujm',W,380,()=>{let g='';const X0=150,CW=242,cw=230,G='#4a3f94';
     H.innerHTML=h;
     const row=(sw,l,v)=>`<div class="row"><span>${sw}${l}</span><b>${v}</b></div>`,sq=c=>`<i class="sw" style="background:${c}"></i>`,mm=(n,c,o)=>`<span class="mk" style="background:${c};${o||''}">${n}</span>`;
     Rd.innerHTML=`<div class="rd-t">Ngày ${t}</div><div class="rd-g">Số hạng mục ở từng trạng thái</div>`+row(sq(ST.todo),'To do',arr[t]-dg[t])+row(sq(ST.doing),'Doing',dg[t]-ts[t])+row(sq(ST.test),'Testing',ts[t]-dn[t])+row(sq(ST.done),'Done',dn[t])+
-      `<div class="rd-g">Chỉ số đọc từ biểu đồ</div>`+row(mm(2,C.pri[0]),'WIP = Doing + Testing',wip)+row(mm(3,INK),'Lead Time ≈',lt==null?'–':lt.toFixed(1).replace('.',',')+' ngày')+row(mm(3,'#fff','color:'+INK+';border:1.5px solid '+INK),'Cycle Time ≈',ct==null?'–':ct.toFixed(1).replace('.',',')+' ngày')+row(mm(4,C.good[0]),'Throughput 7 ngày gần nhất',t>=4?thr.toFixed(1).replace('.',',')+' /ngày':'–');
+      `<div class="rd-g">Chỉ số đọc từ biểu đồ</div>`+row(mm(2,C.pri[0]),'WIP = Doing + Testing',wip)+row(mm(3,INK),'Lead Time ≈',lt==null?'–':lt.toFixed(1).replace('.',',')+' ngày')+row(mm(3,'#fff','color:'+INK+';border:1.5px solid '+INK),'Cycle Time ≈',ct==null?'–':ct.toFixed(1).replace('.',',')+' ngày')+row(mm(4,C.good[0]),'Throughput 7 ngày',t>=4?thr.toFixed(1).replace('.',',')+' /ngày':'–');
   }
   window.CFD={show:(t,f)=>{FOC=f||0;show(t)}};
   const cfdAt=e=>{FOC=0;document.querySelector('.how').classList.remove('focus');const x=SVGPT(svg,e).x;show(Math.max(0,Math.min(N,Math.round((x-60)/37))))};['pointermove','pointerdown'].forEach(t=>document.getElementById('cfdHit').addEventListener(t,cfdAt));/* chuột rê, ngón tay chạm hoặc kéo đều đọc được ngày */
@@ -1162,8 +1162,10 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
    Lớp phủ chứa chính hình đang sống, không phải bản chụp: chuyển hình, hàng Xem lần lượt và ô kết quả (.ipan, .read) của cùng khối .ixc/.card vào lớp phủ,
    nên bấm khối, tới, lùi, chấm bước đều chạy như bản thường. Đóng thì trả mọi thứ về đúng chỗ, giữ nguyên bước đang xem.
    Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Điều kiện hiện nút nằm ở CSS .fz-b */
-(function(){const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||c.previousElementSibling?.classList.contains('fz-b'))return;
-  const b=document.createElement('button');b.type='button';b.className='fz-b';b.innerHTML=BI('expand')+'Xem cả hình';b.onclick=()=>open(c);c.before(b)})};
+/* Nút đặt trong hàng điều khiển của hình (cạnh Làm lại) nếu khối .ixc chỉ có 1 hình và có hàng đó; không thì đặt ngay trên hình. Nút trỏ tới hình bằng data-fz="<id hình>" */
+(function(){const rowOf=c=>{const ix=c.closest('.ixc');if(!ix||[...ix.querySelectorAll('[id^="f-"]')].filter(x=>x.querySelector(':scope>svg.fig')).length!==1)return null;const st=ix.querySelector('.stp');return st&&st.parentElement!==ix&&!st.parentElement.contains(c)?st.parentElement:null};
+  const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||document.querySelector(`[data-fz="${c.id}"]`))return;
+  const b=document.createElement('button');b.type='button';b.className='btn fz-b';b.dataset.fz=c.id;b.innerHTML=BI('expand')+'Xem cả hình';b.onclick=()=>open(c);const r=rowOf(c);if(r)r.appendChild(b);else c.before(b)})};
   let ov=null,moved=[],live=null;
   const take=(el,box)=>{const m=document.createComment('fz');el.before(m);moved.push([el,m]);box.append(el)};
   function open(c){const s=c.querySelector(':scope>svg.fig');if(!s||ov)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Xem cả hình');
@@ -1178,7 +1180,9 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
     ov.addEventListener('click',e=>{if(e.target===ov||e.target.matches('.fz-in,.fz-fig,.fz-ctl,.fz-pan')||e.target.closest('.fz-x'))close()});
     document.body.append(ov);document.documentElement.style.overflow='hidden';fit();ov.querySelector('.fz-x').focus({preventScroll:true})}
   /* Chiều cao tối đa của hình = chiều cao khung trừ hàng điều khiển đo thật (hàng nút có thể 1 hay 2 dòng), không trừ số cố định */
-  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl');const sv=live&&live.querySelector(':scope>svg.fig');if(sv){const vb=sv.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;fi.classList.toggle('rot',port);fi.classList.toggle('side',!!ov.querySelector('.fz-pan').children.length&&(port||innerWidth>innerHeight))}const cs=getComputedStyle(fi);const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0);fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
+  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl');const sv=live&&live.querySelector(':scope>svg.fig');if(sv){const vb=sv.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;fi.classList.toggle('rot',port);const pan=ov.querySelector('.fz-pan');fi.classList.remove('side');
+      /* Ô kết quả ngắn (ví dụ Shop Áo Gió): đặt dưới hình, hình vẫn to. Ô dài (số liệu CFD): đặt cạnh hình để đọc cùng lúc. Đo khi ô đang rộng hết khung */
+      if(pan.children.length&&(port||innerWidth>innerHeight)&&pan.offsetHeight>fi.clientHeight*0.32)fi.classList.add('side')}const cs=getComputedStyle(fi);const pn=ov.querySelector('.fz-pan'),below=pn.children.length&&!fi.classList.contains('side')?pn.offsetHeight+6:0;const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0)-below;fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
   addEventListener('resize',()=>fit());
   function close(){if(!ov)return;live=null;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov&&!document.querySelector('.drawer:not([hidden])')){e.stopPropagation();close()}},true);

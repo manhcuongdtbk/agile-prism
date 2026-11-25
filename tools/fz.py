@@ -3,7 +3,7 @@ import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)))
 from playwright.sync_api import sync_playwright
 JS=r'''async()=>{const out=[],ok=[];const W=innerWidth,H=innerHeight,sl=ms=>new Promise(r=>setTimeout(r,ms));
  const inView=r=>r.left>=-1&&r.top>=-1&&r.right<=W+1&&r.bottom<=H+1;
- for(const b of [...document.querySelectorAll('.fz-b')]){const c=b.nextElementSibling,id=c.id,par=c.parentElement;
+ for(const b of [...document.querySelectorAll('.fz-b')]){const c=document.getElementById(b.dataset.fz),id=c.id,par=c.parentElement;
    b.click();await sl(60);const ov=document.querySelector('.fz');if(!ov){out.push([id,'không mở']);continue}
    const s=c.querySelector(':scope>svg.fig');if(!ov.contains(c)||!s){out.push([id,'lớp phủ không chứa hình sống']);FZ.close();continue}
    const r=s.getBoundingClientRect();if(!inView(r))out.push([id,'hình tràn màn',Math.round(r.left),Math.round(r.top),Math.round(r.right),Math.round(r.bottom)]);
