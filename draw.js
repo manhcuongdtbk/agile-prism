@@ -815,7 +815,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');i
 })();
 /* ---------- Tiện ích: phím tắt, đọc tiếp, tiến độ, chép liên kết, tooltip tài liệu ---------- */
 (function(){
-  const toast=(msg,btn)=>{let t=document.getElementById('uxToast');if(!t){t=document.createElement('div');t.id='uxToast';document.body.appendChild(t)}t.innerHTML='<span>'+msg+'</span>'+(btn?'<button type="button">'+btn.label+'</button>':'');t.hidden=false;if(btn)t.querySelector('button').onclick=()=>{btn.fn();t.hidden=true};clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,btn?9000:2200)};
+  const toast=window.TOAST=(msg,btn)=>{/* thông báo dùng chung cả trang (đọc tiếp, có bản mới…) (#112) */let t=document.getElementById('uxToast');if(!t){t=document.createElement('div');t.id='uxToast';document.body.appendChild(t)}t.innerHTML='<span>'+msg+'</span>'+(btn?'<button type="button">'+btn.label+'</button>':'');t.hidden=false;if(btn)t.querySelector('button').onclick=()=>{btn.fn();t.hidden=true};clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,btn?9000:2200)};
   const typing=()=>/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
   const go=id=>{const el=document.getElementById(id);if(el){const a=document.createElement('a');a.href='#'+id;a.style.display='none';document.body.appendChild(a);a.click();a.remove()}};
   document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey||typing())return;
@@ -843,7 +843,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');i
     if(cur&&cur!==last){last=cur;try{localStorage.setItem('acpPos',cur)}catch(_){}}};
   addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});
   // đọc tiếp
-  try{const p=localStorage.getItem('acpPos');if(p&&!location.hash&&document.getElementById(p)&&p!=='s1-1'){const n=document.querySelector('#'+p+' .num');setTimeout(()=>toast('Lần trước bạn đọc tới '+(n?n.textContent:p)+'.',{label:'Đọc tiếp',fn:()=>go(p)}),600)}}catch(_){}
+  try{const p=localStorage.getItem('acpPos');/* tải lại trang thì trình duyệt đã về chỗ cũ, không cần hỏi đọc tiếp (#111) */const rl=window.AP_RELOAD||(performance.getEntriesByType('navigation')[0]||{}).type==='reload';if(p&&!rl&&!location.hash&&document.getElementById(p)&&p!=='s1-1'){const n=document.querySelector('#'+p+' .num');setTimeout(()=>toast('Lần trước bạn đọc tới '+(n?n.textContent:p)+'.',{label:'Đọc tiếp',fn:()=>go(p)}),600)}}catch(_){}
 })();
 
 fig('f-lad',W,792,()=>{let g='';const AX=110,AW=440,PX=630,PW=488;

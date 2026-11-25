@@ -161,10 +161,10 @@ window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||(e.key!=='Enter'&&e.key!==' '))return;const el=e.target;if(!el||!el.matches||!el.matches('dfn[tabindex],[role=button]:not(button),[data-cf],[data-lv]'))return;if(el.closest('a[href]'))return;e.preventDefault();el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}))});
 /* Lối vào design system: chỉ hiện khi site có file design-system.html (Development, Staging). Production không có file nên không hiện gì */
 /* Có bản mới (chỉ Development, Staging: có file version.txt): quay lại tab thì tự tải lại; đang xem thì hiện thanh nhỏ "Có bản mới · Tải lại". Kiểm mỗi 60 giây. Production không có file nên không chạy (#95) */
-(function(){let cur=null,shown=false;/* tải lại xong thì báo "Đã tải bản mới" 3 giây, để biết là trang đã tự tải lại */const RL=()=>{try{sessionStorage.setItem('newver',String(scrollY))}catch(e){}location.reload()};
-  try{const y0=sessionStorage.getItem('newver');if(y0!==null){sessionStorage.removeItem('newver');/* về đúng chỗ đang đọc: trang dài ra dần khi các hình vẽ xong, nên cuộn lại vài lần (#105) */history.scrollRestoration='manual';[0,300,800,1500].forEach(t=>setTimeout(()=>scrollTo(0,+y0||0),t));addEventListener('DOMContentLoaded',()=>{const d=document.createElement('div');d.className='newver';d.setAttribute('role','status');d.textContent='Đã tải bản mới';document.body.appendChild(d);setTimeout(()=>d.remove(),3000)})}}catch(e){}
+(function(){let cur=null,shown=false;/* tải lại xong thì báo "Đã tải bản mới" 3 giây, để biết là trang đã tự tải lại */const RL=()=>{try{sessionStorage.setItem('newver','1')}catch(e){}location.reload()};
+  try{if(sessionStorage.getItem('newver')!==null){window.AP_RELOAD=true;sessionStorage.removeItem('newver');addEventListener('DOMContentLoaded',()=>window.TOAST&&TOAST('Đã tải bản mới.'))}}catch(e){}
   const get=()=>fetch('version.txt',{cache:'no-store'}).then(r=>r.ok?r.text():null).catch(()=>null);
-  const check=()=>get().then(v=>{if(!v)return;if(cur===null){cur=v;return}if(v===cur)return;if(document.visibilityState==='visible'&&!shown){shown=true;const d=document.createElement('div');d.className='newver';d.setAttribute('role','status');d.innerHTML='Có bản mới <button type="button">Tải lại</button>';d.querySelector('button').onclick=RL;document.body.appendChild(d)}});
+  const check=()=>get().then(v=>{if(!v)return;if(cur===null){cur=v;return}if(v===cur)return;if(document.visibilityState==='visible'&&!shown&&window.TOAST){shown=true;TOAST('Có bản mới.',{label:'Tải lại',fn:RL})}});
   get().then(v=>{if(!v)return;cur=v;setInterval(check,60000);document.addEventListener('visibilitychange',()=>{if(document.visibilityState!=='visible')return;get().then(n=>{if(n&&n!==cur)RL()})})})})();
 fetch('design-system.html',{method:'HEAD'}).then(r=>{if(r.ok)document.documentElement.classList.add('has-ds')}).catch(()=>{});
 /* Công thức trong hình SVG: dùng đúng .fml và .frac của bài (design system, Công thức) qua foreignObject, để phép chia trong hình cũng là phân số.
@@ -187,3 +187,9 @@ function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></
     const x=/(auto|scroll)/.test(s.overflowX)&&e.scrollWidth-e.clientWidth>8,y=/(auto|scroll)/.test(s.overflowY)&&e.scrollHeight-e.clientHeight>8&&!x;
     if((x||y)&&!e.style.getPropertyValue('--sc-bg')){const b=bg(e);if(b)e.style.setProperty('--sc-bg',b)}e.classList.toggle('sc-x',x);e.classList.toggle('sc-y',y)});
   let t=0;const later=()=>{clearTimeout(t);t=setTimeout(scan,350)};addEventListener('load',later);addEventListener('resize',later);document.addEventListener('click',later,true)})();
+
+/* Tải lại trang (tự hoặc tay) thì về đúng chỗ đang đọc (#105, #112). Trang tắt khôi phục cuộn của trình duyệt (để nút Quay lại tự lo), nên tự lưu vị trí khi rời trang và cuộn lại sau khi tải; trang dài dần khi vẽ hình nên cuộn lại vài lần, dừng nếu người dùng tự cuộn */
+(function(){addEventListener('pagehide',()=>{try{sessionStorage.setItem('apY',String(scrollY))}catch(e){}});
+  const rl=(performance.getEntriesByType('navigation')[0]||{}).type==='reload'||window.AP_RELOAD;let y=null;try{y=sessionStorage.getItem('apY')}catch(e){}
+  if(!rl||y===null||location.hash)return;window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
+  [0,200,500,900,1500,2500].forEach(t=>setTimeout(()=>{if(!stop)scrollTo({top:+y,behavior:'instant'})},t))})();
