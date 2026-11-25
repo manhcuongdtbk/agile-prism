@@ -1302,3 +1302,18 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 
 /* Dòng Chú giải được mở tới: cùng 1 kiểu quầng tô sáng như mọi chỗ (#99) */
 .lg.hit{background:none!important;border-radius:8px;animation:hlr 3.4s ease-out}
+/* Điện thoại: thanh điều khiển xếp theo thứ tự Xem lần lượt / ‹ chấm › / Làm lại, Xem cả hình / nhãn bước. Nhãn bước nằm cuối, sát hình, chỗ của nó giữ sẵn nên không nhảy; Làm lại, Xem cả hình nằm ngay dưới hàng chấm, không bị tách xa (#102) */
+@media (max-width:760px){
+  main .stp,main .stp>.stp-nav{display:contents}
+  main :has(>.stp)>.stp>.play{order:2}
+  main :has(>.stp)>.stp::after{content:'';flex-basis:100%;order:3}
+  main :has(>.stp)>.stp>.stp-nav>:not(.stp-n){order:4}
+  main :has(>.stp)>.stp>.stp-nav::after{content:'';flex-basis:100%;order:5}
+  main :has(>.stp)>:is(.stp-rs,.fz-b,[id$=Reset],#svRs,.btn:has(use[href="#i-reset"])){order:6}
+  main :has(>.stp)>.stp>.stp-nav>.stp-n{order:7;flex-basis:100%}
+  main [role=group]:has(>.btn[aria-pressed])>.btn[aria-pressed]{flex-basis:100%;justify-content:flex-start}
+}
+
+/* Quầng của hình đang cuộn ngang: lớp riêng trên trang (#102) */
+main .hit.hlsc{animation:none!important}
+.hl-ov{position:absolute;pointer-events:none;z-index:5;animation:hlr 3.4s ease-out}
