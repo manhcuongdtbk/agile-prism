@@ -1291,3 +1291,14 @@ g.pl-hit,[data-sel].pl-hit{animation:plhit 2s ease-in-out}.ipan.pl-hit,.read.pl-
 [data-more]{--mL:#000;--mR:#000;--mT:#000;--mB:#000}
 [data-more]:not([data-more=""]){-webkit-mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,var(--mL),#000 24px,#000 calc(100% - 24px),var(--mR)),linear-gradient(to bottom,var(--mT),#000 24px,#000 calc(100% - 24px),var(--mB));mask-composite:intersect}
 [data-more][data-more*=l]{--mL:transparent}[data-more][data-more*=r]{--mR:transparent}[data-more][data-more*=t]{--mT:transparent}[data-more][data-more*=b]{--mB:transparent}
+
+/* Quầng trên hình có mép mờ (đang cuộn ngang): bỏ mép mờ trong lúc tô sáng, vì mask cắt mất quầng vẽ ra ngoài (#99) */
+[data-more].hit{-webkit-mask-image:none!important;mask-image:none!important}
+/* 5.6-1: chọn được nhiều cải tiến cùng lúc, nên trình bày đúng là ô đánh dấu (checkbox) kèm chữ: không viền nút, không nền (#99) */
+.btn[aria-pressed],.btn[aria-pressed=true]{border-color:transparent;background:none;border-radius:6px;padding:4px 8px 4px 2px;color:var(--ink);font-weight:500;box-shadow:none}
+.btn[aria-pressed]::before{width:16px;height:16px;border-radius:4px}
+.btn[aria-pressed=true]::before{background-size:12px}
+@media (hover:hover){.btn[aria-pressed]:hover{background:var(--soft)}}
+
+/* Dòng Chú giải được mở tới: cùng 1 kiểu quầng tô sáng như mọi chỗ (#99) */
+.lg.hit{background:none!important;border-radius:8px;animation:hlr 3.4s ease-out}
