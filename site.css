@@ -1224,7 +1224,13 @@ html.has-ds .lg-dev{display:flex!important}
 /* Hình 2.5-1 xếp dọc (≤1180px, #18): nhãn Stakeholders là dòng đầu; khung Scrum Team thành tiêu đề nhóm ngay trên 3 vai trò, không đè nhãn khác */
 @media (max-width:1180px){.rmap{display:flex!important;flex-direction:column;padding-top:16px!important}.rmap .shb{position:static!important;order:0;padding:0!important;background:none!important}.rmap .rm-cust{order:1}
 .rmap .stb{order:2;border:0!important;margin:14px 0 -2px!important;height:auto;grid-column:auto;grid-row:auto}.rmap .stb span{position:static!important;padding:0!important;background:none!important}
-.rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}}
+.rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}
+/* #98: mỗi luồng đặt ngay giữa 2 khối nó nối (thứ tự xếp: Stakeholder khác, Product Owner, Developers, Scrum Master), mũi tên ↓ ↑ theo hướng trên màn; luồng không kề (Increment, Scrum Master → Stakeholder) đặt dưới Stakeholder khác, mũi tên ↑ */
+.rmap .rl-kp{order:2}.rmap .rl-pk,.rmap .rl-inc,.rmap .rl-so{order:3}.rmap .stb{order:4}.rmap .rz.po{order:5}.rmap .rl-pd,.rmap .rl-dp{order:6}.rmap .rz.team{order:7}.rmap .rl-ds{order:8}.rmap .rl-st{order:9}.rmap .rz.sm{order:10}
+.rmap>.rm-l{margin:2px 0 2px 18px!important;padding:3px 0 3px 12px;border-left:2px solid var(--line)}
+.rmap>.rm-l::before{content:attr(data-d) " " attr(data-m) ": "}
+.rmap>.rm-l+.rz,.rmap>.rz+.rm-l{margin-top:6px!important}
+}
 /* Icon SVG trong nút (.bi): cùng cỡ, giữa theo chiều dọc với chữ, mọi máy như nhau */
 .bi{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px}
 :is(button,.btn,.fz-b,.back):has(>.bi){align-items:center;justify-content:center;gap:5px}/* không đặt display ở đây: mỗi nút tự quyết hiện, ẩn (PR #58 từng làm hiện nút ⤢ trên máy tính) */
