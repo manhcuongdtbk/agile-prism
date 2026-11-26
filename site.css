@@ -306,7 +306,7 @@ section.part{margin-top:56px;scroll-margin-top:64px}
 .role h4{color:var(--ci,var(--c));font-size:16px;margin-bottom:8px}
 .role h4 span{font-weight:400;font-size:13px;color:var(--mute)}
 .role ul{font-size:14px;color:var(--ink2)}
-.rm-wrap{container:rm/inline-size}
+.rm-wrap{container:rm/inline-size;margin:22px 0 14px}.rm-wrap>.rmap{margin-top:0!important}.rm-wrap>.fcap{margin-bottom:0!important}/* khung chứa không cho margin bên trong gộp với ngoài: dời margin của hình (22px) và caption (14px) ra khung, giữ đúng khoảng cách cũ (review #98) */
 .rmap{display:grid;grid-template-columns:150px 80px minmax(0,1fr) 112px minmax(0,1fr);grid-template-rows:56px auto 54px auto;margin-top:18px;padding:0 14px 14px 0}
 .rmap .lp{border-top:2px solid var(--team);height:56px;margin-top:0}
 .rmap .lp1{grid-column:1;grid-row:1;margin-left:50%;border-left:2px solid var(--team);border-top-left-radius:10px;position:relative}
