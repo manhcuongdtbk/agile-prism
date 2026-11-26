@@ -16,5 +16,7 @@ with sync_playwright() as p:
         if m:
             h=pg.evaluate("async()=>{const e=document.getElementById('f-usm');HL([e]);e.scrollIntoView({block:'center'});await new Promise(r=>setTimeout(r,7000));const c=getComputedStyle(e);return e.classList.contains('hit')||c.maskImage==='none'?[e.className,c.maskImage.slice(0,12)]:null}")
             if h:res.append([name,'mở hình từ Danh mục (tô sáng) xong mà mép mờ vẫn tắt',h])
+            h2=pg.evaluate("async()=>{const e=document.getElementById('f-usm'),w=t=>new Promise(r=>setTimeout(r,t));HL([e]);await w(2500);HL([e]);await w(1500);return e.classList.contains('hit')}")
+            if not h2:res.append([name,'tô sáng lại cùng hình trong 3.6 giây bị cắt sớm'])
         if m and n==0:res.append([name,'không có chỗ cuộn nào: core.js không gắn .sc-x?'])
 print(res)
