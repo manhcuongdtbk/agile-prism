@@ -1226,10 +1226,9 @@ html.has-ds .lg-dev{display:flex!important}
 .rmap .stb{order:2;border:0!important;margin:14px 0 -2px!important;height:auto;grid-column:auto;grid-row:auto}.rmap .stb span{position:static!important;padding:0!important;background:none!important}
 .rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}
 /* #98: mỗi luồng đặt ngay giữa 2 khối nó nối (thứ tự xếp: Stakeholder khác, Product Owner, Developers, Scrum Master), mũi tên ↓ ↑ theo hướng trên màn; luồng không kề (Increment, Scrum Master → Stakeholder) đặt dưới Stakeholder khác, mũi tên ↑ */
-.rmap .rl-kp{order:2}.rmap .rl-pk,.rmap .rl-inc,.rmap .rl-so{order:3}.rmap .stb{order:4}.rmap .rz.po{order:5}.rmap .rl-pd,.rmap .rl-dp{order:6}.rmap .rz.team{order:7}.rmap .rl-ds{order:8}.rmap .rl-st{order:9}.rmap .rz.sm{order:10}
+/* luồng nằm đúng chỗ trong HTML (thứ tự Tab = thứ tự nhìn, review #98); chỉ cần thứ tự cho nhãn Scrum Team */.rmap .rl-kp,.rmap .rl-pk,.rmap .rl-inc,.rmap .rl-so{order:2}.rmap .stb{order:3}.rmap .rz.po,.rmap .rl-pd,.rmap .rl-dp,.rmap .rz.team,.rmap .rl-ds,.rmap .rl-st,.rmap .rz.sm{order:4}
 .rmap>.rm-l{margin:2px 0 2px 18px!important;padding:3px 0 3px 12px;border-left:2px solid var(--line)}
 .rmap>.rm-l::before{content:attr(data-d) " " attr(data-m) ": "}
-.rmap>.rm-l+.rz,.rmap>.rz+.rm-l{margin-top:6px!important}
 }
 /* Icon SVG trong nút (.bi): cùng cỡ, giữa theo chiều dọc với chữ, mọi máy như nhau */
 .bi{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px}
