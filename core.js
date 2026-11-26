@@ -194,6 +194,7 @@ function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></
   const rl=(performance.getEntriesByType('navigation')[0]||{}).type==='reload'||window.AP_RELOAD;let y=null;try{y=sessionStorage.getItem('apY')}catch(e){}
   if(!rl||y===null){document.documentElement.classList.remove('ap-rl');return}/* tải lại: về chỗ đang đọc kể cả khi địa chỉ có #mục (bấm mục lục, nút Quay lại đều để #mục trên địa chỉ) (#115) */window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
   /* #119: lớp phủ đục hẳn (html.ap-rl) và chỉ gỡ khi đã ở đúng chỗ và trang thôi dài thêm 300ms (hình vẽ dần làm trang dài ra), tối đa 3 giây hoặc khi người đọc tự cuộn */
-  const H=document.documentElement;H.classList.add('ap-rl');let last=-1,same=0,t0=Date.now();
+  const H=document.documentElement;H.classList.add('ap-rl');let last=-1,same=0,t0=0;/* 3 giây tính từ lúc trang vẽ xong (AP_RL_DONE), không từ lúc core.js chạy: máy chậm vẽ quá 3 giây (review #119) */
   const fin=()=>{if(!H.classList.contains('ap-rl'))return;H.classList.remove('ap-rl');if(window.AP_RL_DONE&&window.PGL)PGL.done()};
-  const tick=()=>{if(stop||Date.now()-t0>3000)return fin();scrollTo({top:+y,behavior:'instant'});const h=document.documentElement.scrollHeight;same=(h===last&&Math.abs(scrollY-+y)<2)?same+1:0;last=h;if(same>=3&&window.AP_RL_DONE)return fin();setTimeout(tick,100)};tick()})();
+  const go=()=>{const tg=Math.min(+y,Math.max(0,H.scrollHeight-innerHeight));scrollTo({top:tg,behavior:'instant'});return tg};/* đích không vượt cuối trang (trang ngắn đi) */
+  const tick=()=>{if(stop)return fin();if(window.AP_RL_DONE&&!t0)t0=Date.now();if(t0&&Date.now()-t0>3000){go();return fin()}const tg=go(),h=H.scrollHeight;same=(h===last&&Math.abs(scrollY-tg)<2)?same+1:0;last=h;if(same>=3&&window.AP_RL_DONE)return fin();setTimeout(tick,100)};tick()})();
