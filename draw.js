@@ -312,7 +312,7 @@ fig('f-rii',W,424,()=>{let g='';const G='#4a3f94',GS='#f3f1fc';
 fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
   const steps=['Tìm áo','Chọn áo, chọn size','Đặt hàng, thanh toán','Nhận hàng, đổi trả'];
   g+=`<circle cx="${X0+4}" cy="16" r="5" fill="${INK}"/>`+A(`M${X0+10} 16H${W-14}`,'neu',{w:1.5})+`<rect x="${W-12}" y="9" width="10" height="14" rx="2" fill="${INK}"/>`+T(X0+16,10,'Hành trình của Hoa. Bắt đầu: cần 1 áo khoác',{s:11.5,w:600,c:MUTE,a:'start'})+T(W-16,10,'Kết thúc: mặc áo vừa size',{s:11.5,w:600,c:MUTE,a:'end'});
-  steps.forEach((t,i)=>{const x=X0+i*CW;g+=R(x,28,cw,44,INK,{rx:8})+T(x+cw/2,55,t,{s:13,w:600,c:'#fff'})});
+  steps.forEach((t,i)=>{const x=X0+i*CW;g+=R(x,28,cw,44,C.pri[1],{rx:8,stroke:PMID})+T(x+cw/2,55,t,{s:13,w:600,c:INK})});
   const B=[['Release 1','Release đầu, MVP (6.2)',92,208,C.pri],['Release 2','Project sau (1.6)',300,60,C.po],['Không làm','Won\'t have (4.9)',360,60,C.neu]];
   B.forEach(([t,sub,y,hh,c],k)=>{g+=Ln(`M0 ${y}H${W}`,c[0],1.5,'5 4')+T(0,y+24,t,{s:13.5,w:600,c:k<2?c[2]:INK2,a:'start'})+T(0,y+42,sub,{s:11.5,c:MUTE,a:'start'})});
   // [cột, dải, ô, tên, ghi chú, kiểu]. Khớp câu chuyện: 6 hạng mục của 4.9 cộng ví điện tử thêm ngày 10 (6.2)
@@ -356,7 +356,7 @@ fig('f-ujm',W,380,()=>{let g='';const X0=150,CW=242,cw=230,G='#4a3f94';
   const steps=['Tìm áo','Chọn áo, chọn size','Đặt hàng, thanh toán','Nhận hàng, đổi trả'];
   g+=`<circle cx="${X0+4}" cy="16" r="5" fill="${INK}"/>`+A(`M${X0+10} 16H${W-14}`,'neu',{w:1.5})+`<rect x="${W-12}" y="9" width="10" height="14" rx="2" fill="${INK}"/>`;
   g+=T(X0+16,10,'Bắt đầu: trời trở gió, Hoa cần 1 áo khoác',{s:11.5,w:600,c:MUTE,a:'start'})+T(W-16,10,'Kết thúc: mặc áo vừa size',{s:11.5,w:600,c:MUTE,a:'end'});
-  steps.forEach((t,i)=>{const x=X0+i*CW;g+=R(x,28,cw,40,INK,{rx:8})+T(x+cw/2,53,t,{s:13,w:600,c:'#fff'})});
+  steps.forEach((t,i)=>{const x=X0+i*CW;g+=R(x,28,cw,40,C.pri[1],{rx:8,stroke:PMID})+T(x+cw/2,53,t,{s:13,w:600,c:INK})});
   const rows=[['Hoa làm gì',84,52],['Cảm xúc',146,92],['Điều khó chịu',248,52],['Cơ hội, thành User Story',310,124]];
   rows.forEach(([t,y])=>{const [a,b]=t.split(', ');g+=T(0,y+22,b?a+',':a,{s:13,w:600,c:INK2,a:'start'})+(b?T(0,y+40,b,{s:13,w:600,c:INK2,a:'start'}):'')});
   const act=['Tìm trên điện thoại, lọc theo màu','Xem bảng size, phân vân giữa 2 size','Gõ lại 16 số thẻ trên điện thoại','Thử áo, nếu không vừa thì đổi'];
