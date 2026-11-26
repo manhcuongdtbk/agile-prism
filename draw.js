@@ -544,13 +544,14 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
     const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'}
   const showTip=el=>{tip.innerHTML=el.dataset.tip;tip.hidden=false;const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'};
   /* Cảm ứng: chạm không có "rê chuột ra", tooltip sẽ đọng lại đè lên lớp phủ vừa mở (#95). Nên chỉ hiện khi rê chuột thật hoặc Tab bằng bàn phím; chạm, bấm, cuộn đều ẩn */
-  let touch=false;document.addEventListener('pointerdown',e=>{touch=e.pointerType!=='mouse';tip.hidden=true},true);
+  let touch=false;document.addEventListener('pointerdown',e=>{touch=e.pointerType!=='mouse';tip.hidden=true},true);document.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')touch=false},{passive:true});/* laptop cảm ứng: chạm rồi rê chuột vẫn có tooltip */
   document.addEventListener('mouseover',e=>{if(touch)return;const d=e.target.closest('[data-tip]');if(d)showTip(d)});document.addEventListener('mouseout',e=>{if(e.target.closest('[data-tip]'))tip.hidden=true});
   document.addEventListener('focusin',e=>{const d=e.target.closest('[data-tip]');if(d&&d.matches(':focus-visible'))showTip(d)});
   document.addEventListener('click',()=>{tip.hidden=true},true);document.addEventListener('scroll',()=>{tip.hidden=true},{capture:true,passive:true});
-  document.addEventListener('mouseover',e=>{const d=e.target.closest('[data-t]');if(d)show(d)});
+  /* Thuật ngữ: cùng luật với [data-tip] ở trên. Chạm thì mở Glossary, không hiện tooltip; focus trả về sau khi đóng Glossary không phải bàn phím nên không hiện (#116, góp ý PO 26/11) */
+  document.addEventListener('mouseover',e=>{if(touch)return;const d=e.target.closest('[data-t]');if(d)show(d)});
   document.addEventListener('mouseout',e=>{if(e.target.closest('[data-t]'))tip.hidden=true});
-  document.addEventListener('focusin',e=>{const d=e.target.closest('[data-t]');if(d)show(d)});document.addEventListener('focusout',()=>tip.hidden=true);
+  document.addEventListener('focusin',e=>{const d=e.target.closest('[data-t]');if(d&&d.matches(':focus-visible'))show(d)});document.addEventListener('focusout',()=>tip.hidden=true);
   // ngăn kéo
   const D=document.getElementById('glD'),B=document.getElementById('glBtn'),tb=document.querySelector('#glT tbody'),q=document.getElementById('glQ'),qx=document.getElementById('glX'),nE=document.getElementById('glN'),th=document.querySelector('#glT th[data-s]');
   let F='all',dir=1,hit=-1,SM='rel';const PP=document.getElementById('glP'),AZ=document.getElementById('glAZ'),KK=document.getElementById('glK');KK.onchange=()=>render();const OO=document.getElementById('glO');[...new Set(TERMS.flatMap(t=>(t.fw||'Agile chung').split(/,\s*/)))].sort((a,b)=>a==='Agile chung'?-1:b==='Agile chung'?1:a.localeCompare(b)).forEach(o=>OO.add(new Option(o,o)));OO.onchange=()=>render();window.GLO=o=>{OO.value=o;open();render()};
