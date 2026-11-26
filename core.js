@@ -149,7 +149,8 @@ function BRANCH(items,cur){return '<ul class="brn">'+items.map(([h,d],i)=>`<li${
    Bấm liên kết sang trang khác cùng site (index.html, design-system.html) thì hiện lại ngay, vì trang mới cần vài trăm ms mới vẽ.
    Quay lại bằng back của trình duyệt (bfcache) thì gỡ. Tối đa 10 giây để không kẹt nếu có lỗi */
 window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
-  const done=()=>{const l=el();if(!l)return;l.classList.add('out');setTimeout(()=>l.hidden=true,260)};
+  /* Đang cuộn về chỗ cũ sau khi tải lại (html.ap-rl, #119): giữ lớp phủ tới khi cuộn xong, khối khôi phục bên dưới gọi lại done */
+  const done=()=>{const l=el();if(!l)return;if(document.documentElement.classList.contains('ap-rl')){window.AP_RL_DONE=true;return}l.classList.add('out');setTimeout(()=>l.hidden=true,260)};
   /* Mỗi lần hiện, thay bản đồ nhỏ bằng bản sao để chuyển động chạy lại từ đầu, không chạy tiếp chỗ đang dở */
   const show=(t)=>{const l=el();if(!l)return;if(t)l.querySelector('.pl-t').textContent=t;const m=l.querySelector('.kb-ld');if(m)m.replaceWith(m.cloneNode(true));l.hidden=false;void l.offsetWidth;l.classList.remove('out')};
   setTimeout(done,10000);window.addEventListener('pageshow',e=>{if(e.persisted)done()});
@@ -191,5 +192,8 @@ function FR(a,b){return `<span class="frac"><span>${a}</span><span>${b}</span></
 /* Tải lại trang (tự hoặc tay) thì về đúng chỗ đang đọc (#105, #112). Trang tắt khôi phục cuộn của trình duyệt (để nút Quay lại tự lo), nên tự lưu vị trí khi rời trang và cuộn lại sau khi tải; trang dài dần khi vẽ hình nên cuộn lại vài lần, dừng nếu người dùng tự cuộn */
 (function(){addEventListener('pagehide',()=>{try{sessionStorage.setItem('apY',String(scrollY))}catch(e){}});
   const rl=(performance.getEntriesByType('navigation')[0]||{}).type==='reload'||window.AP_RELOAD;let y=null;try{y=sessionStorage.getItem('apY')}catch(e){}
-  if(!rl||y===null)return;/* tải lại: về chỗ đang đọc kể cả khi địa chỉ có #mục (bấm mục lục, nút Quay lại đều để #mục trên địa chỉ) (#115) */window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
-  [0,200,500,900,1500,2500].forEach(t=>setTimeout(()=>{if(!stop)scrollTo({top:+y,behavior:'instant'})},t))})();
+  if(!rl||y===null){document.documentElement.classList.remove('ap-rl');return}/* tải lại: về chỗ đang đọc kể cả khi địa chỉ có #mục (bấm mục lục, nút Quay lại đều để #mục trên địa chỉ) (#115) */window.AP_RELOAD=true;let stop=false;const s=()=>{stop=true};['wheel','touchstart','keydown'].forEach(k=>addEventListener(k,s,{once:true,passive:true}));
+  /* #119: lớp phủ đục hẳn (html.ap-rl) và chỉ gỡ khi đã ở đúng chỗ và trang thôi dài thêm 300ms (hình vẽ dần làm trang dài ra), tối đa 3 giây hoặc khi người đọc tự cuộn */
+  const H=document.documentElement;H.classList.add('ap-rl');let last=-1,same=0,t0=Date.now();
+  const fin=()=>{if(!H.classList.contains('ap-rl'))return;H.classList.remove('ap-rl');if(window.AP_RL_DONE&&window.PGL)PGL.done()};
+  const tick=()=>{if(stop||Date.now()-t0>3000)return fin();scrollTo({top:+y,behavior:'instant'});const h=document.documentElement.scrollHeight;same=(h===last&&Math.abs(scrollY-+y)<2)?same+1:0;last=h;if(same>=3&&window.AP_RL_DONE)return fin();setTimeout(tick,100)};tick()})();

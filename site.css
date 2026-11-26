@@ -1070,7 +1070,7 @@ nav.top .nvd a.on,nav.top .nvd a[aria-current]{background:var(--pri-soft)!import
    .busy     1 vùng đang chờ (ví dụ nút vừa bấm, ngăn kéo đang nạp). Bộ thẻ nhỏ đặt tại chỗ
    .skel     khung xương: giữ chỗ đúng kích thước nội dung sắp nạp (lazy load), ánh sáng quét ngang */
 .pg-load{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:color-mix(in srgb,var(--bg,#fafafb) 86%,transparent);backdrop-filter:blur(2px);transition:opacity .25s}
-.pg-load.out{opacity:0;pointer-events:none}
+.pg-load.out{opacity:0;pointer-events:none}html.ap-rl .pg-load{background:var(--bg,#fafafb)!important;backdrop-filter:none}/* tải lại: đục hẳn để không thấy trang nhảy về đầu (#119) */
 .pl-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 22px;background:var(--surface,#fff);border:1px solid var(--line,#e4e5ea);border-radius:14px;box-shadow:0 8px 28px rgba(35,37,43,.08)}
 .kb-ld{position:relative;width:96px;height:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .kb-ld::before,.kb-ld::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--line,#e4e5ea)}
