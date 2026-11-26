@@ -548,9 +548,10 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
   document.addEventListener('mouseover',e=>{if(touch)return;const d=e.target.closest('[data-tip]');if(d)showTip(d)});document.addEventListener('mouseout',e=>{if(e.target.closest('[data-tip]'))tip.hidden=true});
   document.addEventListener('focusin',e=>{const d=e.target.closest('[data-tip]');if(d&&d.matches(':focus-visible'))showTip(d)});
   document.addEventListener('click',()=>{tip.hidden=true},true);document.addEventListener('scroll',()=>{tip.hidden=true},{capture:true,passive:true});
-  document.addEventListener('mouseover',e=>{const d=e.target.closest('[data-t]');if(d)show(d)});
+  /* Thuật ngữ: cùng luật với [data-tip] ở trên. Chạm thì mở Glossary, không hiện tooltip; focus trả về sau khi đóng Glossary không phải bàn phím nên không hiện (#116, góp ý PO 26/11) */
+  document.addEventListener('mouseover',e=>{if(touch)return;const d=e.target.closest('[data-t]');if(d)show(d)});
   document.addEventListener('mouseout',e=>{if(e.target.closest('[data-t]'))tip.hidden=true});
-  document.addEventListener('focusin',e=>{const d=e.target.closest('[data-t]');if(d)show(d)});document.addEventListener('focusout',()=>tip.hidden=true);
+  document.addEventListener('focusin',e=>{const d=e.target.closest('[data-t]');if(d&&d.matches(':focus-visible'))show(d)});document.addEventListener('focusout',()=>tip.hidden=true);
   // ngăn kéo
   const D=document.getElementById('glD'),B=document.getElementById('glBtn'),tb=document.querySelector('#glT tbody'),q=document.getElementById('glQ'),qx=document.getElementById('glX'),nE=document.getElementById('glN'),th=document.querySelector('#glT th[data-s]');
   let F='all',dir=1,hit=-1,SM='rel';const PP=document.getElementById('glP'),AZ=document.getElementById('glAZ'),KK=document.getElementById('glK');KK.onchange=()=>render();const OO=document.getElementById('glO');[...new Set(TERMS.flatMap(t=>(t.fw||'Agile chung').split(/,\s*/)))].sort((a,b)=>a==='Agile chung'?-1:b==='Agile chung'?1:a.localeCompare(b)).forEach(o=>OO.add(new Option(o,o)));OO.onchange=()=>render();window.GLO=o=>{OO.value=o;open();render()};

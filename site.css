@@ -1330,6 +1330,7 @@ main .hit.hlsc{animation:none!important}
 .fz-in.rot{padding-right:24px}
 /* #116: mép còn nội dung thì nội dung mờ dần (mask nằm trên mọi thứ, ô có nền màu không che được như bóng vẽ bằng nền). Độ mờ chạy theo vị trí cuộn bằng animation-timeline, không JavaScript. Trình duyệt chưa hỗ trợ thì giữ bóng nền ở trên */
 @property --sc-l{syntax:'<length>';inherits:false;initial-value:0px}
-@property --sc-r{syntax:'<length>';inherits:false;initial-value:0px}
+/* Mặc định = lúc chưa cuộn (mép phải mờ): Chrome Android để timeline chưa chạy tới lần cuộn đầu, khi đó animation không áp và biến lấy giá trị này (#116, S23U) */
+@property --sc-r{syntax:'<length>';inherits:false;initial-value:44px}
 @keyframes sc-fx{0%{--sc-l:0px;--sc-r:44px}6%{--sc-l:44px}94%{--sc-r:44px}100%{--sc-l:44px;--sc-r:0px}}
 @supports (animation-timeline:scroll()){:root .sc-x{-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.12),#000 var(--sc-l),#000 calc(100% - var(--sc-r)),rgba(0,0,0,.12));mask-image:linear-gradient(to right,rgba(0,0,0,.12),#000 var(--sc-l),#000 calc(100% - var(--sc-r)),rgba(0,0,0,.12));animation:sc-fx linear both;animation-timeline:scroll(self x)}@media (prefers-reduced-motion:reduce){:root .sc-x:not(.hit){animation:sc-fx linear both!important;animation-timeline:scroll(self x)!important}}:root .sc-x.hit{-webkit-mask-image:none;mask-image:none}}
