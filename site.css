@@ -1312,8 +1312,9 @@ main .hit.hlsc{animation:none!important}
 .hl-ov{position:absolute;pointer-events:none;z-index:5;animation:hlr 3.4s ease-out}
 
 /* Chỗ cuộn ngang được: bóng mờ ở mép còn nội dung, vẽ bằng nền (background-attachment local/scroll), trình duyệt tự lo khi cuộn, không cần JavaScript, không giật (#108). core.js gắn .sc-x 1 lần cho phần tử cuộn ngang được */
-.sc-x{background:linear-gradient(to right,var(--sc-bg,var(--surface)) 30%,transparent) left center/40px 100% no-repeat local,linear-gradient(to left,var(--sc-bg,var(--surface)) 30%,transparent) right center/40px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(20,22,30,.22),transparent) left center/18px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(20,22,30,.22),transparent) right center/18px 100% no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
-.sc-y{background:linear-gradient(var(--sc-bg,var(--surface)) 30%,transparent) center top/100% 40px no-repeat local,linear-gradient(to top,var(--sc-bg,var(--surface)) 30%,transparent) center bottom/100% 40px no-repeat local,radial-gradient(farthest-side at 50% 0,rgba(20,22,30,.22),transparent) center top/100% 18px no-repeat scroll,radial-gradient(farthest-side at 50% 100%,rgba(20,22,30,.22),transparent) center bottom/100% 18px no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+/* :root để thắng mọi luật background của phần tử (vd table.t{background}) – trước đây 28 bảng mất bóng mép (#116); sc.py kiểm */
+:root .sc-x{background:linear-gradient(to right,var(--sc-bg,var(--surface)) 30%,transparent) left center/40px 100% no-repeat local,linear-gradient(to left,var(--sc-bg,var(--surface)) 30%,transparent) right center/40px 100% no-repeat local,radial-gradient(farthest-side at 0 50%,rgba(20,22,30,.22),transparent) left center/18px 100% no-repeat scroll,radial-gradient(farthest-side at 100% 50%,rgba(20,22,30,.22),transparent) right center/18px 100% no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
+:root .sc-y{background:linear-gradient(var(--sc-bg,var(--surface)) 30%,transparent) center top/100% 40px no-repeat local,linear-gradient(to top,var(--sc-bg,var(--surface)) 30%,transparent) center bottom/100% 40px no-repeat local,radial-gradient(farthest-side at 50% 0,rgba(20,22,30,.22),transparent) center top/100% 18px no-repeat scroll,radial-gradient(farthest-side at 50% 100%,rgba(20,22,30,.22),transparent) center bottom/100% 18px no-repeat scroll;background-color:var(--sc-bg,var(--surface))}
 /* Thanh cuộn: màu đổi khi giữ (:active), thả ra trở lại. Màu khi rê chuột chỉ cho máy có chuột: trên cảm ứng :hover dính lại sau khi thả tay (#108) */
 
 @media (hover:hover){}
@@ -1325,3 +1326,8 @@ main .hit.hlsc{animation:none!important}
 /* Thanh cuộn tự vẽ chỉ cho máy có chuột. Máy cảm ứng dùng thanh cuộn của hệ điều hành (mảnh, tự ẩn): kéo thanh cuộn tự vẽ bằng ngón tay trên Chrome Android bị giật và giữ màu (#112) */
 /* Xem cả hình khi xoay: chừa khoảng ở mép dưới màn hình, để hình không sát thanh điều hướng của máy (#112) */
 .fz-in.rot{padding-right:24px}
+/* #116: mép còn nội dung thì nội dung mờ dần (mask nằm trên mọi thứ, ô có nền màu không che được như bóng vẽ bằng nền). Độ mờ chạy theo vị trí cuộn bằng animation-timeline, không JavaScript. Trình duyệt chưa hỗ trợ thì giữ bóng nền ở trên */
+@property --sc-l{syntax:'<length>';inherits:false;initial-value:0px}
+@property --sc-r{syntax:'<length>';inherits:false;initial-value:0px}
+@keyframes sc-fx{0%{--sc-l:0px;--sc-r:44px}6%{--sc-l:44px}94%{--sc-r:44px}100%{--sc-l:44px;--sc-r:0px}}
+@supports (animation-timeline:scroll()){:root .sc-x{-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.12),#000 var(--sc-l),#000 calc(100% - var(--sc-r)),rgba(0,0,0,.12));mask-image:linear-gradient(to right,rgba(0,0,0,.12),#000 var(--sc-l),#000 calc(100% - var(--sc-r)),rgba(0,0,0,.12));animation:sc-fx linear both;animation-timeline:scroll(self x)}:root .sc-x.hit{-webkit-mask-image:none;mask-image:none}}
