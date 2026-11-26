@@ -31,7 +31,7 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>v0.1, đang ở Production: v0.1.0. Lần đăng Production tiếp theo: v0.1.1</td>
+<td>v0.1, đang ở Production: v0.1.1 (26/11). Lần đăng Production tiếp theo: v0.1.2</td>
 </tr>
 <tr>
 <td>Release Goal</td>
@@ -163,9 +163,9 @@
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
   
 <p>Áp cho mọi User Story trước khi phát hành:
-1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>.
+1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh; <code>hl.py</code> kiểm quầng tô sáng ở MacBook, S23U dọc, Y700 dọc). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>. Trước khi làm thành phần mới: tìm trong trang và Design system xem đã có chưa (D44).
 2. Đối chiếu APG 2, PMBOK 8 cho mọi định nghĩa mới.
-3. Ảnh chụp vùng đã sửa ở 1440 và 390px đã xem.
+3. Ảnh chụp mọi chỗ dùng thành phần đã sửa ở MacBook 1440 và S23U dọc (384×719) đã xem (#123).
 4. Quy tắc mới ghi ở đúng 1 nơi.
 5. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26). Tên Pull request viết được thành 1 dòng CHANGELOG.
 7. Đọc lại mọi thứ vừa tạo ra bên ngoài (issue, PR, trang, cài đặt) đúng như người khác sẽ thấy, không chỉ tin kết quả lệnh trả về.
@@ -468,6 +468,58 @@
 <td>Storybook</td>
 <td>Công cụ trưng bày component có mẫu sống</td>
 <td>Design system làm vai trò tương tự</td>
+</tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Thêm ở Sprint 2</p>
+<table class="t">
+<thead>
+<tr>
+<th>Tên gọi</th>
+<th>Nghĩa</th>
+<th>Ở đâu, ví dụ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tên thành phần của hình</td>
+<td>Khung hình, khối, khối đang chọn, quầng tô sáng, thanh điều khiển, chấm bước, nhãn bước, ô kết quả, đuôi bong bóng, nút chỉ khối, Xem cả hình, thanh cuộn ngang</td>
+<td>Design system mục 12 (có ví dụ)</td>
+</tr>
+<tr>
+<td>Toast</td>
+<td>Thông báo nhỏ hiện rồi tự tắt, dùng chung cả trang</td>
+<td>"Lần trước bạn đọc tới 4.3 · Đọc tiếp", "Có bản mới · Tải lại"</td>
+</tr>
+<tr>
+<td>Loading overlay</td>
+<td>Lớp phủ lên trang lúc đang tải. Không gọi là loading screen (không có màn hình riêng)</td>
+<td>Lúc mở, tải lại trang</td>
+</tr>
+<tr>
+<td>User, persona</td>
+<td>User là người dùng thật nói chung; persona là chân dung đại diện (P1…P4)</td>
+<td>Mục 2</td>
+</tr>
+<tr>
+<td>Phone, tablet, laptop</td>
+<td>Thiết bị; không nói thiết bị = MacBook; phone, tablet không nói chiều = cầm dọc (D43)</td>
+<td>S23U, Y700, MacBook</td>
+</tr>
+<tr>
+<td>Release notes</td>
+<td>Ghi chú mỗi lần phát hành, tự sinh từ Pull request trên GitHub Release; CHANGELOG là bản cho người đọc</td>
+<td>GitHub Release v0.1.1</td>
+</tr>
+<tr>
+<td>Devil's advocate</td>
+<td>PO yêu cầu phản biện hết sức một ý</td>
+<td>Khi PO viết "devil's advocate"</td>
+</tr>
+<tr>
+<td>Thuật ngữ PMP, ACP</td>
+<td>Không ghi ở đây: theo Glossary của trang</td>
+<td>Glossary</td>
 </tr>
 </tbody>
 </table>
@@ -791,6 +843,54 @@
 <td>Giảm việc lặp không có giá trị, vẫn chặn rủi ro ở đúng lúc có thay đổi</td>
 <td>Xem Billing mỗi handoff; build mọi nhánh</td>
 <td>Thêm dịch vụ trả phí, hoặc gần chạm giới hạn build</td>
+</tr>
+<tr>
+<td>D40</td>
+<td>25/11</td>
+<td>Gốc đúng sai là ECO (Examination Content Outline) mới nhất của từng chứng chỉ cùng tài liệu ECO đó dẫn (hiện APG 2, PMBOK 8). Sửa D02</td>
+<td>Đề thi bám ECO, không bám 1 cuốn sách</td>
+<td>Chỉ APG 2, PMBOK 8</td>
+<td>PMI ra ECO mới</td>
+</tr>
+<tr>
+<td>D41</td>
+<td>25/11</td>
+<td>Claude chủ động cải thiện skill, tài liệu, quy trình, script rồi báo PO. Việc rủi ro cao, khó đảo ngược, tốn tiền, hoặc đổi quyết định đã chốt thì escalate: hỏi PO trước</td>
+<td>PO không muốn nhắc từng việc nhỏ, nhưng giữ quyền với việc lớn</td>
+<td>PO duyệt mọi thay đổi</td>
+<td>Có thêm người cộng tác</td>
+</tr>
+<tr>
+<td>D42</td>
+<td>25/11</td>
+<td>Refactor chủ động 10 tới 20% mỗi Sprint, chỉ ở chỗ đang chạm; nợ kỹ thuật ghi nhãn <code>tech-debt</code>, 3 Sprint xem lại 1 lần</td>
+<td>Tránh tối ưu sớm mà vẫn không để nợ dồn</td>
+<td>Sprint riêng cho refactor</td>
+<td>Nợ kỹ thuật làm chậm Sprint</td>
+</tr>
+<tr>
+<td>D43</td>
+<td>25/11</td>
+<td>PO không nói thiết bị = MacBook; phone, tablet không nói chiều xoay = cầm dọc</td>
+<td>Bớt hỏi lại, PO đỡ ghi</td>
+<td>Hỏi mỗi lần</td>
+<td></td>
+</tr>
+<tr>
+<td>D44</td>
+<td>26/11</td>
+<td>Quy trình dùng chung mọi product ở Internal docs, trang "Way of working" (mọi Claude Project đọc được); tài liệu handoff trong Project chỉ giữ phần riêng. Skill đặt tiền tố tên product. Thành phần giao diện mới phải dùng lại cái có sẵn</td>
+<td>Chuẩn bị product ôn PMP; Project docs không đọc chéo được giữa các Project; Sprint 2 lạc quẻ vì tự chế thành phần</td>
+<td>Chép quy trình sang từng Project</td>
+<td>Có công cụ dùng chung tốt hơn Claude Docs</td>
+</tr>
+<tr>
+<td>D45</td>
+<td>26/11</td>
+<td>Kết thúc Sprint theo thứ tự: Sprint Review → Retro → PO quyết release → handoff. Không giục handoff, release khi việc còn dở</td>
+<td>PO thấy Sprint 2 bị giục giữa chừng</td>
+<td>Handoff ngay sau lần nén đầu tiên bất kể việc dở</td>
+<td></td>
 </tr>
 </tbody>
 </table>
