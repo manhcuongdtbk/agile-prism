@@ -10,5 +10,8 @@ with sync_playwright() as p:
     for name,w,h,m,rm in [('S23U dọc',384,719,True,'no-preference'),('S23U giảm chuyển động',384,719,True,'reduce'),('MacBook',1440,800,False,'no-preference')]:
         pg=b.new_page(viewport={'width':w,'height':h},is_mobile=m,has_touch=m,reduced_motion=rm);pg.goto(T);pg.wait_for_timeout(1500)
         n=pg.evaluate("document.querySelectorAll('.sc-x,.sc-y').length");r=pg.evaluate(JS);print(name,n,'chỗ cuộn,',len(r),'lỗi',r[:5]);res+=r
+        if m:
+            f=pg.evaluate("async()=>{const b=[...document.querySelectorAll('[data-fz]')].find(x=>x.offsetParent);if(!b)return 'không có nút Xem cả hình';b.click();await new Promise(r=>setTimeout(r,30));const o=[...document.querySelectorAll('.fz-in .sc-x')].filter(e=>!e.closest('.fz-pan')&&getComputedStyle(e).maskImage!=='none').map(e=>e.id||e.className);FZ.close();return o.length?['Xem cả hình: hình không cuộn mà còn mép mờ',o]:null}")
+            if f:res.append([name,f])
         if m and n==0:res.append([name,'không có chỗ cuộn nào: core.js không gắn .sc-x?'])
 print(res)

@@ -15,8 +15,10 @@ with sync_playwright() as p:
         (c.tap() if m else c.click());pg.wait_for_timeout(400)
         if vis(pg):bad.append([name,'đóng Glossary thì tooltip hiện lại'])
         if not m:
+            h8=pg.locator('main [data-t]:visible').nth(8);h8.scroll_into_view_if_needed();pg.wait_for_timeout(300);h8.hover();pg.wait_for_timeout(200)
+            if not vis(pg):bad.append([name,'rê chuột lên thuật ngữ không hiện tooltip'])
             pg.mouse.move(5,h-5);pg.keyboard.press('Escape');pg.evaluate("document.activeElement&&document.activeElement.blur()")
-            t.focus();pg.keyboard.press('Shift+Tab');pg.keyboard.press('Tab');pg.wait_for_timeout(200)
+            t.scroll_into_view_if_needed();pg.wait_for_timeout(300);t.focus();pg.keyboard.press('Shift+Tab');pg.keyboard.press('Tab');pg.wait_for_timeout(200)
             if not vis(pg):bad.append([name,'Tab bằng bàn phím tới thuật ngữ không hiện tooltip'])
         pg.close()
 print(bad)

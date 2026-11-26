@@ -544,7 +544,7 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
     const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'}
   const showTip=el=>{tip.innerHTML=el.dataset.tip;tip.hidden=false;const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'};
   /* Cảm ứng: chạm không có "rê chuột ra", tooltip sẽ đọng lại đè lên lớp phủ vừa mở (#95). Nên chỉ hiện khi rê chuột thật hoặc Tab bằng bàn phím; chạm, bấm, cuộn đều ẩn */
-  let touch=false;document.addEventListener('pointerdown',e=>{touch=e.pointerType!=='mouse';tip.hidden=true},true);
+  let touch=false;document.addEventListener('pointerdown',e=>{touch=e.pointerType!=='mouse';tip.hidden=true},true);document.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')touch=false},{passive:true});/* laptop cảm ứng: chạm rồi rê chuột vẫn có tooltip */
   document.addEventListener('mouseover',e=>{if(touch)return;const d=e.target.closest('[data-tip]');if(d)showTip(d)});document.addEventListener('mouseout',e=>{if(e.target.closest('[data-tip]'))tip.hidden=true});
   document.addEventListener('focusin',e=>{const d=e.target.closest('[data-tip]');if(d&&d.matches(':focus-visible'))showTip(d)});
   document.addEventListener('click',()=>{tip.hidden=true},true);document.addEventListener('scroll',()=>{tip.hidden=true},{capture:true,passive:true});
