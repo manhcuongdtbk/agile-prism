@@ -306,6 +306,7 @@ section.part{margin-top:56px;scroll-margin-top:64px}
 .role h4{color:var(--ci,var(--c));font-size:16px;margin-bottom:8px}
 .role h4 span{font-weight:400;font-size:13px;color:var(--mute)}
 .role ul{font-size:14px;color:var(--ink2)}
+.rm-wrap{container:rm/inline-size;margin:22px 0 14px}.rm-wrap>.rmap{margin-top:0!important}.rm-wrap>.fcap{margin-bottom:0!important}/* khung chứa không cho margin bên trong gộp với ngoài: dời margin của hình (22px) và caption (14px) ra khung, giữ đúng khoảng cách cũ (review #98) */
 .rmap{display:grid;grid-template-columns:150px 80px minmax(0,1fr) 112px minmax(0,1fr);grid-template-rows:56px auto 54px auto;margin-top:18px;padding:0 14px 14px 0}
 .rmap .lp{border-top:2px solid var(--team);height:56px;margin-top:0}
 .rmap .lp1{grid-column:1;grid-row:1;margin-left:50%;border-left:2px solid var(--team);border-top-left-radius:10px;position:relative}
@@ -342,8 +343,8 @@ section.part{margin-top:56px;scroll-margin-top:64px}
 .up span{position:absolute;left:12px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--sm-ink)}
 .up.u1{grid-column:3}
 .up.u2{grid-column:5}
-/* Hình 2.5-1 (.rmap): dưới 1180px xếp dọc (cùng mốc 1180 của thanh điều hướng). Mốc này dùng ở 4 media query của .rmap, .rm-svg, .rm-ar; JS (rmap trong draw.js) đọc theo CSS: .rm-svg bị ẩn thì không vẽ. Bố cục lưới cần >1180px, hẹp hơn thì cột vai trò còn ~100px và nhãn Impediment tràn mép */
-@media (max-width:1180px){
+/* Hình 2.5-1 (.rmap): xếp dọc khi khung chứa .rm-wrap ≤1058px (= màn ≤1180px ở trang thường; trong Xem cả hình khung rộng 1200px nên về bố cục laptop, #98). Trước đây dùng @media 1180px. Dưới 1180px xếp dọc (cùng mốc 1180 của thanh điều hướng). Mốc này dùng ở 4 media query của .rmap, .rm-svg, .rm-ar; JS (rmap trong draw.js) đọc theo CSS: .rm-svg bị ẩn thì không vẽ. Bố cục lưới cần >1180px, hẹp hơn thì cột vai trò còn ~100px và nhãn Impediment tràn mép */
+@container rm (max-width:1058px){
 .rmap{display:block}
 .rmap>*{margin:10px 0}
 .rm-ar,.up,.lp{display:none}
@@ -976,10 +977,10 @@ dl.nm dt.o{color:var(--warn-ink,#704a00);background:#fcf2e3}
 .rm-key{margin-top:12px}
 .ln{display:inline-block;width:22px;height:0;border-top:2px solid var(--ink2);vertical-align:4px;margin-right:6px}
 .ln.ln-d{border-top:3px solid var(--ink)}.ln.ln-s{border-top-color:var(--sm)}
-@media (max-width:1180px){.rmap{padding:34px 12px 12px}.rm-key{flex-wrap:wrap}}
+@container rm (max-width:1058px){.rmap{padding:34px 12px 12px}}@media (max-width:1180px){.rm-key{flex-wrap:wrap}}
 .rz h4 span{display:block;font-size:12px;margin-top:2px}
-@media (max-width:760px){.rz.sm,.rz.sm ul{grid-template-columns:1fr!important}.rz.sm{gap:10px}}
-@media (max-width:1180px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
+@container rm (max-width:662px){.rz.sm,.rz.sm ul{grid-template-columns:1fr!important}.rz.sm{gap:10px}}
+@container rm (max-width:1058px){.rmap .rm-ar,.rmap .up{display:block!important;height:auto;width:auto;background:none;margin:2px 0 2px 14px}.rmap .rm-ar::after,.rmap .up::before{display:none}.rmap .rm-ar span,.rmap .up span{position:static!important;transform:none!important;width:auto!important;text-align:left!important;display:block}.rmap .rm-ar span::before{content:"↓ "}.rmap .up span::before{content:"↑ từ Scrum Master: "}}
 
 /* Vòng 28: Glossary, thiết kế lại.
    Ô Nghĩa: nhãn Cách gọi khác, Tên cũ, Không nhầm với nằm riêng 1 dòng, giá trị bên dưới dùng hết bề rộng ô (không bị dồn sang phải). 1 ý phụ là đoạn xám, không gạch đầu dòng.
@@ -1008,7 +1009,7 @@ nav.top a.nv-gio.on .gm,nav.top a.nv-gio[aria-current] .gm{color:#fff!important}
 .rm-l b{font-weight:600;color:var(--ink)}
 .rm-l a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px}
 .rm-l.rl-st,.rm-l.rl-sp,.rm-l.rl-sd,.rm-l.rl-so{color:var(--sm-ink)}
-@media (max-width:1180px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
+@container rm (max-width:1058px){.rm-svg{display:none}.rm-l{position:static!important;width:auto!important;transform:none!important;text-align:left;margin:4px 0}.rm-l::before{content:attr(data-m) ": ";font-weight:600;color:var(--ink)}.rm-l.rl-sp,.rm-l.rl-sd{display:none}.rm-l.rl-st::after{content:", quản lý Product Backlog cho Product Owner, gỡ Impediment cho Developers"}}
 /* Vòng 29: số mục trong chữ của hình, ví dụ (4.9), là liên kết: gạch chân chấm, rê chuột đổi màu hồng */
 svg.fig a.secl{cursor:pointer}svg.fig a.secl text{text-decoration:underline dotted;text-underline-offset:2px}
 svg.fig a.secl:hover text{fill:var(--pri-ink)!important;text-decoration-style:solid}
@@ -1049,7 +1050,7 @@ table.gl th:has(.srt):hover .srt{background:var(--pri-soft,#fdeef4)}
 .os-mac .os-w,.os-win .os-m{display:none}
 .lg-dev{grid-column:1/-1;margin:14px 0 0;font-size:12px;color:var(--mute)}.lg-dev a{color:var(--ink2)}
 nav.top .nvd a.on,nav.top .nvd a[aria-current]{background:var(--pri-soft)!important;color:var(--pri-ink)!important;font-weight:600}nav.top .nvd a.on i{color:var(--pri-ink)}
-@media (max-width:1180px){.rz.sm ul{grid-template-columns:1fr;gap:4px}.rz.sm{grid-template-columns:200px minmax(0,1fr)}}
+@container rm (max-width:1058px){.rz.sm ul{grid-template-columns:1fr;gap:4px}.rz.sm{grid-template-columns:200px minmax(0,1fr)}}
 /* Vòng 31: Hình 2.5-1 khung Scrum Team cách ô bên trong 44px ở cạnh trái, để mũi tên từ Stakeholder khác đi qua viền khung rồi mới tới đầu mũi tên, không chạm nhau ở viền */
 .stb{margin:-18px -16px -16px -40px!important}
 .rmap{grid-template-columns:200px 204px minmax(0,1fr) 176px minmax(0,1fr)!important}
@@ -1222,7 +1223,7 @@ html.has-ds .lg-dev{display:flex!important}
 .fz-in.side .fz-ctl{grid-column:1/-1}.fz-in.side .fz-fig{grid-column:1;grid-row:2;min-height:0;align-self:center}.fz-in.side .fz-pan{grid-column:2;grid-row:2;align-self:stretch;overflow-y:auto;max-height:100%}
 .fz-in.side .fz-pan .read,.fz-in.side .fz-pan .ipan{padding:8px 10px;font-size:12px;line-height:1.35}.fz-in.side .fz-pan .read *{font-size:inherit}
 /* Hình 2.5-1 xếp dọc (≤1180px, #18): nhãn Stakeholders là dòng đầu; khung Scrum Team thành tiêu đề nhóm ngay trên 3 vai trò, không đè nhãn khác */
-@media (max-width:1180px){.rmap{display:flex!important;flex-direction:column;padding-top:16px!important}.rmap .shb{position:static!important;order:0;padding:0!important;background:none!important}.rmap .rm-cust{order:1}
+@container rm (max-width:1058px){.rmap{display:flex!important;flex-direction:column;padding-top:16px!important}.rmap .shb{position:static!important;order:0;padding:0!important;background:none!important}.rmap .rm-cust{order:1}
 .rmap .stb{order:2;border:0!important;margin:14px 0 -2px!important;height:auto;grid-column:auto;grid-row:auto}.rmap .stb span{position:static!important;padding:0!important;background:none!important}
 .rmap .rz{order:3}.rmap .rm-svg,.rmap .rm-l{order:4}
 /* #98: mỗi luồng đặt ngay giữa 2 khối nó nối (thứ tự xếp: Stakeholder khác, Product Owner, Developers, Scrum Master), mũi tên ↓ ↑ theo hướng trên màn; luồng không kề (Increment, Scrum Master → Stakeholder) đặt dưới Stakeholder khác, mũi tên ↑ */

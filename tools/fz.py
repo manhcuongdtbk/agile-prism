@@ -1,11 +1,12 @@
-# DOC: "⤢ Xem cả hình" ở 390px (hoặc tham số, ví dụ 582x931): mỗi hình mở lớp phủ, hình nằm gọn trong màn hình; hình có Xem lần lượt thì bấm tới, chấm bước được và đóng lại giữ đúng bước; hình có khối bấm được thì bấm được trong lớp phủ. In [] là đạt.
+# DOC: "⤢ Xem cả hình" (cả hình SVG và hình HTML .fzh như Hình 2.5-1, #98) ở 390px (hoặc tham số, ví dụ 582x931): mỗi hình mở lớp phủ, hình nằm gọn trong màn hình; hình có Xem lần lượt thì bấm tới, chấm bước được và đóng lại giữ đúng bước; hình có khối bấm được thì bấm được trong lớp phủ. In [] là đạt.
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 from playwright.sync_api import sync_playwright
 JS=r'''async()=>{const out=[],ok=[];const W=innerWidth,H=innerHeight,sl=ms=>new Promise(r=>setTimeout(r,ms));
  const inView=r=>r.left>=-1&&r.top>=-1&&r.right<=W+1&&r.bottom<=H+1;
  for(const b of [...document.querySelectorAll('.fz-b')]){const c=document.getElementById(b.dataset.fz),id=c.id,par=c.parentElement;
    b.click();await sl(60);const ov=document.querySelector('.fz');if(!ov){out.push([id,'không mở']);continue}
-   const s=c.querySelector(':scope>svg.fig');if(!ov.contains(c)||!s){out.push([id,'lớp phủ không chứa hình sống']);FZ.close();continue}
+   const s=c.classList.contains('fzh')?c:c.querySelector(':scope>svg.fig');if(!ov.contains(c)||!s){out.push([id,'lớp phủ không chứa hình sống']);FZ.close();continue}
+   if(c.classList.contains('fzh')){await sl(150);const sv=c.querySelector('.rm-svg');if(sv&&(getComputedStyle(sv).display==='none'||!sv.innerHTML))out.push([id,'hình HTML không về bố cục laptop (thiếu mũi tên)'])}/* hình HTML (#98): cả khối là hình */
    const r=s.getBoundingClientRect();if(!inView(r))out.push([id,'hình tràn màn',Math.round(r.left),Math.round(r.top),Math.round(r.right),Math.round(r.bottom)]);
    if(r.width<W*0.6&&r.height<H*0.6)out.push([id,'hình quá nhỏ',Math.round(r.width),Math.round(r.height)]);
    const stp=ov.querySelector('.stp');let lbl='';
