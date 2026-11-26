@@ -532,7 +532,7 @@ table.pick .kind{font-size:12.5px;color:var(--mute)}
 }
 /* thuật ngữ, nguồn */
 dfn{font-style:normal;text-decoration:underline dotted var(--faint) 1.5px;text-underline-offset:3px;cursor:help}
-dfn:hover,dfn:focus{text-decoration-color:var(--pri);outline:none}
+dfn:hover,dfn:focus-visible{text-decoration-color:var(--pri)}dfn:focus{outline:none}/* focus trả về sau khi đóng Glossary (chuột, chạm) không tô hồng; Tab bằng bàn phím vẫn tô (#116) */
 .tip{position:absolute;z-index:40;max-width:340px;background:var(--pop-bg);color:var(--pop-ink);border:1px solid var(--pop-line);border-radius:10px;padding:10px 13px;font-size:13px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.18);pointer-events:none}
 .tip b{font-size:14px}
 .tip i{font-style:normal;color:var(--pri-ink);margin-left:6px}
