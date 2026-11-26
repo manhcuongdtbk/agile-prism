@@ -328,7 +328,8 @@ fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
   const COL={d:'#23252b',i:'#6b6f7a',s:'#258b95'};
   const mk=k=>`<marker id="rma-${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${COL[k]}"/></marker>`;
   function draw(){if(getComputedStyle(sv).display==='none'){sv.innerHTML='';return}
-    const o=M.getBoundingClientRect(),r=s=>{const b=M.querySelector(s).getBoundingClientRect();return {l:b.left-o.left,t:b.top-o.top,r:b.right-o.left,b:b.bottom-o.top,w:b.width,h:b.height,cx:b.left-o.left+b.width/2,cy:b.top-o.top+b.height/2}};
+    /* Đo bằng offset (không bị scale, xoay của Xem cả hình làm lệch như getBoundingClientRect, #98); cộng clientLeft/Top để gốc là mép viền như trước */
+    const r=s=>{const e=M.querySelector(s);let l=M.clientLeft,t=M.clientTop,x=e;while(x&&x!==M){l+=x.offsetLeft;t+=x.offsetTop;x=x.offsetParent}const w=e.offsetWidth,h=e.offsetHeight;return {l,t,r:l+w,b:t+h,w,h,cx:l+w/2,cy:t+h/2}};
     const K=r('.rm-cust'),P=r('.rz.po'),D=r('.rz.team'),S=r('.rz.sm'),F=r('.stb');
     const ln=(d,k,w=2)=>`<path d="${d}" fill="none" stroke="${COL[k]}" stroke-width="${w}" stroke-linejoin="round" marker-end="url(#rma-${k})"/>`;
     const seg=(d,k,w=2)=>`<path d="${d}" fill="none" stroke="${COL[k]}" stroke-width="${w}" stroke-linejoin="round"/>`;
@@ -339,7 +340,7 @@ fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
     g+=ln(`M${P.r+4} ${y1}H${D.l-4}`,'i')+ln(`M${D.l-4} ${y2}H${P.r+4}`,'i');
     g+=seg(`M${xt} ${S.t-2}V${yb}`,'s')+seg(`M${P.cx} ${yb}H${D.cx}`,'s')+ln(`M${P.cx} ${yb}V${P.b+4}`,'s')+ln(`M${D.cx} ${yb}V${D.b+4}`,'s');
     g+=ln(`M${S.l-4} ${S.cy}H${K.r+4}`,'s');
-    const lw=(()=>{const e=M.querySelector('.rl-ds');e.style.width='min-content';const w=e.getBoundingClientRect().width;return w})(),xi=Math.max(D.cx+24,Math.min(D.cx+46,F.r-22-lw))/* mũi tên Impediment lùi trái vừa đủ chỗ cho chữ dài nhất của nhãn bên phải, cách mũi tên teal ở D.cx ít nhất 24px */;g+=ln(`M${xi} ${D.b+4}V${S.t-4}`,'i');
+    const lw=(()=>{const e=M.querySelector('.rl-ds');e.style.width='min-content';return e.offsetWidth})(),xi=Math.max(D.cx+24,Math.min(D.cx+46,F.r-22-lw))/* mũi tên Impediment lùi trái vừa đủ chỗ cho chữ dài nhất của nhãn bên phải, cách mũi tên teal ở D.cx ít nhất 24px */;g+=ln(`M${xi} ${D.b+4}V${S.t-4}`,'i');
     sv.innerHTML=g;
     const put=(k,x,y,w,al='c')=>{const e=M.querySelector('.rl-'+k);if(al==='l')w=Math.min(w,M.clientWidth-x-4);e.style.width=w+'px';e.style.left=(al==='c'?x-w/2:al==='l'?x:x-w)+'px';e.style.top=y+'px';e.style.textAlign=al==='c'?'center':al==='l'?'left':'right';return e};
     const gap1=F.l-K.r-20,gap2=D.l-P.r-16,c1=(K.r+F.l)/2;/* nhãn bên trái nằm ngoài khung Scrum Team */
@@ -348,7 +349,7 @@ fig('f-usm',W,436,()=>{let g='';const X0=150,CW=242,cw=224,ch=40,G='#4a3f94';
     const pd=put('pd',(P.r+D.l)/2,0,gap2);pd.style.top=(y1-pd.offsetHeight-6)+'px';put('dp',(P.r+D.l)/2,y2+6,gap2);
     put('st',xt+10,yb+6,240,'l');put('sp',P.cx+10,yb-24,220,'l');put('sd',D.cx-10,yb-24,150,'r');{const e=put('ds',xi+8,0,Math.max(70,F.r-xi-14),'l');e.style.top=((D.b+S.t)/2-e.offsetHeight/2)+'px'}
     const so=put('so',c1,0,gap1);so.style.top=(S.cy-so.offsetHeight-6)+'px'}
-  draw();addEventListener('resize',()=>{clearTimeout(M._t);M._t=setTimeout(draw,80)});document.fonts&&document.fonts.ready.then(draw);setTimeout(draw,400)})();
+  window.RMDRAW=draw;/* Xem cả hình gọi lại sau khi đổi khung (#98) */draw();addEventListener('resize',()=>{clearTimeout(M._t);M._t=setTimeout(draw,80)});document.fonts&&document.fonts.ready.then(draw);setTimeout(draw,400)})();
 
 /* 4.3 User Journey Map của Hoa (APG 2 §2: journey maps cho cả Team chung 1 ngôn ngữ, giữ thảo luận gắn với kết quả của End User).
    Cột là các bước, cùng hàng trên của User Story Map. Hàng: Hoa làm gì, cảm xúc, điều khó chịu (lấy từ persona Hoa), cơ hội thành User Story */
@@ -1186,12 +1187,13 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
    Đóng bằng nút ✕, Esc, hoặc bấm vùng trắng ngoài hình. Ngăn kéo, tooltip mở từ hình trong lớp phủ nổi lên trên lớp phủ (CSS html:has(.fz)). Điều kiện hiện nút nằm ở CSS .fz-b */
 /* Nút đặt trong hàng điều khiển của hình (cạnh Làm lại) nếu khối .ixc chỉ có 1 hình và có hàng đó; không thì đặt ngay trên hình. Nút trỏ tới hình bằng data-fz="<id hình>" */
 (function(){const rowOf=c=>{const ix=c.closest('.ixc');if(!ix||[...ix.querySelectorAll('[id^="f-"]')].filter(x=>x.querySelector(':scope>svg.fig')).length!==1)return null;const st=ix.querySelector('.stp');return st&&st.parentElement!==ix&&!st.parentElement.contains(c)?st.parentElement:null};
-  const mk=()=>{document.querySelectorAll('[id^="f-"]').forEach(c=>{if(!c.querySelector(':scope>svg.fig.wide')||document.querySelector(`[data-fz="${c.id}"]`))return;
+  /* Hình HTML (.fzh, data-fzw = bề rộng bố cục laptop, vd Hình 2.5-1): cũng có nút; trong lớp phủ dựng ở bề rộng đó rồi thu nhỏ vừa khung (#98) */
+  const mk=()=>{document.querySelectorAll('[id^="f-"],.fzh').forEach((c,k)=>{if(c.classList.contains('fzh')&&!c.id)c.id='fzh-'+k;if(!(c.classList.contains('fzh')||c.querySelector(':scope>svg.fig.wide'))||document.querySelector(`[data-fz="${c.id}"]`))return;
   const b=document.createElement('button');b.type='button';b.className='btn fz-b';b.dataset.fz=c.id;b.innerHTML=BI('expand')+'Xem cả hình';b.onclick=()=>open(c);const r=rowOf(c);if(r)r.appendChild(b);else c.before(b)})};
   let ov=null,moved=[],live=null;
   const take=(el,box)=>{const m=document.createComment('fz');el.before(m);moved.push([el,m]);box.append(el)};
-  function open(c){const s=c.querySelector(':scope>svg.fig');if(!s||ov)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Xem cả hình');
-    const vb=s.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">${BI('x')}</button><div class="fz-in${port?' rot':''}"><div class="fz-ctl"></div><div class="fz-fig"></div><div class="fz-pan"></div></div>`;
+  function open(c){const s=c.querySelector(':scope>svg.fig'),hw=c.classList.contains('fzh');if((!s&&!hw)||ov)return;ov=document.createElement('div');ov.className='fz';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Xem cả hình');
+    const port=innerHeight>innerWidth&&(hw||s.viewBox.baseVal.width>s.viewBox.baseVal.height);ov.innerHTML=`<button type="button" class="fz-x" aria-label="Đóng">${BI('x')}</button><div class="fz-in${port?' rot':''}"><div class="fz-ctl"></div><div class="fz-fig"></div><div class="fz-pan"></div></div>`;
     /* Thanh Xem lần lượt, ô kết quả chỉ lấy khi khối .ixc chứa đúng 1 hình: .card nhiều hình thì thanh đó điều khiển phần khác, không phải hình này */
     const ix=c.closest('.ixc'),host=ix&&[...ix.querySelectorAll('[id^="f-"]')].filter(x=>x.querySelector(':scope>svg.fig')).length===1?ix:null,stp=host&&host.querySelector('.stp'),row=stp&&stp.parentElement;
     if(row&&row!==host&&!row.contains(c))take(row,ov.querySelector('.fz-ctl'));
@@ -1202,12 +1204,14 @@ if(document.getElementById('f-srv')){drawSRV();CARETS.push(()=>CARET('f-srv','sr
     ov.addEventListener('click',e=>{if(e.target===ov||e.target.matches('.fz-in,.fz-fig,.fz-ctl,.fz-pan')||e.target.closest('.fz-x'))close()});
     document.body.append(ov);document.documentElement.style.overflow='hidden';fit();ov.querySelector('.fz-x').focus({preventScroll:true})}
   /* Chiều cao tối đa của hình = chiều cao khung trừ hàng điều khiển đo thật (hàng nút có thể 1 hay 2 dòng), không trừ số cố định */
-  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl');const sv=live&&live.querySelector(':scope>svg.fig');if(sv){const vb=sv.viewBox.baseVal,port=innerHeight>innerWidth&&vb.width>vb.height;fi.classList.toggle('rot',port);/* bề dài khi xoay lấy đúng innerHeight: Chrome Android tính 100dvh theo lúc ẩn thanh địa chỉ, làm hình tràn xuống dưới (#99) */fi.style.width=port?innerHeight+'px':'';fi.style.height=port?innerWidth+'px':'';const pan=ov.querySelector('.fz-pan'),key=(port?'r':'n')+(innerWidth>innerHeight?'L':'P');
+  function fit(){if(!ov)return;const fi=ov.querySelector('.fz-in'),ct=ov.querySelector('.fz-ctl');const sv=live&&live.querySelector(':scope>svg.fig'),hw=live&&live.classList.contains('fzh');if(sv||hw){const port=innerHeight>innerWidth&&(hw||sv.viewBox.baseVal.width>sv.viewBox.baseVal.height);fi.classList.toggle('rot',port);/* bề dài khi xoay lấy đúng innerHeight: Chrome Android tính 100dvh theo lúc ẩn thanh địa chỉ, làm hình tràn xuống dưới (#99) */fi.style.width=port?innerHeight+'px':'';fi.style.height=port?innerWidth+'px':'';const pan=ov.querySelector('.fz-pan'),key=(port?'r':'n')+(innerWidth>innerHeight?'L':'P');
       /* Ô kết quả ngắn (ví dụ Shop Áo Gió): đặt dưới hình, hình vẫn to. Ô dài (số liệu CFD): đặt cạnh hình để đọc cùng lúc. Quyết 1 lần cho mỗi chiều xoay, không đổi theo từng bước (tránh hình nhảy) */
       if(fi.dataset.k!==key){fi.dataset.k=key;fi.classList.remove('side');pan.style.minHeight='';delete pan.dataset.mh;fi.dataset.sd=pan.children.length&&(port||innerWidth>innerHeight)&&pan.offsetHeight>fi.clientHeight*0.32?'1':''}
-      fi.classList.toggle('side',fi.dataset.sd==='1')}const cs=getComputedStyle(fi);const pn=ov.querySelector('.fz-pan');if(pn.children.length&&!fi.classList.contains('side')){/* chừa sẵn chỗ cho ô dài nhất đã gặp, tối thiểu 30% khung, để hình không nhảy khi đổi bước */pn.style.minHeight='';const need=Math.max(pn.offsetHeight,fi.clientHeight*0.3,+(pn.dataset.mh||0));pn.dataset.mh=need;pn.style.minHeight=need+'px'}else pn.style.minHeight='';const below=pn.children.length&&!fi.classList.contains('side')?pn.offsetHeight+6:0;const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0)-below;fi.style.setProperty('--fzh',Math.max(120,h)+'px')}
+      fi.classList.toggle('side',fi.dataset.sd==='1')}const cs=getComputedStyle(fi);const pn=ov.querySelector('.fz-pan');if(pn.children.length&&!fi.classList.contains('side')){/* chừa sẵn chỗ cho ô dài nhất đã gặp, tối thiểu 30% khung, để hình không nhảy khi đổi bước */pn.style.minHeight='';const need=Math.max(pn.offsetHeight,fi.clientHeight*0.3,+(pn.dataset.mh||0));pn.dataset.mh=need;pn.style.minHeight=need+'px'}else pn.style.minHeight='';const below=pn.children.length&&!fi.classList.contains('side')?pn.offsetHeight+6:0;const h=fi.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(ct.offsetHeight?ct.offsetHeight+6:0)-below;fi.style.setProperty('--fzh',Math.max(120,h)+'px');if(hw)fitH(Math.max(120,h))}
+  /* Hình HTML: đặt bề rộng laptop (data-fzw), đo cao, thu nhỏ bằng scale cho vừa khung; khung .fz-fig lấy đúng cỡ sau thu nhỏ */
+  function fitH(ah){const fg=ov.querySelector('.fz-fig'),fi=ov.querySelector('.fz-in'),cs=getComputedStyle(fi),W=+live.dataset.fzw||1200;Object.assign(live.style,{display:'block',flex:'0 0 auto',alignSelf:'flex-start',height:'auto',width:W+'px',transform:'none',transformOrigin:'0 0'});window.RMDRAW&&RMDRAW();const H=live.offsetHeight,aw=fi.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),k=Math.min(1,aw/W,ah/H);live.style.transform=`scale(${k})`;Object.assign(fg.style,{width:W*k+'px',height:H*k+'px',justifyContent:'flex-start',alignSelf:'center'})}
   addEventListener('resize',()=>fit());
-  function close(){if(!ov)return;live=null;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
+  function close(){if(!ov)return;if(live&&live.classList.contains('fzh')){['display','flex','alignSelf','height','width','transform','transformOrigin'].forEach(k=>live.style[k]='');setTimeout(()=>window.RMDRAW&&RMDRAW(),0)}live=null;moved.reverse().forEach(([el,m])=>{m.replaceWith(el)});moved=[];document.querySelectorAll('.fz-live').forEach(x=>x.classList.remove('fz-live'));ov.remove();ov=null;document.documentElement.style.overflow=''}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ov&&!document.querySelector('.drawer:not([hidden])')){e.stopPropagation();close()}},true);
   mk();setTimeout(mk,800);window.FZ={open,close}})();
 PGL.done();
