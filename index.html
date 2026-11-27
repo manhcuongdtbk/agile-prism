@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
-<script>/* tải lại có chỗ đọc đã lưu: giữ lớp phủ từ lần vẽ đầu (#119); core.js gỡ khi cuộn xong */(function(){try{var n=performance.getEntriesByType('navigation')[0];if((n&&n.type==='reload'||sessionStorage.getItem('newver')!==null)&&sessionStorage.getItem('apY')!==null)document.documentElement.classList.add('ap-rl')}catch(e){}})()</script>
+<script>/* tải lại có chỗ đọc đã lưu: giữ lớp phủ từ lần vẽ đầu (#119); core.js gỡ khi cuộn xong. --plw: lớp phủ chờ đủ 150 ms tính từ lúc bắt đầu chuyển trang, đã quá thì hiện ngay (#139) */(function(){try{document.documentElement.style.setProperty('--plw',Math.max(0,150-performance.now())+'ms');var n=performance.getEntriesByType('navigation')[0];if((n&&n.type==='reload'||sessionStorage.getItem('newver')!==null)&&sessionStorage.getItem('apY')!==null)document.documentElement.classList.add('ap-rl')}catch(e){}})()</script>
 </head>
 <body>
 <div id="pgLoad" class="pg-load" role="status" aria-live="polite"><div class="pl-box"><span class="kb-ld" aria-hidden="true"><i></i><i></i><i></i></span><span class="pl-t">Đang mở Bản đồ trực quan</span></div></div>
