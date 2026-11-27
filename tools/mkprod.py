@@ -1,4 +1,4 @@
-# DOC: Sinh product.html (bỏ dòng <!--riêng-->) (trang Sản phẩm, chỉ ở staging) từ san-pham.md (đường dẫn là tham số đầu tiên), cùng khung với design-system.html (hero, thanh trang, mục lục, card). Chạy sau mỗi lần sửa san-pham.md.
+# DOC: Sinh product.html (bỏ dòng <!--riêng-->) (trang Sản phẩm; D37: chỉ Development, hiện build.sh vẫn chép lên Staging tới khi xong #60) từ san-pham.md (đường dẫn là tham số đầu tiên), cùng khung với design-system.html (hero, thanh trang, mục lục, card). Chạy sau mỗi lần sửa san-pham.md.
 import sys
 import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 import re,markdown

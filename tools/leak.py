@@ -9,9 +9,12 @@ for f in files:
     except Exception: continue
     for i,l in enumerate(t.split('\n'),1):
         if pat.search(l): bad.append(f'{f}:{i}')
-try:
+# Commit chưa đẩy lên dev (D06): không có dòng đồng tác giả, dòng phiên làm việc, tên công cụ
+r=subprocess.run(['git','-C',R,'rev-parse','--verify','-q','origin/dev'],capture_output=True,text=True)
+if r.returncode!=0:
+    print('CẢNH BÁO: không có origin/dev, bỏ qua kiểm commit',file=sys.stderr)
+else:
     m=subprocess.run(['git','-C',R,'log','origin/dev..HEAD','--format=%h %B'],capture_output=True,text=True,timeout=20).stdout
     for l in m.split('\n'):
-        if re.match(r'(?i)^\s*co-authored-by:',l): bad.append('commit: '+l.strip())
-except Exception: pass
+        if re.match(r'(?i)^\s*(co-authored-by|claude-session):',l) or pat.search(l): bad.append('commit: '+l.strip()[:80])
 print('\n'.join(bad) or 'OK');sys.exit(1 if bad else 0)
