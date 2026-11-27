@@ -62,5 +62,5 @@ with sync_playwright() as p:
     early=[x for x in V if x[1] and x[0]<150];out=next((x[0] for x in V if x[2]),None);shown=[x for x in V if x[1]]
     print('13a trang nhanh: không hiện trước 150 ms; gỡ trước 150 ms thì không hiện lần nào',not early and (out is None or out>=150 or not shown),'gỡ ở',out,'khung hiện',len(shown));pg8.close()
     pg9=b.new_page(viewport={'width':1440,'height':900});pg9.add_init_script(REC);c9=LAT(pg9,800);pg9.goto(U+'index.html');pg9.wait_for_timeout(6500);V=pg9.evaluate("window.__v")
-    print('13b mạng chậm: khung vẽ đầu tiên đã có lớp phủ',bool(V) and V[0][1],V[:2]);pg9.close()
+    print('13b mạng chậm: khung vẽ đầu tiên đã có lớp phủ',bool(V) and V[0][1],[[x[0],'hiện' if x[1] else 'ẩn'] for x in V[:2]])  # không in True/False của từng khung: check.sh coi chữ False là lỗi;pg9.close()
     print(e)
