@@ -62,5 +62,16 @@ with sync_playwright() as p:
     early=[x for x in V if x[1] and x[0]<150];out=next((x[0] for x in V if x[2]),None);shown=[x for x in V if x[1]]
     print('13a trang nhanh: không hiện trước 150 ms; gỡ trước 150 ms thì không hiện lần nào',not early and (out is None or out>=150 or not shown),'gỡ ở',out,'khung hiện',len(shown));pg8.close()
     pg9=b.new_page(viewport={'width':1440,'height':900});pg9.add_init_script(REC);c9=LAT(pg9,800);pg9.goto(U+'index.html');pg9.wait_for_timeout(6500);V=pg9.evaluate("window.__v")
-    print('13b mạng chậm: khung vẽ đầu tiên đã có lớp phủ',bool(V) and V[0][1],[[x[0],'hiện' if x[1] else 'ẩn'] for x in V[:2]])  # không in True/False của từng khung: check.sh coi chữ False là lỗi;pg9.close()
+    print('13b mạng chậm: khung vẽ đầu tiên đã có lớp phủ',bool(V) and V[0][1],[[x[0],'hiện' if x[1] else 'ẩn'] for x in V[:2]]);pg9.close()  # không in True/False của từng khung: check.sh coi chữ False là lỗi
+    # 14 (#139, PO 28/11): đã hiện thì giữ ít nhất 400 ms tính từ lúc người đọc bắt đầu thấy (review lượt 4: đo theo khung thấy được, không theo công thức của code)
+    REC2="(()=>{const L=window.__v=[];const f=()=>{const l=document.getElementById('pgLoad');if(l){const c=getComputedStyle(l),k=l.querySelector('.kb-ld');L.push([Math.round(performance.timeOrigin+performance.now()),!l.hidden&&c.visibility==='visible'&&+c.opacity>0,l.classList.contains('out'),!!k&&getComputedStyle(k).visibility==='visible'])}if(performance.now()<6000)requestAnimationFrame(f)};requestAnimationFrame(f)})()"
+    # 14a bấm liên kết, mạng giả chậm 250 ms: trang cũ hiện chữ; trang mới hiện tiếp y hệt từ khung đầu (không bản đồ nhỏ), gỡ không sớm hơn 380 ms sau lúc trang cũ hiện
+    pg10=b.new_page(viewport={'width':1440,'height':900});pg10.goto(U+'product.html');pg10.wait_for_function("document.getElementById('pgLoad').hidden",timeout=15000)
+    pg10.add_init_script(REC2);c10=LAT(pg10,250);pg10.click('nav.pg-nav a[href="design-system.html"]');pg10.wait_for_timeout(3000);V=pg10.evaluate("window.__v");pls=pg10.evaluate("window.__pls")
+    out=next((x[0] for x in V if x[2]),None);vis=[x for x in V if x[1] and not x[2]]
+    print('14a chuyển trang: trang mới hiện tiếp chỉ chữ, giữ đủ 400 ms',bool(pls) and bool(V) and V[0][1] and not any(x[3] for x in vis) and out is not None and out-pls>=380,'trang cũ hiện lúc',pls,'gỡ sau',out and pls and out-pls,'ms');pg10.close()
+    # 14b mở thẳng 1 trang, mạng giả chậm 250 ms: từ khung thấy được đầu tiên tới lúc gỡ từ 380 ms trở lên (hoặc không hiện lần nào)
+    pg11=b.new_page(viewport={'width':1440,'height':900});pg11.add_init_script(REC2);c11=LAT(pg11,250);pg11.goto(U+'design-system.html');pg11.wait_for_timeout(3000);V=pg11.evaluate("window.__v")
+    vis=[x for x in V if x[1] and not x[2]];out=next((x[0] for x in V if x[2]),None)
+    print('14b mở trang: đã hiện thì giữ đủ 400 ms',not vis or (out is not None and out-vis[0][0]>=380),'hiện',vis and vis[0][0]-V[0][0],'gỡ sau',vis and out and out-vis[0][0],'ms');pg11.close()
     print(e)
