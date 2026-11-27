@@ -1,5 +1,5 @@
 # DOC: Kiểm Đang tải cả trang qua máy chủ thử (check.sh tự mở máy chủ thử ở cổng 8765). Mọi dòng phải ra True. Gồm: tải xong thì ẩn, bấm liên kết sang trang khác thì hiện, rời trang bằng back thì hiện, quay lại từ bộ nhớ đệm (bfcache) thì ẩn, mỗi lần hiện chuyển động chạy lại từ đầu.
-import os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
+import re,os as _o;ROOT=_o.path.dirname(_o.path.dirname(_o.path.abspath(__file__)));OUT=_o.path.join(ROOT,"tools",".out");T="file://"+_o.path.join(OUT,"_t.html")
 from playwright.sync_api import sync_playwright
 U='http://localhost:8765/'
 vis="(()=>{const l=document.getElementById('pgLoad');return !!l&&!l.hidden&&!l.classList.contains('out')})()"
@@ -32,4 +32,14 @@ with sync_playwright() as p:
     # 8 chỗ đã lưu vượt cuối trang: gỡ lớp phủ sớm, không giữ đủ 3 giây
     pg3.evaluate("sessionStorage.setItem('apY','99999999')");pg3.reload();pg3.wait_for_timeout(2500)
     print('8 đích vượt cuối trang: gỡ lớp phủ trong 2.5 giây',not pg3.evaluate(vis))
+    # 9 tải lại (#139): lúc rời trang lớp phủ hiện ngay, đục hẳn, không mờ dần, không blur, chữ của chính trang (khớp lớp phủ đục của trang mới). Đo sau khi trang đã gỡ ap-rl (review #139)
+    SOLID=lambda c:bool(re.match(r'^rgb\(\d+, \d+, \d+\)$',c))
+    pg4=b.new_page(viewport={'width':1440,'height':900});pg4.goto(U+'index.html');pg4.wait_for_function("!document.documentElement.classList.contains('ap-rl')&&document.getElementById('pgLoad').hidden",timeout=15000)
+    pg4.evaluate("addEventListener('beforeunload',()=>{const l=document.getElementById('pgLoad'),c=getComputedStyle(l);sessionStorage.ld9=JSON.stringify([c.opacity,c.transitionDuration,c.backdropFilter,c.backgroundColor,l.querySelector('.pl-t').textContent])})")
+    pg4.reload();pg4.wait_for_function("!document.documentElement.classList.contains('ap-rl')",timeout=15000);r=pg4.evaluate("JSON.parse(sessionStorage.ld9||'null')")
+    ok=bool(r) and r[0]=='1' and r[1]=='0s' and r[2]=='none' and SOLID(r[3]) and r[4]=='Đang mở Bản đồ trực quan'
+    # sau 1 lần hiện ngay (.now), lần hiện do bấm liên kết vẫn mờ dần, có blur
+    pg4.wait_for_function("document.getElementById('pgLoad').hidden",timeout=15000)
+    c4=pg4.evaluate("(()=>{PGL.show(null,true);PGL.done();PGL.show('x');const c=getComputedStyle(document.getElementById('pgLoad'));const r=[c.transitionDuration,c.backdropFilter];PGL.done();return r})()")
+    print('9 tải lại: lớp phủ hiện ngay, đục hẳn, đúng chữ',ok,r,'; sau đó hiện lại vẫn mờ dần',c4[0]!='0s' and c4[1]!='none',c4)
     print(e)
