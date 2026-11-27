@@ -12,7 +12,7 @@
   <a class="brand" href="index.html" aria-label="Agile Prism, về trang chính"><img src="logo.svg" alt="" width="40" height="40"><span><b>Agile Prism</b><small>Hiểu Agile bằng hình. Ôn PMI-ACP</small></span></a>
   <h1>Sản phẩm</h1>
   <div class="meta"><p>Nguồn duy nhất cho Vision, Persona, Product Backlog, kế hoạch Release, Definition of Done. Quy trình từng chat nằm ở tài liệu bàn giao.</p>
-<p><strong>Nhịp làm việc</strong>: xem mục 8 Way of working. Mỗi câu trả lời kết thúc bằng 1 bảng ngắn: Release Goal, đã xong trong Release, còn lại, đề xuất cắt hay dời, câu hỏi người dùng chưa trả lời. Scope phình ra thì nói ngay, đề xuất dời sang Release sau.</p>
+<p><strong>Nhịp làm việc</strong>: xem mục 8 Way of working. Chỉ nhắc Release khi có thay đổi: scope phình ra (nói ngay, đề xuất dời sang Release sau), đề xuất cắt hay dời, Sprint Review, handoff (PO 27/11).</p>
 </div>
   <nav class="pg-nav" aria-label="Các trang"><a href="index.html">Bản đồ trực quan</a><a href="product.html" aria-current="page">Sản phẩm</a><a href="design-system.html">Design system</a></nav>
   <nav class="ds-toc" aria-label="Mục lục trang Sản phẩm"><a href="#pd-0"><b>0</b>Release đang làm</a><a href="#pd-1"><b>1</b>Vision và Product Goal</a><a href="#pd-2"><b>2</b>Persona</a><a href="#pd-3"><b>3</b>Product Backlog</a><a href="#pd-4"><b>4</b>Definition of Done</a><a href="#pd-5"><b>5</b>Risk của Product</a><a href="#pd-6"><b>6</b>Ubiquitous Language</a><a href="#pd-7"><b>7</b>Decision log</a><a href="#pd-8"><b>8</b>Way of working</a></nav>
@@ -161,7 +161,7 @@
 </tr>
 </tbody>
 </table>
-<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn <code>repeated</code> nếu góp ý đã nêu trước đó (D24), <code>regression</code> nếu lỗi sinh ra từ 1 bản sửa trước, nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In acceptance, Done; In review thêm lại khi có #68, D51), không dùng nhãn. Refinement đầu mỗi Sprint: rà trùng, đã xong, thiếu Acceptance Criteria; story sắp vào Sprint có Acceptance Criteria theo 3 góc Three Amigos (nghiệp vụ, làm, kiểm).</p>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn <code>repeated</code> nếu góp ý đã nêu trước đó (D24), <code>regression</code> nếu lỗi sinh ra từ 1 bản sửa trước, <code>tech-debt</code> nếu là nợ kỹ thuật (D42), nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In acceptance, Done; In review thêm lại khi có #68, D51), không dùng nhãn. Refinement đầu mỗi Sprint: rà trùng, đã xong, thiếu Acceptance Criteria; story sắp vào Sprint có Acceptance Criteria theo 3 góc Three Amigos (nghiệp vụ, làm, kiểm).</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
@@ -224,7 +224,7 @@
 <tbody>
 <tr>
 <td>Product</td>
-<td>Agile Prism: thứ người đọc dùng, sống lâu dài. Không gọi là "project": theo PMBOK 8, project là nỗ lực tạm thời có điểm kết thúc. Mỗi Release giống 1 project nhỏ</td>
+<td>Agile Prism: thứ người đọc dùng, sống lâu dài. Không gọi là "project": theo PMBOK 8 (tr. 12, Bảng 1-1), project là sáng kiến tạm thời trong bối cảnh riêng để tạo value (temporary initiative in a unique context undertaken to create value). Mỗi Release giống 1 project nhỏ</td>
 <td>agile-prism.pages.dev</td>
 </tr>
 <tr>
@@ -293,7 +293,7 @@
 <tbody>
 <tr>
 <td>Sprint</td>
-<td>1 chat: chốt Sprint Goal, làm các issue ở cột Ready, mỗi lượt góp ý là 1 vòng Review nhỏ, cuối chat Retrospective</td>
+<td>1 chat: chốt Sprint Goal, làm các issue trong Sprint Backlog (checkbox trong issue Sprint, D31), mỗi lượt góp ý là 1 vòng Review nhỏ, cuối chat Retrospective</td>
 <td>Sprint 3</td>
 </tr>
 <tr>
@@ -616,7 +616,7 @@
 <tr>
 <td>D16</td>
 <td>23/11</td>
-<td>Dùng GitHub như Jira: nhãn loại issue <code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>, Sub-task là sub-issue, cột To Do, In Progress, In Review, Done, Fix Version là milestone. Tên kỹ thuật (nhãn, nhánh, tag, file, trường) tiếng Anh, nội dung (issue, commit, CHANGELOG) tiếng Việt</td>
+<td>Dùng GitHub như Jira: nhãn loại issue <code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>, Sub-task là sub-issue, cột To Do, In Progress, In Review, Done (cột sửa bởi D21, D46, D51: Backlog, Ready, In progress, In acceptance, Done), Fix Version là milestone. Tên kỹ thuật (nhãn, nhánh, tag, file, trường) tiếng Anh, nội dung (issue, commit, CHANGELOG) tiếng Việt</td>
 <td>Chủ sản phẩm quen Jira, không phải học mới. Chuyển sang Jira sau này gần như không phải ghép tên</td>
 <td>Tên tiếng Việt, tầng Feature</td>
 <td>Product phình to, Jira có giá trị rõ</td>
@@ -624,7 +624,7 @@
 <tr>
 <td>D17</td>
 <td>23/11</td>
-<td>3 môi trường: Development (nhánh <code>dev</code>, nhóm làm sản phẩm), Staging (nhánh <code>staging</code>, persona thử trước), Production (nhánh <code>main</code>, ổn định nhất). Development và Staging chung 1 chính sách đăng nhập Cloudflare Access</td>
+<td>3 môi trường: Development (nhánh <code>dev</code>, nhóm làm sản phẩm), Staging (nhánh <code>staging</code>, persona thử trước), Production (nhánh <code>main</code>, ổn định nhất). Development và Staging chung 1 chính sách đăng nhập Cloudflare Access (sửa ở Sprint 1, ghi ở D27: Development tách chính sách riêng, chỉ PO)</td>
 <td>Production phải ổn định khi có người đọc thật. Persona thử trước trên Staging</td>
 <td>2 môi trường</td>
 <td>Có persona ngoài gia đình (P3): tách chính sách đăng nhập Development riêng</td>
@@ -664,7 +664,7 @@
 <tr>
 <td>D22</td>
 <td>24/11</td>
-<td>Làm Scrum cho đúng: 1 chat là 1 Sprint, có Sprint Goal. Sprint Backlog là cột Ready. Retrospective cuối chat, cả chủ sản phẩm và Developers cùng nói. Release gồm nhiều Sprint. Thay D10</td>
+<td>Làm Scrum cho đúng: 1 chat là 1 Sprint, có Sprint Goal. Sprint Backlog là cột Ready (sửa bởi D31: checkbox trong issue Sprint). Retrospective cuối chat, cả chủ sản phẩm và Developers cùng nói. Release gồm nhiều Sprint. Thay D10</td>
 <td>Trước đây mượn vai trò Scrum nhưng nhịp giống Kanban: Sprint không cố định, không có Sprint Goal, retro 1 chiều. Dùng đúng Scrum trên chính sản phẩm là cách học ACP trực quan nhất</td>
 <td>Gọi đúng tên là Kanban (WIP limit, Lead Time)</td>
 <td>Có thêm người làm sản phẩm</td>
@@ -672,7 +672,7 @@
 <tr>
 <td>D23</td>
 <td>24/11</td>
-<td>Chống quên khi chat bị nén: Developers giữ Sprint notes (Sprint Goal, việc xong, câu hỏi chờ, quyết định chưa ghi), cập nhật sau mỗi câu trả lời. Sau mỗi lần nén thì đọc lại sổ Sprint, tài liệu bàn giao, Decision log rồi mới trả lời. Bàn giao khi xong Sprint Goal, hoặc ngay sau lần nén đầu tiên</td>
+<td>Chống quên khi chat bị nén: Developers giữ Sprint notes (Sprint Goal, việc xong, câu hỏi chờ, quyết định chưa ghi), cập nhật sau mỗi câu trả lời. Sau mỗi lần nén thì đọc lại sổ Sprint, tài liệu bàn giao, Decision log rồi mới trả lời. Bàn giao khi xong Sprint Goal, hoặc ngay sau lần nén đầu tiên (thời điểm bàn giao thay bởi D45, D56, D60)</td>
 <td>Nén chat làm chủ sản phẩm chờ lâu và Developers quên quyết định cũ</td>
 <td>Để chat dài tới khi nén nhiều lần</td>
 <td>Công cụ chat có bộ nhớ dài hơn</td>
@@ -752,7 +752,7 @@
 <tr>
 <td>D34</td>
 <td>24/11</td>
-<td>Đầu Sprint dựng môi trường bằng 1 lệnh <code>sh tools/setup.sh</code>. <code>check.sh</code> đạt thì in 1 dòng mỗi script. 2 PDF chỉ chép khi Sprint có issue <code>content</code> (#54)</td>
+<td>Đầu Sprint dựng môi trường bằng 1 lệnh <code>sh tools/setup.sh</code>. <code>check.sh</code> đạt thì in 1 dòng mỗi script. 2 PDF chỉ chép khi Sprint có issue <code>content</code> (#54) (cách tra sách thay bởi D54, D57: <code>project_search</code> Project knowledge, hình ở Drive)</td>
 <td>Bỏ lãng phí (Elimination of waste) đầu mỗi Sprint: lệnh rời, kết quả in dài, tài liệu không dùng tới</td>
 <td>Giữ 5 bước rời</td>
 <td>Có GitHub Actions (#19): đầu Sprint đọc kết quả có sẵn, không chạy lại</td>
@@ -973,6 +973,38 @@
 <td>Xoá 4.0 ngay (mất nguồn để so); giữ hẳn không quy tắc</td>
 <td>#145 xong</td>
 </tr>
+<tr>
+<td>D62</td>
+<td>27/11</td>
+<td>Chat Sprint và chat bên lề không chạy song song: chat bên lề chạy sau chat Sprint</td>
+<td>Opus thinking cao đốt session limit nhanh; PO chấp nhận chờ</td>
+<td>Chạy song song</td>
+<td>PO nâng gói Claude</td>
+</tr>
+<tr>
+<td>D63</td>
+<td>27/11</td>
+<td>Trước khi tạo agent (trong chat, review, kiểm) hoặc mở chat mới: Claude gợi ý model và mức thinking, kèm lý do và ước token, để PO chọn. Mọi chỗ nói model ghi "tên model + mức thinking" (ví dụ Opus 5.5 high). Áp cả cho review của D53</td>
+<td>Cùng model khác mức thinking cho kết quả rất khác. Benchmark 27/11 đọc lại chat Sprint 2: Opus 5.5 high ra 65 quyết định, khoảng 390 nghìn token; Sonnet 5.5 (theo phiên, chưa đo được) ra 43, khoảng 158 nghìn</td>
+<td>Claude tự chọn rồi phải chạy lại</td>
+<td>Có benchmark mới, hoặc PO đổi gói</td>
+</tr>
+<tr>
+<td>D64</td>
+<td>27/11</td>
+<td>Chat bên lề có sửa tài liệu hoặc code: cuối chat có 1 agent kiểm độc lập như handoff (hỏi PO chọn model, mức thinking trước). Mở rộng D60</td>
+<td>Chat rà soát 27/11 dù chưa bị nén vẫn sót 11 chỗ agent bắt được</td>
+<td>Chỉ kiểm ở handoff Sprint</td>
+<td></td>
+</tr>
+<tr>
+<td>D65</td>
+<td>27/11</td>
+<td>Thiết lập làm việc mặc định từ Sprint 4: mỗi product 1 Space (màn hình ảo macOS) riêng; Agile Prism: nửa trái Claude mac app, nửa phải Chrome có tab Development và DevTools</td>
+<td>Bớt chép, đính ảnh giữa các app</td>
+<td>Chrome split view, nửa trái Claude web app</td>
+<td>Retro Sprint 4: đo số lần phải chép, đính ảnh</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -995,7 +1027,7 @@
 <tr>
 <td>Product Owner</td>
 <td>Chủ sản phẩm</td>
-<td>Chốt Sprint Goal, ưu tiên Product Backlog, duyệt quyết định, nói "release"</td>
+<td>Chốt Sprint Goal, ưu tiên Product Backlog (sắp thứ tự trên Scrum board bất cứ lúc nào), duyệt quyết định, nói "release"</td>
 </tr>
 <tr>
 <td>Developers</td>
@@ -1040,7 +1072,7 @@
 <tr>
 <td>Sprint Planning</td>
 <td>Đầu chat, sau <code>sh tools/setup.sh</code> (D34)</td>
-<td>Developers đề xuất Sprint Goal, việc và kế hoạch làm thế nào cho từng việc (D35), PO chốt; chốt giờ dừng (D49)</td>
+<td>Đọc thứ tự Product Backlog PO đã xếp trên Scrum board (Chrome, tới khi có #68); Developers đề xuất Sprint Goal, việc và kế hoạch làm thế nào cho từng việc (D35), PO chốt; chốt giờ dừng (D49)</td>
 <td>Issue Sprint: Sprint Goal, Sprint Backlog (checkbox nối tới issue)</td>
 </tr>
 <tr>
@@ -1058,7 +1090,7 @@
 <tr>
 <td>Sprint Review</td>
 <td>Cuối Sprint, và khi P1 dùng Staging</td>
-<td>PO xem kết quả, P1 dùng thật; sắp xếp lại Product Backlog (D35)</td>
+<td>PO xem kết quả, P1 dùng thật; sắp xếp lại Product Backlog (D35), giữ thứ tự PO đã xếp trên Scrum board</td>
 <td>Issue Sprint, mục Kết quả</td>
 </tr>
 <tr>
