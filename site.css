@@ -1067,11 +1067,11 @@ nav.top .nvd a.on,nav.top .nvd a[aria-current]{background:var(--pri-soft)!import
 .rm-sn{margin:12px 4px 0;font-size:11.5px;font-weight:400;line-height:1.4;color:#4a3f94;text-align:left}
 .rm-cust .rm-sn svg.gm{display:inline-block;width:13px;height:13px;margin:0 4px -2px 0;color:inherit}
 /* Vòng 31: LOADING. 3 dạng, cùng 1 bộ chuyển động (thẻ Kanban chạy To do → Doing → Done), khác hẳn vạch Tiến độ đọc:
-   .pg-load  cả trang chưa tương tác được (mở trang, chuyển trang). Lớp phủ mờ, khối giữa màn hình
+   .pg-load  cả trang chưa tương tác được (mở trang, chuyển trang). Lớp phủ đục hẳn mọi lúc (#139, PO 27/11), khối giữa màn hình
    .busy     1 vùng đang chờ (ví dụ nút vừa bấm, ngăn kéo đang nạp). Bộ thẻ nhỏ đặt tại chỗ
    .skel     khung xương: giữ chỗ đúng kích thước nội dung sắp nạp (lazy load), ánh sáng quét ngang */
-.pg-load{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:color-mix(in srgb,var(--bg,#fafafb) 86%,transparent);backdrop-filter:blur(2px);transition:opacity .25s}
-.pg-load.out{opacity:0;pointer-events:none}html.ap-rl .pg-load{background:var(--bg,#fafafb)!important;backdrop-filter:none}.pg-load.now{transition:none;background:var(--bg,#fafafb)!important;backdrop-filter:none}/* rời trang không qua liên kết (tải lại, back): hiện ngay, đục hẳn, khớp lớp phủ của trang mới (#139) *//* tải lại: đục hẳn để không thấy trang nhảy về đầu (#119) */
+.pg-load{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--bg,#fafafb);transition:opacity .25s}
+.pg-load.out{opacity:0;pointer-events:none}.pg-load.now{transition:none}.pg-load.now .kb-ld,.pg-load.go .kb-ld{visibility:hidden}/* rời trang không qua liên kết (tải lại, back) và quay lại từ bộ nhớ đệm: hiện, gỡ ngay không mờ dần; không chạy bản đồ nhỏ ở trang cũ, để trang mới vẽ 1 lần từ đầu, không thấy chạy lại 2 lần (#139) *//* tải lại: lớp phủ giữ tới khi cuộn về đúng chỗ (html.ap-rl, #119) */
 .pl-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 22px;background:var(--surface,#fff);border:1px solid var(--line,#e4e5ea);border-radius:14px;box-shadow:0 8px 28px rgba(35,37,43,.08)}
 .kb-ld{position:relative;width:96px;height:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .kb-ld::before,.kb-ld::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--line,#e4e5ea)}
@@ -1149,7 +1149,6 @@ html.has-ds .lg-dev{display:flex!important}
 .c-seq li+li{margin-top:5px}
 .c-seq li::before{content:counter(cs);position:absolute;left:0;top:1px;width:16px;height:16px;border-radius:50%;background:var(--soft);border:1px solid var(--line);font-size:10px;font-weight:600;line-height:15px;text-align:center;color:var(--ink2)}
 /* Đang tải: khối chỉ báo nằm trên lớp phủ, không thành thẻ nổi riêng */
-.pg-load{background:color-mix(in srgb,var(--bg,#fafafb) 92%,transparent)}
 .pl-box{background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
 .pg-load .kb-ld{transform:scale(1.25)}
 .pg-load .pl-t{font-size:13.5px;margin-top:4px}

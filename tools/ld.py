@@ -32,14 +32,24 @@ with sync_playwright() as p:
     # 8 chỗ đã lưu vượt cuối trang: gỡ lớp phủ sớm, không giữ đủ 3 giây
     pg3.evaluate("sessionStorage.setItem('apY','99999999')");pg3.reload();pg3.wait_for_timeout(2500)
     print('8 đích vượt cuối trang: gỡ lớp phủ trong 2.5 giây',not pg3.evaluate(vis))
-    # 9 tải lại (#139): lúc rời trang lớp phủ hiện ngay, đục hẳn, không mờ dần, không blur, chữ của chính trang (khớp lớp phủ đục của trang mới). Đo sau khi trang đã gỡ ap-rl (review #139)
+    # 9 (#139, PO 27/11: lớp phủ đục hẳn mọi lúc): tải lại thì lúc rời trang lớp phủ hiện ngay, đục, không blur, không chạy bản đồ nhỏ, chữ của chính trang; bấm liên kết thì hiện dần, cũng đục; mở trang lần đầu cũng đục
     SOLID=lambda c:bool(re.match(r'^rgb\(\d+, \d+, \d+\)$',c))
     pg4=b.new_page(viewport={'width':1440,'height':900});pg4.goto(U+'index.html');pg4.wait_for_function("!document.documentElement.classList.contains('ap-rl')&&document.getElementById('pgLoad').hidden",timeout=15000)
-    pg4.evaluate("addEventListener('beforeunload',()=>{const l=document.getElementById('pgLoad'),c=getComputedStyle(l);sessionStorage.ld9=JSON.stringify([c.opacity,c.transitionDuration,c.backdropFilter,c.backgroundColor,l.querySelector('.pl-t').textContent])})")
+    pg4.evaluate("addEventListener('beforeunload',()=>{const l=document.getElementById('pgLoad'),c=getComputedStyle(l);sessionStorage.ld9=JSON.stringify([c.opacity,c.transitionDuration,c.backdropFilter,c.backgroundColor,l.querySelector('.pl-t').textContent,getComputedStyle(l.querySelector('.kb-ld')).visibility])})")
     pg4.reload();pg4.wait_for_function("!document.documentElement.classList.contains('ap-rl')",timeout=15000);r=pg4.evaluate("JSON.parse(sessionStorage.ld9||'null')")
-    ok=bool(r) and r[0]=='1' and r[1]=='0s' and r[2]=='none' and SOLID(r[3]) and r[4]=='Đang mở Bản đồ trực quan'
-    # sau 1 lần hiện ngay (.now), lần hiện do bấm liên kết vẫn mờ dần, có blur
+    ok=bool(r) and r[0]=='1' and r[1]=='0s' and r[2]=='none' and SOLID(r[3]) and r[4]=='Đang mở Bản đồ trực quan' and r[5]=='hidden'
     pg4.wait_for_function("document.getElementById('pgLoad').hidden",timeout=15000)
-    c4=pg4.evaluate("(()=>{PGL.show(null,true);PGL.done();PGL.show('x');const c=getComputedStyle(document.getElementById('pgLoad'));const r=[c.transitionDuration,c.backdropFilter];PGL.done();return r})()")
-    print('9 tải lại: lớp phủ hiện ngay, đục hẳn, đúng chữ',ok,r,'; sau đó hiện lại vẫn mờ dần',c4[0]!='0s' and c4[1]!='none',c4)
+    c4=pg4.evaluate("(()=>{PGL.show(null,true);PGL.done();PGL.show('x');const l=document.getElementById('pgLoad'),c=getComputedStyle(l);const r=[c.transitionDuration,c.backgroundColor,getComputedStyle(l.querySelector('.kb-ld')).visibility];PGL.done();return r})()")
+    print('9 tải lại: hiện ngay, đục, không chạy bản đồ nhỏ, đúng chữ',ok,r,'; PGL.show trực tiếp (nút Thử Đang tải): hiện dần, đục, có bản đồ nhỏ',c4[0]!='0s' and SOLID(c4[1]) and c4[2]=='visible',c4)
+    pg6=b.new_page(viewport={'width':1440,'height':900});pg6.add_init_script("requestAnimationFrame(()=>{const l=document.getElementById('pgLoad');window.__f1=l?getComputedStyle(l).backgroundColor:null})");pg6.goto(U+'product.html');pg6.wait_for_timeout(300)
+    f1=pg6.evaluate("window.__f1");print('10 mở trang lần đầu: lớp phủ đục',SOLID(f1 or ''),f1);pg6.close()
+    # 11 bấm liên kết (#139 lượt 2): trang cũ chỉ hiện chữ trang đích, không chạy bản đồ nhỏ, nền đục
+    pg7=b.new_page(viewport={'width':1440,'height':900});pg7.goto(U+'design-system.html');pg7.wait_for_function("document.getElementById('pgLoad').hidden",timeout=15000)
+    pg7.evaluate("addEventListener('beforeunload',()=>{const l=document.getElementById('pgLoad');sessionStorage.ld11=JSON.stringify([getComputedStyle(l.querySelector('.kb-ld')).visibility,getComputedStyle(l).backgroundColor,l.querySelector('.pl-t').textContent])})")
+    pg7.click('nav.pg-nav a[href="index.html"]');pg7.wait_for_timeout(1500);r7=pg7.evaluate("JSON.parse(sessionStorage.ld11||'null')")
+    print('11 bấm liên kết: chỉ chữ trang đích, không bản đồ nhỏ, đục',bool(r7) and r7[0]=='hidden' and SOLID(r7[1]) and r7[2]=='Đang mở Bản đồ trực quan',r7)
+    # 12 quay lại từ bộ nhớ đệm (headless không có bfcache nên giả lập pageshow persisted): gỡ ngay, không mờ dần; lần hiện sau vẫn hiện dần, có bản đồ nhỏ
+    pg7.wait_for_function("document.getElementById('pgLoad').hidden",timeout=15000)
+    r12=pg7.evaluate("""(()=>{PGL.show('x');const l=document.getElementById('pgLoad');dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));const a=getComputedStyle(l).opacity;return new Promise(res=>setTimeout(()=>{PGL.show('y');const c=getComputedStyle(l);const r=[a,c.transitionDuration,getComputedStyle(l.querySelector('.kb-ld')).visibility];PGL.done();res(r)},400))})()""")
+    print('12 bộ nhớ đệm: gỡ ngay; lần sau hiện dần, có bản đồ nhỏ',r12[0]=='0' and r12[1]!='0s' and r12[2]=='visible',r12)
     print(e)
