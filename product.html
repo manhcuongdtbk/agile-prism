@@ -32,7 +32,7 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>v0.1, đang ở Production: v0.1.2 (27/11). Lần đăng Production tiếp theo: v0.1.3</td>
+<td>v0.1, đang ở Production: v0.1.3 (28/11). Lần đăng Production tiếp theo: v0.1.4</td>
 </tr>
 <tr>
 <td>Release Goal</td>
@@ -171,9 +171,9 @@
 1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh; <code>hl.py</code> kiểm quầng tô sáng ở MacBook, S23U dọc, Y700 dọc). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>. Trước khi làm thành phần mới: tìm trong trang và Design system xem đã có chưa (D44).
 2. Đối chiếu ECO 2026, APG 2, PMBOK 8 cho mọi định nghĩa mới bằng tìm trong Project knowledge, ghi số trang (D54).
 3. Ảnh chụp mọi chỗ dùng thành phần đã sửa ở MacBook 1440 và S23U dọc (384×719) đã xem: <code>python3 tools/shot.py SELECTOR…</code> (#123).
-4. Kiểm theo đường vào: thử đủ các đường người đọc đi tới chỗ đã sửa (cuộn tới, mở từ Danh mục, mở từ Glossary, tải lại trang); PR ghi rõ phần nào trình duyệt giả lập không đo được, cần PO thử máy thật (cải tiến Retro Sprint 3).
+4. Kiểm theo đường vào: thử đủ các đường người đọc đi tới chỗ đã sửa (cuộn tới, mở từ Danh mục, mở từ Glossary, tải lại trang); PR ghi rõ phần nào trình duyệt giả lập không đo được, cần PO thử máy thật (cải tiến Retro Sprint 3). Thay đổi về tải trang, chuyển trang, chuyển động: thử thêm ở mạng giả chậm (Slow 4G, có giới hạn băng thông) và CPU chậm, quay video và gửi PO kèm hướng dẫn thử (D68).
 5. Quy tắc mới ghi ở đúng 1 nơi; đổi luật dùng chung thì có phép kiểm tự động cho luật đó.
-6. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26); issue giao diện dùng "Refs #số" và chỉ đóng khi PO xác nhận trên máy thật (D46). Tên Pull request viết được thành 1 dòng CHANGELOG. PR sửa gốc chung hoặc thay đổi lớn có review của 1 agent riêng trước khi merge (D53).
+6. Làm trên nhánh riêng, tạo và merge Pull request bằng <code>sh tools/ship.sh</code> (chỉ merge khi <code>check.sh</code> đạt, D70), Pull request vào <code>dev</code> có "Closes #số" (D26); issue giao diện dùng "Refs #số" và chỉ đóng khi PO xác nhận trên máy thật (D46). Tên Pull request viết được thành 1 dòng CHANGELOG. PR sửa gốc chung hoặc thay đổi lớn có review của 1 agent riêng (Opus 5.5 high, D67) trước khi merge (D53).
 7. Đọc lại mọi thứ vừa tạo ra bên ngoài (issue, PR, trang, cài đặt) đúng như người khác sẽ thấy, không chỉ tin kết quả lệnh trả về.
 8. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra (S23U) hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
 </section>
@@ -985,7 +985,7 @@
 <tr>
 <td>D63</td>
 <td>27/11</td>
-<td>Trước khi tạo agent (trong chat, review, kiểm) hoặc mở chat mới: Claude gợi ý model và mức thinking, kèm lý do và ước token, để PO chọn. Mọi chỗ nói model ghi "tên model + mức thinking" (ví dụ Opus 5.5 high). Áp cả cho review của D53</td>
+<td>Trước khi tạo agent (trong chat, review, kiểm) hoặc mở chat mới: Claude gợi ý model và mức thinking, kèm lý do và ước token, để PO chọn. Mọi chỗ nói model ghi "tên model + mức thinking" (ví dụ Opus 5.5 high). Áp cả cho review của D53 (review: sửa bởi D67, mặc định Opus 5.5 high, không hỏi mỗi lần)</td>
 <td>Cùng model khác mức thinking cho kết quả rất khác. Benchmark 27/11 đọc lại chat Sprint 2: Opus 5.5 high ra 65 quyết định, khoảng 390 nghìn token; Sonnet 5.5 (theo phiên, chưa đo được) ra 43, khoảng 158 nghìn</td>
 <td>Claude tự chọn rồi phải chạy lại</td>
 <td>Có benchmark mới, hoặc PO đổi gói</td>
@@ -1005,6 +1005,70 @@
 <td>Bớt chép, đính ảnh giữa các app</td>
 <td>Chrome split view, nửa trái Claude web app</td>
 <td>Retro Sprint 4: đo số lần phải chép, đính ảnh</td>
+</tr>
+<tr>
+<td>D66</td>
+<td>28/11</td>
+<td>Lớp phủ đang tải cả trang: luôn đục; mở trang, rời trang thì chờ 150 ms (tính từ lúc bắt đầu chuyển trang) mới hiện; đã hiện thì giữ ít nhất 400 ms; bản đồ nhỏ chạy liền qua 2 trang; quay lại từ bộ nhớ đệm thì gỡ ngay. Chi tiết ở Design system mục Đang tải (#139)</td>
+<td>PO thử máy thật 5 lượt: khựng, chạy lại 2 lần, nháy, chỉ có chữ khi mạng chậm. Chờ trước rồi giữ tối thiểu là cách hay dùng cho chỉ báo đang tải</td>
+<td>Lớp phủ trong 92% có blur; hiện ngay; bỏ lớp phủ khi chuyển trang</td>
+<td>Người đọc báo chậm; #169 (giảm chuyển động)</td>
+</tr>
+<tr>
+<td>D67</td>
+<td>28/11</td>
+<td>Review gốc chung mặc định Opus 5.5 high, không hỏi PO mỗi lần (sửa D63 cho review); chỉ hỏi khi định dùng model khác</td>
+<td>Benchmark 28/11 trên 2 diff #139: Opus bắt 3 lỗi chặn, Sonnet 5.5 medium bắt 1 (xếp nhẹ hơn) và sót 2; Sonnet chỉ ít token hơn khoảng 25%, nhanh gấp 3–4 lần, có tìm ra 1 lỗi Opus sót (#169)</td>
+<td>Lần 2 trở đi dùng Sonnet (đề xuất Retro, bỏ sau benchmark); Opus và Sonnet song song</td>
+<td>Có thêm số đo, hoặc PO đổi gói</td>
+</tr>
+<tr>
+<td>D68</td>
+<td>28/11</td>
+<td>Thay đổi về tải trang, chuyển trang, chuyển động: trước khi nhờ PO thử, giả mạng chậm (Slow 4G có giới hạn băng thông) và CPU chậm, quay video, gửi PO video làm bằng chứng. Vào Definition of Done mục 4</td>
+<td>#139 cần 5 lượt PO thử, 4 lượt chưa đạt: trình duyệt không giao diện trên máy chủ cục bộ không có độ trễ mạng. Video phát được trong Claude mac app (PO thử 28/11)</td>
+<td>Chỉ đo trạng thái bằng script</td>
+<td></td>
+</tr>
+<tr>
+<td>D69</td>
+<td>28/11</td>
+<td>Đầu mỗi lượt góp ý và đầu handoff: báo thời gian dự kiến 3 điểm (nhanh nhất / thường / lâu nhất, Multipoint estimating của PMBOK 8), hỏi hết câu cần hỏi ngay, rồi báo "Hỏi xong"; câu mới phát sinh gom vào cuối lượt</td>
+<td>PO phải ngóng chờ, không yên tâm làm việc khác; mỗi lượt #139 mất 36–60 phút</td>
+<td>Hỏi giữa chừng khi gặp</td>
+<td></td>
+</tr>
+<tr>
+<td>D70</td>
+<td>28/11</td>
+<td>Tạo và merge Pull request bằng <code>sh tools/ship.sh</code>: chỉ khi <code>check.sh</code> thoát đạt mới đẩy, tạo PR, merge</td>
+<td>Sprint 4 merge PR #160 khi <code>check.sh</code> báo LỖI: lệnh nối <code>\| tail -1 &amp;&amp;</code> không dừng khi lỗi</td>
+<td>Đọc kết quả bằng mắt</td>
+<td>Có GitHub Actions chạy check (#19)</td>
+</tr>
+<tr>
+<td>D71</td>
+<td>28/11</td>
+<td>Thông báo GitHub "PR đã merge" mà không có việc cần làm: trả lời tối đa 1 dòng (sửa quy tắc "không trả lời riêng")</td>
+<td>Hệ thống buộc phải có câu trả lời cho mỗi thông báo: Sprint 4 có 6 lần</td>
+<td>Không trả lời</td>
+<td>Công cụ cho phép bỏ qua thông báo</td>
+</tr>
+<tr>
+<td>D72</td>
+<td>28/11</td>
+<td>Chat Sprint dùng Opus 5.5 high (thay medium); Sprint 5 quay lại chốt giờ dừng (D49), Sprint 4 là ngoại lệ PO chọn</td>
+<td>Retro Sprint 4: kỳ vọng ít lượt PO thử chưa đạt; Sprint 4 chạy tới 4 giờ sáng</td>
+<td>Giữ Opus 5.5 medium</td>
+<td>Retro Sprint 5: so số lượt PO thử chưa đạt, token</td>
+</tr>
+<tr>
+<td>D73</td>
+<td>28/11</td>
+<td>Góp ý giao diện, thẩm mỹ: liệt kê ngay từ đầu các cách làm phổ biến (kèm cái được, cái mất) để PO chọn 1 lần trước khi sửa; thay đổi gốc chung thì cho 1 agent phản biện hướng sửa trước khi viết code</td>
+<td>#139: độ đục, chờ 150 ms, giữ 400 ms, bản đồ nhỏ chạy liền thành 4 lượt thử riêng</td>
+<td>Sửa từng điểm theo góp ý</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1166,14 +1230,14 @@
 <td>Cloudflare deploy Production; Release notes tự gom từ Pull request; <code>staging</code>, <code>main</code> được bảo vệ (D58)</td>
 </tr>
 <tr>
-<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code>, <code>tools/shot.py</code>, kiểm theo đường vào</td>
+<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code>, <code>tools/shot.py</code>, kiểm theo đường vào, video mạng chậm khi có chuyển cảnh (D68)</td>
 <td>Developers, trước mỗi Pull request</td>
-<td>Chạy tay, chưa có GitHub Actions (#19, #68)</td>
+<td><code>sh tools/ship.sh</code> chạy check.sh, chỉ đạt mới tạo PR và merge (D70); chưa có GitHub Actions (#19, #68)</td>
 </tr>
 </tbody>
 </table>
 <p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
-<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột, mở đầu bằng dòng Daily Scrum (D33); trả lời các câu hỏi trước rồi mới làm việc dài; câu cần quyết hỏi bằng ô chọn có đề xuất (D55); mọi chữ "xong" có bằng chứng, tách đã kiểm và chưa kiểm (D54); kiến thức PMP, ACP ghi tên kỹ thuật kèm nguồn và số trang; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30); quy ước <code>[ ]</code> đầu tin (D52). Thông báo GitHub "PR đã merge" mà không có việc cần làm thì không trả lời riêng.</p></section>
+<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột, mở đầu bằng dòng Daily Scrum (D33); trả lời các câu hỏi trước rồi mới làm việc dài; câu cần quyết hỏi bằng ô chọn có đề xuất (D55); mọi chữ "xong" có bằng chứng, tách đã kiểm và chưa kiểm (D54); kiến thức PMP, ACP ghi tên kỹ thuật kèm nguồn và số trang; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30); quy ước <code>[ ]</code> đầu tin (D52). Thông báo GitHub "PR đã merge" mà không có việc cần làm thì trả lời tối đa 1 dòng (D71). Đầu mỗi lượt: dự kiến 3 điểm, hỏi hết rồi báo "Hỏi xong" (D69).</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>
