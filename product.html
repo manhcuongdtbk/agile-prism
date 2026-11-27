@@ -31,7 +31,7 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>v0.1, đang ở Production: v0.1.1 (26/11). Lần đăng Production tiếp theo: v0.1.2</td>
+<td>v0.1, đang ở Production: v0.1.2 (27/11). Lần đăng Production tiếp theo: v0.1.3</td>
 </tr>
 <tr>
 <td>Release Goal</td>
@@ -39,7 +39,11 @@
 </tr>
 <tr>
 <td>Hạn</td>
-<td>Trong tuần 23 tới 29/11</td>
+<td>Trong tuần 23 tới 29/11 (chưa đạt phần "gửi được góp ý": #9)</td>
+</tr>
+<tr>
+<td>Rủi ro lớn nhất</td>
+<td>Nội dung có thể theo kiến thức cũ (ECO cũ, APG 1, PMBOK 6): Epic #145 đối chiếu toàn bộ với ECO 2026, APG 2, PMBOK 8 trước khi đưa P3</td>
 </tr>
 <tr>
 <td>Việc còn lại, tiến độ</td>
@@ -61,7 +65,7 @@
 <tbody>
 <tr>
 <td>Vision</td>
-<td>Người Việt ôn PMI-ACP hiểu Agile bằng hình, đúng theo APG 2 và PMBOK 8, không cần đọc hết tài liệu gốc tiếng Anh</td>
+<td>Người Việt ôn PMI-ACP hiểu Agile bằng hình, đúng theo ECO 2026, APG 2 và PMBOK 8, không cần đọc hết tài liệu gốc tiếng Anh</td>
 </tr>
 <tr>
 <td>Product Goal (Release 1)</td>
@@ -125,7 +129,7 @@
 </table>
 <p><strong>Cách gửi góp ý</strong>: mỗi phản hồi 1 dòng theo mẫu</p>
 <p><code>[P1 | MacBook | Hình 2.5-1] Nội dung góp ý, nguyên văn nếu có</code></p>
-<p>Phản hồi của chính chủ sản phẩm ghi <code>[PO]</code>. Không rõ persona thì ghi <code>[?]</code> kèm 1 câu mô tả người đó. Góp ý về giao diện: chép kèm dòng "Màn hình này" ở đầu trang Design system (kích thước, mật độ, chiều xoay).</p>
+<p>Phần trong <code>[ ]</code> đều không bắt buộc (D52): không ghi persona là PO; không ghi thiết bị là PO ở nhà (MacBook + màn LG); <code>[s23u]</code>, <code>[y700]</code>, <code>[s23u+y700]</code> là PO đang đọc trả lời trên thiết bị đó (Claude trả lời gọn cho màn nhỏ). Không dùng <code>@</code> (trên GitHub là gọi tên tài khoản) và <code>#</code> (trên GitHub là số issue). Không rõ persona thì ghi <code>[?]</code> kèm 1 câu mô tả người đó.</p>
 </section>
 <section class="card" id="pd-3">
   <div class="card-head"><span class="num">3</span><h3>Product Backlog</h3></div>
@@ -157,19 +161,20 @@
 </tr>
 </tbody>
 </table>
-<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn <code>repeated</code> nếu góp ý đã nêu trước đó (D24), nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In review, Done), không dùng nhãn.</p>
+<p>Quy ước: mỗi Epic là 1 issue nhãn <code>Epic</code>, các User Story là sub-issue của nó. Mỗi issue có nhãn loại theo Jira (<code>Epic</code>, <code>Story</code>, <code>Task</code>, <code>Bug</code>), nhãn Component (<code>content</code>, <code>ui</code>, <code>infra</code>), nhãn <code>feedback</code> nếu là góp ý của người đọc, nhãn <code>repeated</code> nếu góp ý đã nêu trước đó (D24), <code>regression</code> nếu lỗi sinh ra từ 1 bản sửa trước, nhãn persona (<code>P1</code> tới <code>P4</code>) và milestone (<code>v0.1</code>, <code>v0.2</code>). Trạng thái chỉ nằm ở cột Status trên bảng Projects (Backlog, Ready, In progress, In acceptance, Done; In review thêm lại khi có #68, D51), không dùng nhãn. Refinement đầu mỗi Sprint: rà trùng, đã xong, thiếu Acceptance Criteria; story sắp vào Sprint có Acceptance Criteria theo 3 góc Three Amigos (nghiệp vụ, làm, kiểm).</p>
 </section>
 <section class="card" id="pd-4">
   <div class="card-head"><span class="num">4</span><h3>Definition of Done</h3></div>
   
 <p>Áp cho mọi User Story trước khi phát hành:
 1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh; <code>hl.py</code> kiểm quầng tô sáng ở MacBook, S23U dọc, Y700 dọc). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>. Trước khi làm thành phần mới: tìm trong trang và Design system xem đã có chưa (D44).
-2. Đối chiếu APG 2, PMBOK 8 cho mọi định nghĩa mới.
-3. Ảnh chụp mọi chỗ dùng thành phần đã sửa ở MacBook 1440 và S23U dọc (384×719) đã xem (#123).
-4. Quy tắc mới ghi ở đúng 1 nơi.
-5. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26). Tên Pull request viết được thành 1 dòng CHANGELOG.
+2. Đối chiếu ECO 2026, APG 2, PMBOK 8 cho mọi định nghĩa mới bằng tìm trong Project knowledge, ghi số trang (D54).
+3. Ảnh chụp mọi chỗ dùng thành phần đã sửa ở MacBook 1440 và S23U dọc (384×719) đã xem: <code>python3 tools/shot.py SELECTOR…</code> (#123).
+4. Kiểm theo đường vào: thử đủ các đường người đọc đi tới chỗ đã sửa (cuộn tới, mở từ Danh mục, mở từ Glossary, tải lại trang); PR ghi rõ phần nào trình duyệt giả lập không đo được, cần PO thử máy thật (cải tiến Retro Sprint 3).
+5. Quy tắc mới ghi ở đúng 1 nơi; đổi luật dùng chung thì có phép kiểm tự động cho luật đó.
+6. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26); issue giao diện dùng "Refs #số" và chỉ đóng khi PO xác nhận trên máy thật (D46). Tên Pull request viết được thành 1 dòng CHANGELOG. PR sửa gốc chung hoặc thay đổi lớn có review của 1 agent riêng trước khi merge (D53).
 7. Đọc lại mọi thứ vừa tạo ra bên ngoài (issue, PR, trang, cài đặt) đúng như người khác sẽ thấy, không chỉ tin kết quả lệnh trả về.
-6. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra (S23U) hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
+8. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra (S23U) hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
 </section>
 <section class="card" id="pd-5">
   <div class="card-head"><span class="num">5</span><h3>Risk của Product</h3></div>
@@ -194,13 +199,17 @@
 <td>Người đọc biết công cụ làm trang</td>
 <td>Repo public nhưng commit không ghi công cụ, trang không nhắc tới</td>
 </tr>
+<tr>
+<td>Nội dung theo kiến thức cũ (Claude nhớ theo ECO cũ, APG 1, PMBOK 6)</td>
+<td>Tra Project knowledge trước khi viết (D54); Epic #145 rà toàn bộ</td>
+</tr>
 </tbody>
 </table>
 </section>
 <section class="card" id="pd-6">
   <div class="card-head"><span class="num">6</span><h3>Ubiquitous Language</h3></div>
   
-<p>Ubiquitous Language (khái niệm của Domain-Driven Design) là bộ tên gọi mà mọi người làm sản phẩm cùng dùng: mỗi thứ 1 tên, dùng giống nhau khi trao đổi, trong trang, trong tài liệu. Thuật ngữ Agile, PMI theo Glossary của trang chính, không theo bảng này. Từ tiếng Anh dân phần mềm hay dùng thì giữ, kèm nghĩa Việt.</p>
+<p>Ubiquitous Language (khái niệm của Domain-Driven Design) là bộ tên gọi mà mọi người làm sản phẩm cùng dùng: mỗi thứ 1 tên, dùng giống nhau khi trao đổi, trong trang, trong tài liệu. Thuật ngữ Agile, PMI theo Glossary của trang chính (đối chiếu ECO 2026, APG 2, PMBOK 8, PMI Lexicon 5.0), không theo bảng này. Từ kỹ thuật theo nguồn chuẩn của từng mảng (mục "Từ kỹ thuật"). Claude ghi tên kỹ thuật kèm nguồn khi áp dụng (on-the-job training).</p>
 <p class="eyebrow" style="margin-top:20px">Từ làm việc dùng tiếng Anh (D30)</p>
 <p>Các từ sau dùng tiếng Anh khi trao đổi và trong tài liệu, vì tiếng Việt nghe gượng với chủ sản phẩm: <strong>Release</strong>, <strong>Product</strong>, <strong>Scrum board</strong>, <strong>Handoff</strong>, <strong>Decision log</strong>, <strong>Internal docs</strong>, <strong>Feedback</strong>, <strong>Deploy</strong>, <strong>Promote</strong>, <strong>Sprint notes</strong>, <strong>Ubiquitous Language</strong>, <strong>Branch</strong>, <strong>Environment</strong>. Gặp thêm từ tiếng Việt nghe gượng thì đề xuất đổi, chủ sản phẩm duyệt rồi thêm vào đây. Nội dung cho người đọc trên trang (bài, hình) vẫn theo quy ước nội dung.</p>
 <p class="eyebrow" style="margin-top:20px">Nơi làm việc</p>
@@ -257,7 +266,7 @@
 </tr>
 <tr>
 <td>Development</td>
-<td>Môi trường chủ sản phẩm xem sau mỗi lần merge, có đủ 3 trang. Chỉ chủ sản phẩm vào được</td>
+<td>Môi trường chủ sản phẩm xem sau mỗi lần merge, có đủ 3 trang. Chỉ chủ sản phẩm vào được. PO mặc định thử ở đây (D59)</td>
 <td><code>dev.agile-prism.pages.dev</code> (nhánh <code>dev</code>, phải đăng nhập)</td>
 </tr>
 <tr>
@@ -285,12 +294,12 @@
 <tr>
 <td>Sprint</td>
 <td>1 chat: chốt Sprint Goal, làm các issue ở cột Ready, mỗi lượt góp ý là 1 vòng Review nhỏ, cuối chat Retrospective</td>
-<td>Sprint 2</td>
+<td>Sprint 3</td>
 </tr>
 <tr>
 <td>Sprint Goal</td>
 <td>1 câu nói Sprint này phải đạt gì. Việc ngoài Sprint Goal thì tạo issue, để Sprint sau</td>
-<td>"P1 xem hết được mọi hình trên điện thoại"</td>
+<td>"P1 đọc trên điện thoại không bối rối"</td>
 </tr>
 <tr>
 <td>Daily Scrum</td>
@@ -298,24 +307,34 @@
 <td>"Sprint Goal 5/6 issue; tiếp: #18; trở ngại: chưa có số đo Y700"</td>
 </tr>
 <tr>
-<td>Release</td>
-<td>Nhiều Sprint gom lại, đưa lên Production cho người đọc</td>
-<td>Release 1</td>
-</tr>
-<tr>
-<td>Release Goal</td>
-<td>Điều Release phải đạt, dùng để quyết làm hay dời việc</td>
+<td>Release, Release Goal</td>
+<td>Nhiều Sprint gom lại, đưa lên Production; điều Release phải đạt, dùng để quyết làm hay dời việc</td>
 <td>Mục 0</td>
 </tr>
 <tr>
 <td>Góp ý</td>
-<td>Ý kiến của chủ sản phẩm hoặc người đọc, ghi persona</td>
-<td><code>[P1, điện thoại, Hình 2.5-1] …</code></td>
+<td>Ý kiến của chủ sản phẩm hoặc người đọc, quy ước <code>[ ]</code> ở mục 2</td>
+<td><code>[P1 \| s23u] …</code></td>
 </tr>
 <tr>
-<td>Bàn giao</td>
-<td>Chuyển việc sang chat sau, kèm câu mở đầu</td>
+<td>Handoff</td>
+<td>Đóng sổ Sprint, kèm câu mở đầu chat mới; chat vẫn mở hỏi đáp tới khi PO nói "nghỉ" (D56)</td>
 <td>Cuối mỗi chat</td>
+</tr>
+<tr>
+<td>Refinement, Three Amigos</td>
+<td>Rà và làm rõ Product Backlog đầu Sprint; 3 góc nghiệp vụ, làm, kiểm cùng xem 1 story (ACP)</td>
+<td>Đầu Sprint 4</td>
+</tr>
+<tr>
+<td>Process check</td>
+<td>Bước của handoff: so quy trình với những gì đã xảy ra, đề xuất tối đa 3 chỗ tailoring, hỏi "dùng được cho product khác không?" (D56)</td>
+<td>Handoff</td>
+</tr>
+<tr>
+<td>Đã kiểm, chưa kiểm</td>
+<td>Khẳng định có bằng chứng, hoặc chỉ theo trí nhớ (giả thuyết) (D54)</td>
+<td>"Đã kiểm: PMBOK 8 tr. 184"</td>
 </tr>
 <tr>
 <td>Tên kỹ thuật, tên nội dung</td>
@@ -323,178 +342,9 @@
 <td><code>feedback</code>, <code>v0.1.0</code></td>
 </tr>
 <tr>
-<td>Ubiquitous Language</td>
-<td>Bộ tên gọi thống nhất này. Gặp tên mới hay 2 tên cho 1 thứ thì thêm, sửa ở đây trước rồi mới dùng</td>
-<td>Mục 6</td>
-</tr>
-<tr>
 <td>Rà cùng loại</td>
 <td>Sửa 1 góp ý thì tìm và sửa mọi chỗ giống vậy, rồi ghi quy tắc</td>
 <td>Đổi "Lợi ích" thành Benefit, rà cả trang</td>
-</tr>
-</tbody>
-</table>
-<p class="eyebrow" style="margin-top:20px">Từ kỹ thuật</p>
-<table class="t">
-<thead>
-<tr>
-<th>Tên gọi</th>
-<th>Nghĩa trong sản phẩm này</th>
-<th>Ví dụ</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Design system</td>
-<td>Bộ quy tắc giao diện, hành vi và mẫu dùng chung</td>
-<td>Trang Design system</td>
-</tr>
-<tr>
-<td>Component</td>
-<td>Khối giao diện dùng lại được</td>
-<td>Chip nguồn, hộp ví dụ, nút Quay lại</td>
-</tr>
-<tr>
-<td>Pattern</td>
-<td>Cách giải quyết lặp lại cho 1 loại vấn đề</td>
-<td>SVG phủ lên lưới HTML ở Hình 2.5-1</td>
-</tr>
-<tr>
-<td>Token (design)</td>
-<td>Giá trị gốc có tên: màu, cỡ chữ, bo góc</td>
-<td><code>--pri</code>, <code>--ink2</code></td>
-</tr>
-<tr>
-<td>Overlay (lớp phủ)</td>
-<td>Lớp hiện đè lên trang</td>
-<td>Glossary, Danh mục, Chú giải, Xem cả hình</td>
-</tr>
-<tr>
-<td>Drawer (ngăn kéo)</td>
-<td>Overlay trượt ra từ cạnh màn hình</td>
-<td>Glossary</td>
-</tr>
-<tr>
-<td>Tooltip</td>
-<td>Chữ nhỏ hiện khi rê chuột</td>
-<td>Nghĩa ngắn của thuật ngữ</td>
-</tr>
-<tr>
-<td>Chip, badge</td>
-<td>Nhãn nhỏ bo tròn</td>
-<td>Chip "APG 2", số mục, số nghĩa</td>
-</tr>
-<tr>
-<td>Swimlane</td>
-<td>Mỗi hàng 1 đối tượng, trục ngang là thời gian</td>
-<td>Hình 5.4-1</td>
-</tr>
-<tr>
-<td>Legend</td>
-<td>Phần giải thích ký hiệu</td>
-<td>Chú giải, hàng key dưới hình</td>
-</tr>
-<tr>
-<td>Caption</td>
-<td>Dòng tên dưới hình, bảng</td>
-<td>"Hình 4.3-1 …"</td>
-</tr>
-<tr>
-<td>Anchor, deep link</td>
-<td>Link tới đúng 1 chỗ trong trang</td>
-<td><code>#s4-9</code>, bấm số mục để chép</td>
-</tr>
-<tr>
-<td>History API</td>
-<td>Cách trang ghi và đọc lịch sử back, forward của trình duyệt</td>
-<td>Nút Quay lại, phím b, f</td>
-</tr>
-<tr>
-<td>State restore</td>
-<td>Quay lại thì khôi phục đúng trạng thái cũ</td>
-<td>Back mở lại Glossary với chữ đang tìm</td>
-</tr>
-<tr>
-<td>Focus, focus ring</td>
-<td>Phần tử đang nhận bàn phím, và viền báo nó</td>
-<td>Viền khi bấm Tab</td>
-</tr>
-<tr>
-<td>Keyboard shortcut</td>
-<td>Phím tắt</td>
-<td><code>/</code> <code>h</code> <code>?</code> <code>b</code> <code>f</code></td>
-</tr>
-<tr>
-<td>Responsive, breakpoint</td>
-<td>Đổi bố cục theo độ rộng màn hình, và các mốc đổi</td>
-<td>760px, 1180px</td>
-</tr>
-<tr>
-<td>Viewport</td>
-<td>Vùng trang đang thấy trên màn hình</td>
-<td>390px điện thoại</td>
-</tr>
-<tr>
-<td>User flow</td>
-<td>Các bước người dùng đi qua để xong 1 việc</td>
-<td>Mở Glossary, tìm, bấm chip nguồn, Quay lại</td>
-</tr>
-<tr>
-<td>Regression</td>
-<td>Lỗi cũ quay lại, hoặc sửa chỗ này hỏng chỗ khác</td>
-<td><code>nav.py</code> kiểm lại hành vi Quay lại</td>
-</tr>
-<tr>
-<td>Test script, headless</td>
-<td>Script tự kiểm trang bằng trình duyệt không giao diện</td>
-<td><code>geo.py</code>, <code>dev.py</code> chạy Playwright</td>
-</tr>
-<tr>
-<td>Refactor</td>
-<td>Sửa cấu trúc mã, không đổi hành vi</td>
-<td>Gom chip nguồn vào <code>REFD</code></td>
-</tr>
-<tr>
-<td>Single source of truth</td>
-<td>1 nơi duy nhất giữ 1 quy tắc, 1 dữ liệu</td>
-<td><code>grid()</code> giữ quy tắc trục</td>
-</tr>
-<tr>
-<td>Figma</td>
-<td>Công cụ vẽ thiết kế, chia sẻ với lập trình viên</td>
-<td>Chưa dùng</td>
-</tr>
-<tr>
-<td>Storybook</td>
-<td>Công cụ trưng bày component có mẫu sống</td>
-<td>Design system làm vai trò tương tự</td>
-</tr>
-</tbody>
-</table>
-<p class="eyebrow" style="margin-top:20px">Thêm ở Sprint 2</p>
-<table class="t">
-<thead>
-<tr>
-<th>Tên gọi</th>
-<th>Nghĩa</th>
-<th>Ở đâu, ví dụ</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tên thành phần của hình</td>
-<td>Khung hình, khối, khối đang chọn, quầng tô sáng, thanh điều khiển, chấm bước, nhãn bước, ô kết quả, đuôi bong bóng, nút chỉ khối, Xem cả hình, thanh cuộn ngang</td>
-<td>Design system mục 12 (có ví dụ)</td>
-</tr>
-<tr>
-<td>Toast</td>
-<td>Thông báo nhỏ hiện rồi tự tắt, dùng chung cả trang</td>
-<td>"Lần trước bạn đọc tới 4.3 · Đọc tiếp", "Có bản mới · Tải lại"</td>
-</tr>
-<tr>
-<td>Loading overlay</td>
-<td>Lớp phủ lên trang lúc đang tải. Không gọi là loading screen (không có màn hình riêng)</td>
-<td>Lúc mở, tải lại trang</td>
 </tr>
 <tr>
 <td>User, persona</td>
@@ -503,23 +353,126 @@
 </tr>
 <tr>
 <td>Phone, tablet, laptop</td>
-<td>Thiết bị; không nói thiết bị = MacBook; phone, tablet không nói chiều = cầm dọc (D43)</td>
+<td>Không nói thiết bị = MacBook; phone, tablet không nói chiều = cầm dọc (D43)</td>
 <td>S23U, Y700, MacBook</td>
 </tr>
 <tr>
 <td>Release notes</td>
 <td>Ghi chú mỗi lần phát hành, tự sinh từ Pull request trên GitHub Release; CHANGELOG là bản cho người đọc</td>
-<td>GitHub Release v0.1.1</td>
+<td>GitHub Release v0.1.2</td>
 </tr>
 <tr>
 <td>Devil's advocate</td>
 <td>PO yêu cầu phản biện hết sức một ý</td>
 <td>Khi PO viết "devil's advocate"</td>
 </tr>
+</tbody>
+</table>
+<p class="eyebrow" style="margin-top:20px">Từ kỹ thuật</p>
+<p>Theo nguồn chuẩn của từng mảng: web theo <strong>MDN</strong>, kiểm thử theo <strong>ISTQB Glossary</strong>, kiến trúc theo <strong>C4 model</strong>. Gặp từ mới thì tra nguồn đó rồi thêm vào đúng nhóm.</p>
+<table class="t">
+<thead>
 <tr>
-<td>Thuật ngữ PMP, ACP</td>
-<td>Không ghi ở đây: theo Glossary của trang</td>
-<td>Glossary</td>
+<th>Tên gọi</th>
+<th>Nghĩa (nguồn)</th>
+<th>Ví dụ trong product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web (MDN)</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Viewport; Responsive, breakpoint</td>
+<td>Vùng trang đang thấy; đổi bố cục theo độ rộng màn hình và các mốc đổi</td>
+<td>390px điện thoại; 760px, 1180px</td>
+</tr>
+<tr>
+<td>Container query</td>
+<td>Đổi bố cục theo độ rộng khung chứa, không theo màn hình</td>
+<td><code>.rm-wrap</code> của Hình 2.5-1 (#98)</td>
+</tr>
+<tr>
+<td>Mask; Scroll-driven animation</td>
+<td>Che mờ một phần phần tử; hiệu ứng chạy theo vị trí cuộn, không cần JavaScript</td>
+<td>Mép mờ ở chỗ cuộn ngang (#116)</td>
+</tr>
+<tr>
+<td>Overlay, Drawer, Tooltip, Toast</td>
+<td>Lớp hiện đè lên trang; overlay trượt từ cạnh; chữ nhỏ khi rê chuột; thông báo nhỏ tự tắt</td>
+<td>Glossary, Xem cả hình; "Có bản mới · Tải lại"</td>
+</tr>
+<tr>
+<td>Anchor, deep link; History API; State restore</td>
+<td>Link tới đúng 1 chỗ; ghi và đọc lịch sử back, forward; quay lại thì khôi phục trạng thái cũ</td>
+<td><code>#s4-9</code>; nút Quay lại; Back mở lại Glossary</td>
+</tr>
+<tr>
+<td>Focus, focus-visible; Keyboard shortcut</td>
+<td>Phần tử nhận bàn phím, viền chỉ hiện khi dùng bàn phím; phím tắt</td>
+<td>Tab tới thuật ngữ; <code>/</code> <code>h</code> <code>?</code> <code>b</code> <code>f</code></td>
+</tr>
+<tr>
+<td><strong>Design system</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Design system; Component; Pattern; Design token</td>
+<td>Bộ quy tắc và mẫu dùng chung; khối dùng lại được; cách giải lặp lại; giá trị gốc có tên</td>
+<td>Trang Design system; Chip nguồn; <code>--pri</code>, <code>--pop-bg</code></td>
+</tr>
+<tr>
+<td>Chip, badge; Legend; Caption; Swimlane</td>
+<td>Nhãn nhỏ bo tròn; phần giải thích ký hiệu; dòng tên dưới hình; mỗi hàng 1 đối tượng theo thời gian</td>
+<td>Chip "APG 2"; Chú giải; "Hình 4.3-1"; Hình 5.4-1</td>
+</tr>
+<tr>
+<td>Tên thành phần của hình; Loading overlay</td>
+<td>Khung hình, khối, quầng tô sáng, thanh điều khiển, ô kết quả, Xem cả hình…; lớp phủ lúc tải trang</td>
+<td>Design system mục 12</td>
+</tr>
+<tr>
+<td>Visual consistency</td>
+<td>Mọi thứ hoà thành 1 thể thống nhất về màu, khoảng cách, hành vi; bắt buộc cho cả ecosystem</td>
+<td>Mép mờ 2 bên như nhau</td>
+</tr>
+<tr>
+<td><strong>Kiểm thử (ISTQB)</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Test script, headless; Regression</td>
+<td>Script tự kiểm bằng trình duyệt không giao diện; lỗi cũ quay lại hoặc sửa chỗ này hỏng chỗ khác</td>
+<td><code>geo.py</code>, <code>dev.py</code>; nhãn <code>regression</code></td>
+</tr>
+<tr>
+<td>Acceptance criteria; Acceptance testing</td>
+<td>Điều kiện để story được chấp nhận; PO thử trên máy thật</td>
+<td>Cột In acceptance</td>
+</tr>
+<tr>
+<td>Review</td>
+<td>Người khác (hoặc agent riêng) đọc thay đổi trước khi merge</td>
+<td>Review agent (D53)</td>
+</tr>
+<tr>
+<td><strong>Kiến trúc, cách viết mã (C4, chung)</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Single source of truth; Refactor</td>
+<td>1 nơi giữ 1 quy tắc; sửa cấu trúc, không đổi hành vi</td>
+<td><code>grid()</code>, <code>REFD</code></td>
+</tr>
+<tr>
+<td>User flow</td>
+<td>Các bước người dùng đi qua để xong 1 việc, cũng là "đường vào" khi kiểm</td>
+<td>Mở Glossary, tìm, bấm chip nguồn, Quay lại</td>
 </tr>
 </tbody>
 </table>
@@ -551,7 +504,7 @@
 <tr>
 <td>D02</td>
 <td>22/11</td>
-<td>Gốc đúng sai là APG 2, PMBOK 8, Scrum Guide 2020. Slide của David McLachlan chỉ là điểm khởi đầu</td>
+<td>(Sửa bởi D40) Gốc đúng sai là APG 2, PMBOK 8, Scrum Guide 2020. Slide của David McLachlan chỉ là điểm khởi đầu</td>
 <td>PMI nêu 2 tài liệu này cho kỳ thi</td>
 <td>Bám nguyên slide</td>
 <td>Có bản APG, PMBOK mới</td>
@@ -831,7 +784,7 @@
 <tr>
 <td>D38</td>
 <td>24/11</td>
-<td>Retro theo Scrum Guide 2020 và APG 2: nhìn lại 5 khía cạnh (cá nhân, tương tác, quy trình, công cụ, Definition of Done); có dữ liệu (cảm nhận của PO, số đo: issue xong, nhãn <code>repeated</code>, lỗi do chính Developers gây ra); tìm nguyên nhân gốc; chọn 1 cải tiến vừa sức đưa vào Sprint Backlog kế tiếp và đo kết quả của nó ở Retro sau</td>
+<td>Retro theo Scrum Guide 2020 và APG 2: nhìn lại 5 khía cạnh (cá nhân, tương tác, quy trình, công cụ, Definition of Done); có dữ liệu (cảm nhận của PO, số đo: issue xong, nhãn <code>repeated</code>, lỗi do chính Developers gây ra); tìm nguyên nhân gốc; chọn 1 cải tiến vừa sức đưa vào Sprint Backlog kế tiếp và đo kết quả của nó ở Retro sau. Cách hỏi PO: xem D55</td>
 <td>Hình 4.8-1 của chính Product đối chiếu nguồn thấy thiếu (#65); dùng đúng kiến thức trên chính Product</td>
 <td>3 câu hỏi cũ</td>
 <td></td>
@@ -847,7 +800,7 @@
 <tr>
 <td>D40</td>
 <td>25/11</td>
-<td>Gốc đúng sai là ECO (Examination Content Outline) mới nhất của từng chứng chỉ cùng tài liệu ECO đó dẫn (hiện APG 2, PMBOK 8). Sửa D02</td>
+<td>Gốc đúng sai là ECO (Examination Content Outline) mới nhất của từng chứng chỉ cùng tài liệu ECO đó dẫn (hiện ECO 2026, APG 2, PMBOK 8; tham khảo thêm PMI Lexicon 5.0). Sửa D02</td>
 <td>Đề thi bám ECO, không bám 1 cuốn sách</td>
 <td>Chỉ APG 2, PMBOK 8</td>
 <td>PMI ra ECO mới</td>
@@ -892,13 +845,125 @@
 <td>Handoff ngay sau lần nén đầu tiên bất kể việc dở</td>
 <td></td>
 </tr>
+<tr>
+<td>D46</td>
+<td>26/11</td>
+<td>Issue giao diện chỉ đóng khi PO xác nhận trên máy thật: PR dùng "Refs #số", thẻ chờ ở cột In acceptance (tên đầu tiên "Chờ PO thử", đổi 26/11 cho hợp các cột tiếng Anh)</td>
+<td>Trình duyệt giả lập khác máy thật (thanh cuộn Android, timeline cuộn); Sprint 2 đóng issue rồi PO báo lại</td>
+<td>Đóng khi merge</td>
+<td>Có #68 tự chuyển thẻ</td>
+</tr>
+<tr>
+<td>D47</td>
+<td>26/11</td>
+<td>Góp ý ngoài Sprint Goal mà không chặn người đọc thật: chỉ ghi issue, gom sửa 1 lượt</td>
+<td>Giữ tập trung vào Sprint Goal</td>
+<td>Sửa ngay mọi góp ý</td>
+<td></td>
+</tr>
+<tr>
+<td>D48</td>
+<td>26/11</td>
+<td>Chuyển <code>san-pham.md</code> vào repo (#70), sửa bằng Pull request</td>
+<td>1 nơi, có lịch sử, review được</td>
+<td>Giữ trong Project docs</td>
+<td>Làm ở Sprint 4</td>
+</tr>
+<tr>
+<td>D49</td>
+<td>26/11</td>
+<td>Sustainable pace: mỗi Sprint chốt giờ dừng trong ngày lúc Sprint Planning</td>
+<td>Nhịp bền vững (ACP: sustainable pace)</td>
+<td>Không giới hạn</td>
+<td></td>
+</tr>
+<tr>
+<td>D50</td>
+<td>26/11</td>
+<td>#9 làm theo hướng 2: ô góp ý trên trang, lưu bằng Cloudflare Free, góp ý thành issue <code>feedback</code>; khoảng 2 Sprint</td>
+<td>P1 góp ý trực tiếp, PO không phải chuyển lời</td>
+<td>Form ngoài, email</td>
+<td></td>
+</tr>
+<tr>
+<td>D51</td>
+<td>26/11</td>
+<td>Board bỏ cột In review (Developers tự merge, chưa có bước review riêng); thêm lại khi #68 có Actions tự chuyển thẻ (mở PR → In review)</td>
+<td>Cột luôn trống là thừa; chuyển thẻ bằng Chrome tốn công</td>
+<td>Giữ cột trống</td>
+<td>Xong #68</td>
+</tr>
+<tr>
+<td>D52</td>
+<td>27/11</td>
+<td>Quy ước ký hiệu đầu tin của PO bằng <code>[ ]</code> (mục 2): <code>[s23u]</code>, <code>[y700]</code>, <code>[P1]</code>, ghép được; không ghi = PO ở nhà. Không dùng <code>@</code>, <code>#</code></td>
+<td><code>@</code> thành gọi tên tài khoản GitHub khi chép góp ý vào issue; <code>#</code> là số issue; <code>[ ]</code> đã có trong mẫu góp ý</td>
+<td><code>@P1</code>, <code>@nhà</code></td>
+<td></td>
+</tr>
+<tr>
+<td>D53</td>
+<td>26/11</td>
+<td>Review code bằng 1 agent riêng (chưa xem quá trình làm) trước khi merge, chỉ cho PR sửa gốc chung hoặc thay đổi lớn; chạy nền, làm việc khác trong lúc chờ</td>
+<td>Sprint 3: 4 lần review lần nào cũng bắt được lỗi do bản sửa gây ra (9 lỗi, 1 chặn merge). Mỗi lần khoảng 55–97 nghìn token, gói Pro có hạn</td>
+<td>Review mọi PR; không review</td>
+<td>PO nâng gói Claude</td>
+</tr>
+<tr>
+<td>D54</td>
+<td>27/11</td>
+<td>Tách "đã kiểm" (kèm bằng chứng) và "chưa kiểm" (theo trí nhớ). Kiến thức PMP, ACP luôn tra Project knowledge trước, ghi số trang. Khả năng của Claude chỉ khẳng định sau khi thử thật</td>
+<td>Sprint 3 có 3 khẳng định sai khi chưa kiểm (xem hình trong sách, Dot voting theo PMBOK, "giống từng pixel")</td>
+<td>Tin giọng điệu chắc chắn</td>
+<td></td>
+</tr>
+<tr>
+<td>D55</td>
+<td>27/11</td>
+<td>Hỏi PO: luôn kèm lựa chọn có đề xuất, không hỏi mở "còn gì?". Retro hỏi nhiều lượt: lượt 1 chọn cái nhất, lượt 2 chọn nhiều phần còn lại, lượt nào chọn hết thì thêm lượt với lựa chọn mới. Theo Nominal group (PMBOK 8 tr. 184) và kiểu diverge/converge</td>
+<td>Câu hỏi mở khó trả lời trên phone; chỉ hỏi "nhất" thì mất các ý còn lại</td>
+<td>Chỉ hỏi cái nhất</td>
+<td></td>
+</tr>
+<tr>
+<td>D56</td>
+<td>27/11</td>
+<td>Handoff là đóng sổ; chat vẫn mở hỏi đáp tới khi PO nói "nghỉ", gì chốt sau ghi vào issue Sprint kế. Handoff có process check (tối đa 3 chỗ tailoring, câu hỏi cho ecosystem), đo token (<code>explain-usage</code>), mục tự kiểm trả lời sẵn các câu PO hay hỏi. Chat vừa bị nén thì báo ngay ở dòng đầu câu trả lời kế</td>
+<td>PO vẫn muốn hỏi sau handoff và phải hỏi "đã gọn chưa"</td>
+<td>Kết thúc chat ngay sau handoff; agent theo dõi quy trình liên tục (tốn token)</td>
+<td>PO nâng gói: scheduled task hằng tuần</td>
+</tr>
+<tr>
+<td>D57</td>
+<td>27/11</td>
+<td>Bản gốc APG 2, PMBOK 8 giữ trên Google Drive. Project knowledge chỉ lưu chữ của PDF hơn 100 trang (để tìm), PDF ngắn (ECO 2026, Lexicon) lưu bản gốc. Cần hình trong sách thì lấy bản gốc trên Drive</td>
+<td>Claude chỉ xử lý chữ với PDF từ 101 trang (support.claude.com); Project có giới hạn dung lượng</td>
+<td>Cắt sách thành nhiều phần ≤100 trang</td>
+<td>Bàn tổ chức Drive ở Epic Mạch nội dung</td>
+</tr>
+<tr>
+<td>D58</td>
+<td>26/11</td>
+<td>Bảo vệ nhánh <code>staging</code>, <code>main</code>: cấm xoá, cấm force push, không bắt review</td>
+<td>GitHub tự xoá nhánh <code>staging</code> khi merge PR release v0.1.1</td>
+<td>Release bằng nhánh tạm; tắt tự xoá nhánh</td>
+<td></td>
+</tr>
+<tr>
+<td>D59</td>
+<td>26/11</td>
+<td>PO mặc định thử trên Development; cần thử ở nơi khác thì Claude nhắc rõ. Link "Cần thử trên máy thật" trỏ Development</td>
+<td>PO xem ngay sau mỗi merge</td>
+<td>Thử trên Staging</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </section>
 <section class="card" id="pd-8">
   <div class="card-head"><span class="num">8</span><h3>Way of working</h3></div>
   
-<p>Cách nhóm làm Product theo Scrum. Đây là chỗ duy nhất mô tả quy trình; Decision log chỉ ghi lý do của từng thay đổi.</p>
+<p>Cách nhóm làm Product theo Scrum. Đây là chỗ duy nhất mô tả quy trình riêng của Agile Prism (phần dùng chung ở trang Way of working trong Internal docs, D44); Decision log chỉ ghi lý do của từng thay đổi.</p>
 <div style="overflow-x:auto"><svg viewBox="0 0 1148 80" style="width:100%;min-width:900px;height:auto" role="img" aria-label="Luồng làm việc"><defs><marker id="wa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6e727c"/></marker></defs><rect x="1" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="75.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Feedback</text><text x="75.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">PO, P1</text><path d="M150 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="165" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="239.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Issue</text><text x="239.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">Product Backlog</text><path d="M314 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="329" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="403.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Sprint Planning</text><text x="403.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">issue Sprint</text><path d="M478 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="493" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="567.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Branch + PR</text><text x="567.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">vào dev</text><path d="M642 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="657" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="731.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Development</text><text x="731.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">PO review</text><path d="M806 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="821" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="895.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Staging</text><text x="895.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">P1 dùng</text><path d="M970 40h12" stroke="#6e727c" stroke-width="1.5" marker-end="url(#wa)"/><rect x="985" y="14" width="148" height="52" rx="8" fill="#f9d3e0" stroke="#d6457a" stroke-width="1.5"/><text x="1059.0" y="37" text-anchor="middle" font-size="14" font-weight="600" fill="#2b2d33">Production</text><text x="1059.0" y="55" text-anchor="middle" font-size="12" fill="#4b4f58">khi &quot;release&quot;</text></svg></div>
 
 <p class="eyebrow" style="margin-top:20px">Vai trò</p>
@@ -919,12 +984,12 @@
 <tr>
 <td>Developers</td>
 <td>Nhóm phát triển</td>
-<td>Làm Increment, giữ quy trình, đề xuất cải tiến. Tự thao tác GitHub, Cloudflare; chỉ nhờ PO ở mật khẩu, thanh toán, quyết định</td>
+<td>Làm Increment, giữ quy trình, đề xuất cải tiến. Tự thao tác GitHub, Cloudflare; chỉ nhờ PO ở mật khẩu, passkey, thanh toán, quyết định</td>
 </tr>
 <tr>
 <td>Scrum Master</td>
 <td>Chưa có người riêng</td>
-<td>Developers tự giữ quy trình; retro 2 chiều thay phần đứng ngoài nhắc</td>
+<td>Developers tự giữ quy trình; retro 2 chiều và process check thay phần đứng ngoài nhắc</td>
 </tr>
 <tr>
 <td>Stakeholder</td>
@@ -951,9 +1016,15 @@
 <td>Issue nhãn <code>Sprint</code></td>
 </tr>
 <tr>
+<td>Refinement</td>
+<td>Đầu Sprint, trước Planning</td>
+<td>Rà trùng, đã xong, thiếu Acceptance Criteria; Three Amigos cho story sắp vào Sprint</td>
+<td>Issue, comment</td>
+</tr>
+<tr>
 <td>Sprint Planning</td>
 <td>Đầu chat, sau <code>sh tools/setup.sh</code> (D34)</td>
-<td>Developers đề xuất Sprint Goal, việc và kế hoạch làm thế nào cho từng việc (D35), PO chốt</td>
+<td>Developers đề xuất Sprint Goal, việc và kế hoạch làm thế nào cho từng việc (D35), PO chốt; chốt giờ dừng (D49)</td>
 <td>Issue Sprint: Sprint Goal, Sprint Backlog (checkbox nối tới issue)</td>
 </tr>
 <tr>
@@ -977,14 +1048,14 @@
 <tr>
 <td>Sprint Retrospective</td>
 <td>Trước handoff</td>
-<td>Theo D38: 5 khía cạnh (cá nhân, tương tác, quy trình, công cụ, DoD), dữ liệu, nguyên nhân gốc; đo kết quả cải tiến Sprint trước; chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp</td>
+<td>Theo D38, D55: 5 khía cạnh, dữ liệu, nguyên nhân gốc; hỏi PO nhiều lượt; đo kết quả cải tiến Sprint trước; chọn 1 cải tiến đưa vào Sprint Backlog kế tiếp</td>
 <td>Issue Sprint, mục Retro</td>
 </tr>
 <tr>
 <td>Handoff</td>
-<td>Xong Sprint Goal, hoặc ngay sau lần chat bị nén đầu tiên</td>
-<td>Cập nhật tài liệu, đóng issue Sprint, đưa câu mở đầu chat mới</td>
-<td>Project docs</td>
+<td>Sau Sprint Review, Retro và quyết định release của PO (D45); việc đang dở làm xong trước</td>
+<td>Cập nhật tài liệu, process check, đo token, đóng issue Sprint, câu mở đầu chat mới, mục tự kiểm (D56)</td>
+<td>Project docs, Internal docs (Way of working dùng chung, D44)</td>
 </tr>
 </tbody>
 </table>
@@ -1031,7 +1102,7 @@
 <td>Git user, Playwright, font, chạy check.sh</td>
 </tr>
 <tr>
-<td>Mỗi issue 1 branch <code>loại/số-mô-tả</code>, Pull request vào <code>dev</code> có "Closes #số"</td>
+<td>Mỗi issue 1 branch <code>loại/số-mô-tả</code>, Pull request vào <code>dev</code> có "Closes #số" (issue giao diện: "Refs #số", D46)</td>
 <td>Developers</td>
 <td>Mở PR: thẻ sang In progress. Merge: issue đóng, thẻ sang Done, branch tự xoá, Cloudflare deploy Development</td>
 </tr>
@@ -1043,17 +1114,17 @@
 <tr>
 <td><code>staging</code> → <code>main</code> bằng Pull request, tag, GitHub Release</td>
 <td>Developers, khi PO nói "release"</td>
-<td>Cloudflare deploy Production; Release notes tự gom từ Pull request</td>
+<td>Cloudflare deploy Production; Release notes tự gom từ Pull request; <code>staging</code>, <code>main</code> được bảo vệ (D58)</td>
 </tr>
 <tr>
-<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code></td>
+<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code>, <code>tools/shot.py</code>, kiểm theo đường vào</td>
 <td>Developers, trước mỗi Pull request</td>
-<td>Chạy tay, chưa có GitHub Actions (#19)</td>
+<td>Chạy tay, chưa có GitHub Actions (#19, #68)</td>
 </tr>
 </tbody>
 </table>
 <p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
-<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột (Kết quả, Cần bạn quyết, Tiếp theo), mở đầu bằng dòng Daily Scrum (D33); câu cần quyết hỏi bằng ô trắc nghiệm; mọi chữ "xong" có bằng chứng; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30).</p></section>
+<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột, mở đầu bằng dòng Daily Scrum (D33); trả lời các câu hỏi trước rồi mới làm việc dài; câu cần quyết hỏi bằng ô chọn có đề xuất (D55); mọi chữ "xong" có bằng chứng, tách đã kiểm và chưa kiểm (D54); kiến thức PMP, ACP ghi tên kỹ thuật kèm nguồn và số trang; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30); quy ước <code>[ ]</code> đầu tin (D52). Thông báo GitHub "PR đã merge" mà không có việc cần làm thì không trả lời riêng.</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>
