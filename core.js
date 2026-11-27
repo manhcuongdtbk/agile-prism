@@ -148,15 +148,16 @@ function BRANCH(items,cur){return '<ul class="brn">'+items.map(([h,d],i)=>`<li${
 /* LOADING cả trang: khối #pgLoad đặt ngay đầu body của mỗi trang. PGL.done() gỡ khi trang đã vẽ xong và tương tác được.
    Bấm liên kết sang trang khác cùng site (index.html, design-system.html) thì hiện lại ngay, vì trang mới cần vài trăm ms mới vẽ.
    Quay lại bằng back của trình duyệt (bfcache) thì gỡ. Tối đa 10 giây để không kẹt nếu có lỗi */
-window.PGL=(function(){const el=()=>document.getElementById('pgLoad');
+window.PGL=(function(){const el=()=>document.getElementById('pgLoad');let nav=false;const T0=((el()||document).querySelector('.pl-t')||{}).textContent;/* nav: bấm liên kết đã hiện lớp phủ có chữ trang đích; T0: chữ gốc của trang này (#139) */
   /* Đang cuộn về chỗ cũ sau khi tải lại (html.ap-rl, #119): giữ lớp phủ tới khi cuộn xong, khối khôi phục bên dưới gọi lại done */
   const done=()=>{const l=el();if(!l)return;if(document.documentElement.classList.contains('ap-rl')){window.AP_RL_DONE=true;return}l.classList.add('out');setTimeout(()=>l.hidden=true,260)};
   /* Mỗi lần hiện, thay bản đồ nhỏ bằng bản sao để chuyển động chạy lại từ đầu, không chạy tiếp chỗ đang dở */
-  const show=(t)=>{const l=el();if(!l)return;if(t)l.querySelector('.pl-t').textContent=t;const m=l.querySelector('.kb-ld');if(m)m.replaceWith(m.cloneNode(true));l.hidden=false;void l.offsetWidth;l.classList.remove('out')};
-  setTimeout(done,10000);window.addEventListener('pageshow',e=>{if(e.persisted)done()});
-  /* Rời trang bằng bất kỳ cách nào (nút back, forward của chuột, trình duyệt, gõ địa chỉ) cũng hiện đang tải, như khi bấm liên kết. Quay lại từ bộ nhớ đệm thì pageshow gỡ ngay */
-  window.addEventListener('beforeunload',()=>show());
-  document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;const h=a.getAttribute('href');if(!/^(index|design-system|product)\.html/.test(h))return;if(a.target==='_blank'){return}show(/^design/.test(h)?'Đang mở Design system':/^product/.test(h)?'Đang mở Sản phẩm':'Đang mở Bản đồ trực quan')});
+  const show=(t,now)=>{const l=el();if(!l)return;if(t)l.querySelector('.pl-t').textContent=t;const m=l.querySelector('.kb-ld');if(m)m.replaceWith(m.cloneNode(true));l.classList.toggle('now',!!now);l.hidden=false;void l.offsetWidth;l.classList.remove('out')};
+  setTimeout(done,10000);window.addEventListener('pageshow',e=>{if(e.persisted){nav=false;done()}});
+  /* Rời trang bằng bất kỳ cách nào (nút back, forward của chuột, trình duyệt, gõ địa chỉ, tải lại) cũng hiện đang tải, như khi bấm liên kết. Quay lại từ bộ nhớ đệm thì pageshow gỡ ngay.
+     #139: lúc này hiện ngay, đục hẳn, không mờ dần, không blur (.now): trang mới (tải lại) mở ra cũng đục hẳn, nên 2 khung khớp nhau, không bị cắt giữa chừng. Đã hiện do bấm liên kết (nav) thì giữ nguyên; còn lại đặt về chữ gốc của trang, để khớp chữ trang mới khi tải lại */
+  window.addEventListener('beforeunload',()=>{if(!nav)show(T0,true)});
+  document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;const h=a.getAttribute('href');if(!/^(index|design-system|product)\.html/.test(h))return;if(a.target==='_blank'){return}nav=true;show(/^design/.test(h)?'Đang mở Design system':/^product/.test(h)?'Đang mở Sản phẩm':'Đang mở Bản đồ trực quan')});
   return {done,show}})();
 /* Bàn phím: mọi phần tử bấm được không phải nút hay liên kết thật (thuật ngữ dfn, khối trong hình có role=button, data-cf, data-lv) nhận Enter và Space như 1 lần bấm chuột. Phần tử đã tự xử lý phím (gọi preventDefault) thì bỏ qua */
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||(e.key!=='Enter'&&e.key!==' '))return;const el=e.target;if(!el||!el.matches||!el.matches('dfn[tabindex],[role=button]:not(button),[data-cf],[data-lv]'))return;if(el.closest('a[href]'))return;e.preventDefault();el.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}))});
