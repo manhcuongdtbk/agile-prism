@@ -1,5 +1,9 @@
 # Thay đổi
 
+## v0.1.3 (28/11) – mở và tải lại trang mượt hơn
+- Tải lại trang: lớp phủ đang tải hiện liền, không khựng, không chạy lại 2 lần (#139).
+- Lớp phủ đang tải luôn đục; trang mở nhanh thì không nháy lên rồi tắt (#139).
+
 ## v0.1.2 (27/11) – không bối rối khi đọc trên điện thoại
 - Bảng và hình cuộn ngang mờ dần ở mép còn nội dung, biết ngay chỗ nào cuộn được, kể cả khi mở từ Danh mục (#116).
 - Tooltip, thông báo và hàng tiêu đề trong hình dùng nền sáng, hợp tông trang (#116).
