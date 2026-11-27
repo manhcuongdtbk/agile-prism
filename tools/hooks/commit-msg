@@ -1,0 +1,6 @@
+#!/bin/sh
+# DOC: Hook commit-msg (D06): commit chỉ đứng tên chủ sản phẩm, bỏ mọi dòng Co-Authored-By và dòng ghi phiên làm việc của công cụ. setup.sh bật hook bằng core.hooksPath.
+f=$1
+grep -viE '^(co-authored-by|claude-session):' "$f" > "$f.tmp" || true
+# bỏ dòng trống thừa ở cuối
+awk 'NF{for(;n>0;n--)print "";print;next}{n++}' "$f.tmp" > "$f"; rm -f "$f.tmp"

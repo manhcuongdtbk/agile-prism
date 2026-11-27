@@ -1067,11 +1067,11 @@ nav.top .nvd a.on,nav.top .nvd a[aria-current]{background:var(--pri-soft)!import
 .rm-sn{margin:12px 4px 0;font-size:11.5px;font-weight:400;line-height:1.4;color:#4a3f94;text-align:left}
 .rm-cust .rm-sn svg.gm{display:inline-block;width:13px;height:13px;margin:0 4px -2px 0;color:inherit}
 /* Vòng 31: LOADING. 3 dạng, cùng 1 bộ chuyển động (thẻ Kanban chạy To do → Doing → Done), khác hẳn vạch Tiến độ đọc:
-   .pg-load  cả trang chưa tương tác được (mở trang, chuyển trang). Lớp phủ mờ, khối giữa màn hình
+   .pg-load  cả trang chưa tương tác được (mở trang, chuyển trang). Lớp phủ đục hẳn mọi lúc (#139, PO 27/11), khối giữa màn hình
    .busy     1 vùng đang chờ (ví dụ nút vừa bấm, ngăn kéo đang nạp). Bộ thẻ nhỏ đặt tại chỗ
    .skel     khung xương: giữ chỗ đúng kích thước nội dung sắp nạp (lazy load), ánh sáng quét ngang */
-.pg-load{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:color-mix(in srgb,var(--bg,#fafafb) 86%,transparent);backdrop-filter:blur(2px);transition:opacity .25s}
-.pg-load.out{opacity:0;pointer-events:none}html.ap-rl .pg-load{background:var(--bg,#fafafb)!important;backdrop-filter:none}/* tải lại: đục hẳn để không thấy trang nhảy về đầu (#119) */
+.pg-load{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--bg,#fafafb);transition:opacity .25s}
+.pg-load.out{opacity:0;pointer-events:none}.pg-load:not(.shown){animation:plWait var(--plw,.15s) step-end both}html.ap-rl .pg-load,html.pl-carry .pg-load{animation:none}/* trang cũ đã hiện lớp phủ (pl-carry): trang mới hiện tiếp từ khung đầu, không chờ, không nháy (#139) */@keyframes plWait{from{visibility:hidden}to{visibility:visible}}/* mở trang: lớp phủ chờ đủ 150 ms tính từ lúc bắt đầu chuyển trang (--plw do script đầu head đặt), trang dùng được nhanh hơn thì không nháy; tải lại có chỗ đọc đã lưu (ap-rl) thì hiện ngay để không lộ trang nhảy (#139, PO 28/11) */.pg-load.now{transition:none}/* .now: rời trang không qua liên kết (tải lại, back) và quay lại từ bộ nhớ đệm: hiện, gỡ ngay không mờ dần (#139) *//* tải lại: lớp phủ giữ tới khi cuộn về đúng chỗ (html.ap-rl, #119) */
 .pl-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 22px;background:var(--surface,#fff);border:1px solid var(--line,#e4e5ea);border-radius:14px;box-shadow:0 8px 28px rgba(35,37,43,.08)}
 .kb-ld{position:relative;width:96px;height:34px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 .kb-ld::before,.kb-ld::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--line,#e4e5ea)}
@@ -1149,7 +1149,6 @@ html.has-ds .lg-dev{display:flex!important}
 .c-seq li+li{margin-top:5px}
 .c-seq li::before{content:counter(cs);position:absolute;left:0;top:1px;width:16px;height:16px;border-radius:50%;background:var(--soft);border:1px solid var(--line);font-size:10px;font-weight:600;line-height:15px;text-align:center;color:var(--ink2)}
 /* Đang tải: khối chỉ báo nằm trên lớp phủ, không thành thẻ nổi riêng */
-.pg-load{background:color-mix(in srgb,var(--bg,#fafafb) 92%,transparent)}
 .pl-box{background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
 .pg-load .kb-ld{transform:scale(1.25)}
 .pg-load .pl-t{font-size:13.5px;margin-top:4px}
@@ -1162,6 +1161,8 @@ html.has-ds .lg-dev{display:flex!important}
 .kb-ld i:nth-child(3){left:76px;top:3px;border-color:var(--good,#61894b);animation-delay:1.2s;background:var(--surface,#fff)}
 .kb-ld::before,.kb-ld::after{content:"";position:absolute;top:10px;height:2px;width:18px;background:var(--ink2,#4b4f58);transform-origin:left;transform:scaleX(0);animation:mlLine 2.6s ease-in-out infinite}
 .kb-ld::before{left:20px;animation-delay:.3s}.kb-ld::after{left:58px;animation-delay:.9s}
+/* #139 (PO 28/11): bản đồ nhỏ của lớp phủ chạy liền qua 2 trang. Trang mới lùi nhịp bằng --plph (âm, = số ms bản đồ nhỏ đã chạy tới lúc trang cũ bị gỡ, script đầu head đặt), nên chạy tiếp từ đúng hình người đọc thấy lần cuối, không chạy lại từ đầu, không nhảy */
+.pg-load .kb-ld i:nth-child(1){animation-delay:var(--plph,0s)}.pg-load .kb-ld i:nth-child(2){animation-delay:calc(.6s + var(--plph,0s))}.pg-load .kb-ld i:nth-child(3){animation-delay:calc(1.2s + var(--plph,0s))}.pg-load .kb-ld::before{animation-delay:calc(.3s + var(--plph,0s))}.pg-load .kb-ld::after{animation-delay:calc(.9s + var(--plph,0s))}
 @keyframes mlBox{0%{transform:scale(.4);opacity:0}10%{transform:scale(1.08);opacity:1}16%,82%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
 @keyframes mlLine{0%{transform:scaleX(0);opacity:1}14%,82%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 @media (prefers-reduced-motion:reduce){.kb-ld i,.kb-ld::before,.kb-ld::after{animation:none;transform:none;opacity:1}}
