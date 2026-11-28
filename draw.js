@@ -39,7 +39,7 @@ function tri(fixed){
 /* 1.5 Triple Constraint: 2 tam giác trong 1 hình. Ví dụ ghi cạnh từng đỉnh cho cả 2 cách, tên theo PMBOK 8 ghi xám dưới đỉnh,
    ngoặc trên cùng nói PMBOK 8 coi cả 2 là lựa chọn của Adaptive (The Standard, Hình 4-3) */
 fig('f-tri',W,350,()=>{let g='';const PB={Scope:'Scope',Time:'Schedule',Cost:'Budget'};
-  /* Tên trong vòng là tên theo PMBOK 8 (Scope, Schedule, Budget). Chữ xám dưới vòng là tên trên slide (Time, Cost) */
+  /* Tên trong vòng là tên theo PMBOK 8 (Scope, Schedule, Budget). Chữ xám dưới vòng là tên cũ (Time, Cost) */
   const node=(x,y,k,fx)=>(fx?`<circle cx="${x}" cy="${y}" r="33" fill="${C.pri[0]}"/>`+T(x,y+5,PB[k],{s:13,w:600,c:'#fff'}):`<circle cx="${x}" cy="${y}" r="33" fill="#fff" stroke="${FAINT}" stroke-width="1.5" stroke-dasharray="5 4"/>`+T(x,y+5,PB[k],{s:13,w:500,c:INK2}))+(PB[k]!==k?T(x,y+50,k,{s:11,c:FAINT}):'');
   const one=(cx,mode)=>{const top=mode==='s'?{Scope:[cx,118]}:{Time:[cx-130,118],Cost:[cx+130,118]},bot=mode==='s'?{Time:[cx-130,262],Cost:[cx+130,262]}:{Scope:[cx,262]};
     const P={...top,...bot},pts=Object.values(P);let o=`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${LINE}" stroke-width="2"/>`;
@@ -118,7 +118,6 @@ fig('f-cycle',W,600,()=>{
   const [rvx,rvy]=P(150);g+=A(`M${rvx-30} ${rvy+44}L486 470`,'good',{w:1.75});
   g+=box(336,452,150,48,'good','Release','sau 1 hoặc nhiều Sprint',{ts:13.5});
   g+=A('M411 502V512','good',{w:1.5})+box(336,514,150,44,'neu','Kết thúc Project','khi đạt Objectives',{ts:13,nostroke:true});
-  
   return g;});
 fig('f-backlog',300,124,()=>{const f=[C.pri[0],'#e27199','#ec9db8','#f6cadb'];let g='';
   f.forEach((c,i)=>g+=R(10,6+i*28,230,24,c,{rx:5}));g+=T(22,22,'Value cao nhất',{s:12,w:600,c:'#fff',a:'start'})+T(22,106,'Value thấp',{s:12,w:600,c:C.pri[2],a:'start'});
@@ -1151,7 +1150,7 @@ fig('f-tt',300,270,()=>{let g='';
 
 
 
-/* ---------- 2.2: Servant Leadership, từ điều phối sang hỗ trợ (4 trách nhiệm theo slide, ví dụ ở Shop Áo Gió) ---------- */
+/* ---------- 2.2: Servant Leadership, từ điều phối sang hỗ trợ (4 trách nhiệm, ví dụ ở Shop Áo Gió) ---------- */
 const SRV=[['Remove impediments','xoá trở ngại','Xoá bỏ các trở ngại và nút thắt cản trở công việc.','Anh Minh liên hệ PayNhanh để gỡ sandbox đang chặn việc của Huy 2 ngày (4.6).'],
  ['Facilitate|problem solving','giải quyết vấn đề','Tạo điều kiện giải quyết vấn đề thay vì chỉ đạo.','Huy và Mai bất đồng chuyện lưu thẻ. Anh Minh không chọn thay, mà dẫn buổi bàn để Team tự chọn dùng token của PayNhanh (Risk 2 ở 5.5).'],
  ['Grow the team','phát triển Team','Phát triển năng lực của các thành viên.','Anh Minh xếp lịch Pairing để Trang học thêm frontend và thiết kế, từ I-shaped thành T-shaped (2.8).'],

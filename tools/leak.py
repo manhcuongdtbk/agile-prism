@@ -2,7 +2,7 @@
 import codecs,re,subprocess,os,sys
 R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pat=re.compile('(?i)'+codecs.decode('pynhqr|nagucbvp','rot13'))
-old=re.compile(r'(?i)(ngoài|trong) slide|\bic ext\b|\b(nt|co) ext\b')  # D76: nội dung là của product, không phân biệt slide
+old=re.compile(r'(?i)\bslide\b|\bic\.?ext\b|\b(nt|co|nt-s)[ .]ext\b|svext|\bEXT\(')  # D76: nội dung là của product, không phân biệt slide
 files=['index.html','404.html','site.css','core.js','draw.js','terms.js']
 bad=[]
 for f in files:
