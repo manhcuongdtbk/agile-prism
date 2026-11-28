@@ -32,7 +32,7 @@
 <tbody>
 <tr>
 <td>Release</td>
-<td>v0.1, đang ở Production: v0.1.2 (27/11). Lần đăng Production tiếp theo: v0.1.3</td>
+<td>v0.1, đang ở Production: v0.1.3 (28/11). Lần đăng Production tiếp theo: v0.1.4</td>
 </tr>
 <tr>
 <td>Release Goal</td>
@@ -45,6 +45,10 @@
 <tr>
 <td>Rủi ro lớn nhất</td>
 <td>Nội dung có thể theo kiến thức cũ (ECO cũ, APG 1, PMBOK 6): Epic #145 đối chiếu toàn bộ với ECO 2026, APG 2, PMBOK 8 trước khi đưa P3</td>
+</tr>
+<tr>
+<td>Mạch nội dung</td>
+<td>v0.1 chỉ gắn nhãn ECO (#173, D75), không đổi thứ tự trang lúc P1 ôn cuối. v0.2 xoay trục: câu chuyện Shop Áo Gió làm trục, ECO làm nhãn (#174, D74)</td>
 </tr>
 <tr>
 <td>Việc còn lại, tiến độ</td>
@@ -171,9 +175,9 @@
 1. <code>sh tools/check.sh</code> ra ĐẠT (luật đạt của từng script ghi ở đầu check.sh; <code>hl.py</code> kiểm quầng tô sáng ở MacBook, S23U dọc, Y700 dọc). Có sửa giao diện: <code>python3 tools/dev.py</code> (ma trận thiết bị: S23U, S25+, Y700 dọc và ngang, MacBook, Windows) mọi dòng <code>[]</code>. Trước khi làm thành phần mới: tìm trong trang và Design system xem đã có chưa (D44).
 2. Đối chiếu ECO 2026, APG 2, PMBOK 8 cho mọi định nghĩa mới bằng tìm trong Project knowledge, ghi số trang (D54).
 3. Ảnh chụp mọi chỗ dùng thành phần đã sửa ở MacBook 1440 và S23U dọc (384×719) đã xem: <code>python3 tools/shot.py SELECTOR…</code> (#123).
-4. Kiểm theo đường vào: thử đủ các đường người đọc đi tới chỗ đã sửa (cuộn tới, mở từ Danh mục, mở từ Glossary, tải lại trang); PR ghi rõ phần nào trình duyệt giả lập không đo được, cần PO thử máy thật (cải tiến Retro Sprint 3).
+4. Kiểm theo đường vào: thử đủ các đường người đọc đi tới chỗ đã sửa (cuộn tới, mở từ Danh mục, mở từ Glossary, tải lại trang); PR ghi rõ phần nào trình duyệt giả lập không đo được, cần PO thử máy thật (cải tiến Retro Sprint 3). Thay đổi về tải trang, chuyển trang, chuyển động: thử thêm ở mạng giả chậm (Slow 4G, có giới hạn băng thông) và CPU chậm, quay video và gửi PO kèm hướng dẫn thử (D68).
 5. Quy tắc mới ghi ở đúng 1 nơi; đổi luật dùng chung thì có phép kiểm tự động cho luật đó.
-6. Làm trên nhánh riêng, Pull request vào <code>dev</code> có "Closes #số" (D26); issue giao diện dùng "Refs #số" và chỉ đóng khi PO xác nhận trên máy thật (D46). Tên Pull request viết được thành 1 dòng CHANGELOG. PR sửa gốc chung hoặc thay đổi lớn có review của 1 agent riêng trước khi merge (D53).
+6. Làm trên nhánh riêng, tạo và merge Pull request bằng <code>sh tools/ship.sh</code> (chỉ merge khi <code>check.sh</code> đạt, D70), Pull request vào <code>dev</code> có "Closes #số" (D26); issue giao diện dùng "Refs #số" và chỉ đóng khi PO xác nhận trên máy thật (D46). Tên Pull request viết được thành 1 dòng CHANGELOG. PR sửa gốc chung hoặc thay đổi lớn có review của 1 agent riêng (Opus 5.5 high, D67) trước khi merge (D53).
 7. Đọc lại mọi thứ vừa tạo ra bên ngoài (issue, PR, trang, cài đặt) đúng như người khác sẽ thấy, không chỉ tin kết quả lệnh trả về.
 8. Trước mỗi lần đăng Production: chủ sản phẩm mở thử bằng Chrome trên MacBook, laptop Windows và điện thoại Samsung S23 Ultra (S23U) hoặc S25+. Tablet ưu tiên Lenovo Legion Tab Y700 gen 2, rồi mới tới iPad gen 9. Chưa cần thử trình duyệt khác Chrome.</p>
 </section>
@@ -189,8 +193,8 @@
 </thead>
 <tbody>
 <tr>
-<td>Bản quyền: trang hệ thống hoá slide của David McLachlan và trích ý từ APG 2, PMBOK 8</td>
-<td>Chỉ diễn giải, không chép nguyên văn dài. Ghi nguồn. Trước khi mở rộng ngoài nhóm nhỏ, hỏi ý kiến người hiểu luật</td>
+<td>Bản quyền: trang trích ý từ APG 2, PMBOK 8; cách kể lấy cảm hứng từ David McLachlan (D76)</td>
+<td>Chỉ diễn giải, không chép nguyên văn dài. Ghi nguồn. Tài liệu ATP, David không chép chữ, hình (D77). Trước khi mở rộng ngoài nhóm nhỏ, hỏi ý kiến người hiểu luật (#29)</td>
 </tr>
 <tr>
 <td>Thương hiệu PMI-ACP, PMBOK là của PMI</td>
@@ -360,7 +364,7 @@
 <tr>
 <td>Release notes</td>
 <td>Ghi chú mỗi lần phát hành, tự sinh từ Pull request trên GitHub Release; CHANGELOG là bản cho người đọc</td>
-<td>GitHub Release v0.1.2</td>
+<td>GitHub Release v0.1.3</td>
 </tr>
 <tr>
 <td>Devil's advocate</td>
@@ -868,12 +872,12 @@
 <td>Chuyển <code>san-pham.md</code> vào repo (#70), sửa bằng Pull request</td>
 <td>1 nơi, có lịch sử, review được</td>
 <td>Giữ trong Project docs</td>
-<td>Làm ở Sprint 4</td>
+<td>Sprint 5 (#171)</td>
 </tr>
 <tr>
 <td>D49</td>
 <td>26/11</td>
-<td>Sustainable pace: mỗi Sprint chốt giờ dừng trong ngày lúc Sprint Planning</td>
+<td>Sustainable pace: mỗi Sprint chốt giờ dừng trong ngày lúc Sprint Planning (Sprint 4 ngoại lệ PO chọn: D72)</td>
 <td>Nhịp bền vững (ACP: sustainable pace)</td>
 <td>Không giới hạn</td>
 <td></td>
@@ -905,7 +909,7 @@
 <tr>
 <td>D53</td>
 <td>26/11</td>
-<td>Review code bằng 1 agent riêng (chưa xem quá trình làm) trước khi merge, chỉ cho PR sửa gốc chung hoặc thay đổi lớn; chạy nền, làm việc khác trong lúc chờ</td>
+<td>Review code bằng 1 agent riêng (chưa xem quá trình làm) trước khi merge, chỉ cho PR sửa gốc chung hoặc thay đổi lớn; chạy nền, làm việc khác trong lúc chờ (model: D67)</td>
 <td>Sprint 3: 4 lần review lần nào cũng bắt được lỗi do bản sửa gây ra (9 lỗi, 1 chặn merge). Mỗi lần khoảng 55–97 nghìn token, gói Pro có hạn</td>
 <td>Review mọi PR; không review</td>
 <td>PO nâng gói Claude</td>
@@ -937,7 +941,7 @@
 <tr>
 <td>D57</td>
 <td>27/11</td>
-<td>Bản gốc APG 2, PMBOK 8 giữ trên Google Drive. Project knowledge chỉ lưu chữ của PDF hơn 100 trang (để tìm), PDF ngắn (ECO 2026, Lexicon) lưu bản gốc. Cần hình trong sách thì lấy bản gốc trên Drive</td>
+<td>(Sửa bởi D77) Bản gốc APG 2, PMBOK 8 giữ trên Google Drive. Project knowledge chỉ lưu chữ của PDF hơn 100 trang (để tìm), PDF ngắn (ECO 2026, Lexicon) lưu bản gốc. Cần hình trong sách thì lấy bản gốc trên Drive</td>
 <td>Claude chỉ xử lý chữ với PDF từ 101 trang (support.claude.com); Project có giới hạn dung lượng</td>
 <td>Cắt sách thành nhiều phần ≤100 trang</td>
 <td>Bàn tổ chức Drive ở Epic Mạch nội dung</td>
@@ -985,7 +989,7 @@
 <tr>
 <td>D63</td>
 <td>27/11</td>
-<td>Trước khi tạo agent (trong chat, review, kiểm) hoặc mở chat mới: Claude gợi ý model và mức thinking, kèm lý do và ước token, để PO chọn. Mọi chỗ nói model ghi "tên model + mức thinking" (ví dụ Opus 5.5 high). Áp cả cho review của D53</td>
+<td>Trước khi tạo agent (trong chat, review, kiểm) hoặc mở chat mới: Claude gợi ý model và mức thinking, kèm lý do và ước token, để PO chọn. Mọi chỗ nói model ghi "tên model + mức thinking" (ví dụ Opus 5.5 high). Áp cả cho review của D53 (review: sửa bởi D67, mặc định Opus 5.5 high, không hỏi mỗi lần)</td>
 <td>Cùng model khác mức thinking cho kết quả rất khác. Benchmark 27/11 đọc lại chat Sprint 2: Opus 5.5 high ra 65 quyết định, khoảng 390 nghìn token; Sonnet 5.5 (theo phiên, chưa đo được) ra 43, khoảng 158 nghìn</td>
 <td>Claude tự chọn rồi phải chạy lại</td>
 <td>Có benchmark mới, hoặc PO đổi gói</td>
@@ -1004,7 +1008,111 @@
 <td>Thiết lập làm việc mặc định từ Sprint 4: mỗi product 1 Space (màn hình ảo macOS) riêng; Agile Prism: nửa trái Claude mac app, nửa phải Chrome có tab Development và DevTools</td>
 <td>Bớt chép, đính ảnh giữa các app</td>
 <td>Chrome split view, nửa trái Claude web app</td>
-<td>Retro Sprint 4: đo số lần phải chép, đính ảnh</td>
+<td>Retro Sprint 4: 0 lần phải chép, đính ảnh, giữ</td>
+</tr>
+<tr>
+<td>D66</td>
+<td>28/11</td>
+<td>Lớp phủ đang tải cả trang: luôn đục; mở trang, rời trang thì chờ 150 ms (tính từ lúc bắt đầu chuyển trang) mới hiện; đã hiện thì giữ ít nhất 400 ms; bản đồ nhỏ chạy liền qua 2 trang; quay lại từ bộ nhớ đệm thì gỡ ngay. Chi tiết ở Design system mục Đang tải (#139)</td>
+<td>PO thử máy thật 5 lượt: khựng, chạy lại 2 lần, nháy, chỉ có chữ khi mạng chậm. Chờ trước rồi giữ tối thiểu là cách hay dùng cho chỉ báo đang tải</td>
+<td>Lớp phủ trong 92% có blur; hiện ngay; bỏ lớp phủ khi chuyển trang</td>
+<td>Người đọc báo chậm; #169 (giảm chuyển động)</td>
+</tr>
+<tr>
+<td>D67</td>
+<td>28/11</td>
+<td>Review gốc chung mặc định Opus 5.5 high, không hỏi PO mỗi lần (sửa D63 cho review); chỉ hỏi khi định dùng model khác</td>
+<td>Benchmark 28/11 trên 2 diff #139: Opus bắt 3 lỗi chặn, Sonnet 5.5 medium bắt 1 (xếp nhẹ hơn) và sót 2; Sonnet chỉ ít token hơn khoảng 25%, nhanh gấp 3–4 lần, có tìm ra 1 lỗi Opus sót (#169)</td>
+<td>Lần 2 trở đi dùng Sonnet (đề xuất Retro, bỏ sau benchmark); Opus và Sonnet song song</td>
+<td>Có thêm số đo, hoặc PO đổi gói</td>
+</tr>
+<tr>
+<td>D68</td>
+<td>28/11</td>
+<td>Thay đổi về tải trang, chuyển trang, chuyển động: trước khi nhờ PO thử, giả mạng chậm (Slow 4G có giới hạn băng thông) và CPU chậm, quay video, gửi PO video làm bằng chứng. Vào Definition of Done mục 4</td>
+<td>#139 cần 5 lượt PO thử, 4 lượt chưa đạt: trình duyệt không giao diện trên máy chủ cục bộ không có độ trễ mạng. Video phát được trong Claude mac app (PO thử 28/11)</td>
+<td>Chỉ đo trạng thái bằng script</td>
+<td></td>
+</tr>
+<tr>
+<td>D69</td>
+<td>28/11</td>
+<td>Đầu mỗi lượt góp ý và đầu handoff: báo thời gian dự kiến 3 điểm (nhanh nhất / thường / lâu nhất, Multipoint estimating của PMBOK 8), hỏi hết câu cần hỏi ngay, rồi báo "Hỏi xong"; câu mới phát sinh gom vào cuối lượt</td>
+<td>PO phải ngóng chờ, không yên tâm làm việc khác; mỗi lượt #139 mất 36–60 phút</td>
+<td>Hỏi giữa chừng khi gặp</td>
+<td></td>
+</tr>
+<tr>
+<td>D70</td>
+<td>28/11</td>
+<td>Tạo và merge Pull request bằng <code>sh tools/ship.sh</code>: chỉ khi <code>check.sh</code> thoát đạt mới đẩy, tạo PR, merge</td>
+<td>Sprint 4 merge PR #160 khi <code>check.sh</code> báo LỖI: lệnh nối <code>\| tail -1 &amp;&amp;</code> không dừng khi lỗi</td>
+<td>Đọc kết quả bằng mắt</td>
+<td>Có GitHub Actions chạy check (#19)</td>
+</tr>
+<tr>
+<td>D71</td>
+<td>28/11</td>
+<td>Thông báo GitHub "PR đã merge" mà không có việc cần làm: trả lời tối đa 1 dòng (sửa quy tắc "không trả lời riêng")</td>
+<td>Hệ thống buộc phải có câu trả lời cho mỗi thông báo: Sprint 4 có 6 lần</td>
+<td>Không trả lời</td>
+<td>Công cụ cho phép bỏ qua thông báo</td>
+</tr>
+<tr>
+<td>D72</td>
+<td>28/11</td>
+<td>Chat Sprint dùng Opus 5.5 high (thay medium); Sprint 5 quay lại chốt giờ dừng (D49), Sprint 4 là ngoại lệ PO chọn</td>
+<td>Retro Sprint 4: kỳ vọng ít lượt PO thử chưa đạt; Sprint 4 chạy tới 4 giờ sáng</td>
+<td>Giữ Opus 5.5 medium</td>
+<td>Retro Sprint 5: so số lượt PO thử chưa đạt, token</td>
+</tr>
+<tr>
+<td>D73</td>
+<td>28/11</td>
+<td>Góp ý giao diện, thẩm mỹ: liệt kê ngay từ đầu các cách làm phổ biến (kèm cái được, cái mất) để PO chọn 1 lần trước khi sửa; thay đổi gốc chung thì cho 1 agent phản biện hướng sửa trước khi viết code</td>
+<td>#139: độ đục, chờ 150 ms, giữ 400 ms, bản đồ nhỏ chạy liền thành 4 lượt thử riêng</td>
+<td>Sửa từng điểm theo góp ý</td>
+<td></td>
+</tr>
+<tr>
+<td>D74</td>
+<td>28/11</td>
+<td>Mạch Agile Prism (và mẫu cho ecosystem): câu chuyện Shop Áo Gió làm trục cuộn trang, chạy theo vòng Sprint (không kể thẳng); mỗi mục có nhãn domain/Task ECO, có cửa "Ôn theo ECO"; màn cuối Enterprise Agility (nhiều Team, portfolio, xMO, DevOps/DORA); Phụ lục chỉ để tra cứu, kiến thức chia về các màn. Khung chi tiết ở #174 (chờ thảo luận); chốt khung trước, rồi #145 rà nội dung theo khung</td>
+<td>ATP (Atoha) đã theo ECO, P1 đã học xong; trục câu chuyện bổ sung phần lớp học thiếu. PMBOK 8 tr. 9 Bảng 2-1 cũng ghép 2 trục; ECO đổi thì chỉ đổi nhãn. ACP ECO 2026 tr. 5 nhấn Enterprise Agility, trang có 0 lần. Phụ lục lớn nhất trang (khoảng 96 KB). Rà #145 trước khung thì phải rà 2 lần</td>
+<td>ECO làm trục; 2 cửa ngang nhau (tốn công nhất); Enterprise Agility ở Phụ lục</td>
+<td>Tài liệu ATP, David có đủ trên Drive (đạt 28/11: chat bên lề #174 xem lại); P1 thi xong</td>
+</tr>
+<tr>
+<td>D75</td>
+<td>28/11</td>
+<td>v0.1 chỉ gắn nhãn ECO (#173), không đổi thứ tự trang; xoay trục theo D74 ở v0.2</td>
+<td>P1 thi cuối tháng 12, không sửa lớn lúc P1 ôn cuối</td>
+<td>Xoay trục ngay</td>
+<td>P1 thi xong</td>
+</tr>
+<tr>
+<td>D76</td>
+<td>28/11</td>
+<td>Agile Prism không còn là bản mở rộng slide của David McLachlan: nội dung là của product trong ecosystem, bỏ phân biệt "trong slide / ngoài slide" (#175); David chỉ là nguồn cảm hứng cách kể (tầng 3, D77). Sửa D02 phần "điểm khởi đầu"</td>
+<td>Slide chỉ là nguồn cảm hứng ban đầu; gốc đúng sai đã là ECO 2026, APG 2, PMBOK 8 (D40)</td>
+<td>Giữ dấu "Ngoài slide"</td>
+<td>Hỏi người hiểu luật (#29)</td>
+</tr>
+<tr>
+<td>D77</td>
+<td>28/11</td>
+<td>Kho tri thức của ecosystem là thư mục Google Drive "Ecosystem" (organizational knowledge repositories, thuộc OPA: PMBOK 8 tr. 20–21); không tải thêm nguồn vào Project knowledge. Quy tắc ở Way of working, mục "Kho tri thức": phạm vi chỉ trong Ecosystem và đích các lối tắt, không tìm trên toàn Drive; chỉ đọc (ngoại lệ #176); lần đầu mở thư mục hỏi PO; nguồn người khác viết để chung, đầu ra của ecosystem để riêng; thư mục <code>10</code>, <code>19</code>, <code>20 PMI ATP/ACP</code>, <code>/PMP</code>, <code>30</code>, <code>40</code>, <code>50</code>; tên <code>&lt;Nguồn&gt; - &lt;Tên&gt; - &lt;Phiên bản&gt;</code>; thứ bậc 3 tầng (1: ECO, APG 2, PMBOK 8 kèm errata, Lexicon 5.0; 2: PMI ATP; 3: David, ghi hình lớp Atoha); configuration management so id và <code>modifiedTime</code> (Lexicon 5.0 tr. 5); Claude Docs giữ tài liệu sống, Drive giữ file gốc. Danh mục nguồn: Knowledge register. Sửa D57</td>
+<td>Project knowledge không đọc chéo giữa các Claude Project (D44); Drive connector đọc được PDF, Sheet, phụ đề (đã thử 28/11). Chat bên lề 28/11 tự tìm trên cả Drive của PO đúng lúc PO đang tải lên dở</td>
+<td>Tài khoản Google riêng; không dùng connector; thư mục <code>00 Uploading</code>; chép tài liệu vào Ecosystem</td>
+<td>Cần chia sẻ ra ngoài (D28); có product thứ 2</td>
+</tr>
+<tr>
+<td>D78</td>
+<td>28/11</td>
+<td>Quy tắc bền (chi tiết ở Way of working, mục "Tự động hoá và quy tắc bền"): quy tắc chốt trong 1 chat ghi ngay vào nơi mọi chat đọc (Way of working, skill); nói làm thì làm ngay trong lượt, không được thì tạo issue ngay; không chép nội dung GitHub vào chat, chỉ đưa link; connector không làm được thì thử trình duyệt trước khi giao việc tay cho PO; chỉ báo xong sau khi kiểm cả phần PO làm tay; báo sớm khi chat dài, trước khi bị nén; "chưa kiểm" chỉ khi thật sự không làm được trong lượt</td>
+<td>Chat sau có thể bắt đầu như mới nếu quy tắc chỉ nằm ở comment issue; việc hứa để sau thường làm sai hoặc không làm; chép GitHub vào chat tốn token và làm PO phải đổi qua lại</td>
+<td>Chỉ ghi ở comment issue Sprint</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1166,14 +1274,14 @@
 <td>Cloudflare deploy Production; Release notes tự gom từ Pull request; <code>staging</code>, <code>main</code> được bảo vệ (D58)</td>
 </tr>
 <tr>
-<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code>, <code>tools/shot.py</code>, kiểm theo đường vào</td>
+<td><code>sh tools/check.sh</code>; sửa giao diện thì thêm <code>python3 tools/dev.py</code>, <code>tools/shot.py</code>, kiểm theo đường vào, video mạng chậm khi có chuyển cảnh (D68)</td>
 <td>Developers, trước mỗi Pull request</td>
-<td>Chạy tay, chưa có GitHub Actions (#19, #68)</td>
+<td><code>sh tools/ship.sh</code> chạy check.sh, chỉ đạt mới tạo PR và merge (D70); chưa có GitHub Actions (#19, #68)</td>
 </tr>
 </tbody>
 </table>
 <p class="eyebrow" style="margin-top:20px">Quy tắc trao đổi</p>
-<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột, mở đầu bằng dòng Daily Scrum (D33); trả lời các câu hỏi trước rồi mới làm việc dài; câu cần quyết hỏi bằng ô chọn có đề xuất (D55); mọi chữ "xong" có bằng chứng, tách đã kiểm và chưa kiểm (D54); kiến thức PMP, ACP ghi tên kỹ thuật kèm nguồn và số trang; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30); quy ước <code>[ ]</code> đầu tin (D52). Thông báo GitHub "PR đã merge" mà không có việc cần làm thì không trả lời riêng.</p></section>
+<p>Theo D24, D36: mỗi câu trả lời gói trong 1 màn hình điện thoại, bảng tối đa 3 cột, mở đầu bằng dòng Daily Scrum (D33); trả lời các câu hỏi trước rồi mới làm việc dài; câu cần quyết hỏi bằng ô chọn có đề xuất (D55); mọi chữ "xong" có bằng chứng, tách đã kiểm và chưa kiểm (D54); kiến thức PMP, ACP ghi tên kỹ thuật kèm nguồn và số trang; WIP 1 issue ở In progress; từ làm việc dùng tiếng Anh (D30); quy ước <code>[ ]</code> đầu tin (D52). Thông báo GitHub "PR đã merge" mà không có việc cần làm thì trả lời tối đa 1 dòng (D71). Đầu mỗi lượt: dự kiến 3 điểm, hỏi hết rồi báo "Hỏi xong" (D69).</p></section>
 </main>
 <script src="core.js"></script><script>PGL.done()</script>
 </body></html>

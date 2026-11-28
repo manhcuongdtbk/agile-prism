@@ -39,7 +39,7 @@ function tri(fixed){
 /* 1.5 Triple Constraint: 2 tam giác trong 1 hình. Ví dụ ghi cạnh từng đỉnh cho cả 2 cách, tên theo PMBOK 8 ghi xám dưới đỉnh,
    ngoặc trên cùng nói PMBOK 8 coi cả 2 là lựa chọn của Adaptive (The Standard, Hình 4-3) */
 fig('f-tri',W,350,()=>{let g='';const PB={Scope:'Scope',Time:'Schedule',Cost:'Budget'};
-  /* Tên trong vòng là tên theo PMBOK 8 (Scope, Schedule, Budget). Chữ xám dưới vòng là tên trên slide (Time, Cost) */
+  /* Tên trong vòng là tên theo PMBOK 8 (Scope, Schedule, Budget). Chữ xám dưới vòng là tên cũ (Time, Cost) */
   const node=(x,y,k,fx)=>(fx?`<circle cx="${x}" cy="${y}" r="33" fill="${C.pri[0]}"/>`+T(x,y+5,PB[k],{s:13,w:600,c:'#fff'}):`<circle cx="${x}" cy="${y}" r="33" fill="#fff" stroke="${FAINT}" stroke-width="1.5" stroke-dasharray="5 4"/>`+T(x,y+5,PB[k],{s:13,w:500,c:INK2}))+(PB[k]!==k?T(x,y+50,k,{s:11,c:FAINT}):'');
   const one=(cx,mode)=>{const top=mode==='s'?{Scope:[cx,118]}:{Time:[cx-130,118],Cost:[cx+130,118]},bot=mode==='s'?{Time:[cx-130,262],Cost:[cx+130,262]}:{Scope:[cx,262]};
     const P={...top,...bot},pts=Object.values(P);let o=`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${LINE}" stroke-width="2"/>`;
@@ -118,7 +118,6 @@ fig('f-cycle',W,600,()=>{
   const [rvx,rvy]=P(150);g+=A(`M${rvx-30} ${rvy+44}L486 470`,'good',{w:1.75});
   g+=box(336,452,150,48,'good','Release','sau 1 hoặc nhiều Sprint',{ts:13.5});
   g+=A('M411 502V512','good',{w:1.5})+box(336,514,150,44,'neu','Kết thúc Project','khi đạt Objectives',{ts:13,nostroke:true});
-  g+=EXT(500,478)+EXT(500,536);
   return g;});
 fig('f-backlog',300,124,()=>{const f=[C.pri[0],'#e27199','#ec9db8','#f6cadb'];let g='';
   f.forEach((c,i)=>g+=R(10,6+i*28,230,24,c,{rx:5}));g+=T(22,22,'Value cao nhất',{s:12,w:600,c:'#fff',a:'start'})+T(22,106,'Value thấp',{s:12,w:600,c:C.pri[2],a:'start'});
@@ -139,7 +138,7 @@ fig('f-split',W,420,()=>{const L0=150;
   let g=T(0,14,'THỜI LƯỢNG THƯỜNG GẶP',{s:11,w:600,c:MUTE,a:'start',ls:.5})+A(`M${L0-14} 26V412`,'neu',{w:1.5});
   [[34,'Lâu dài,'],[50,'theo Product'],[110,'Nhiều tháng,'],[128,'nhiều Sprint'],[232,'Vài Sprint, gọn'],[250,'trong 1 Release'],[358,'Vừa 1 Sprint,'],[376,'thường vài ngày']].forEach(([y,t],i)=>g+=T(0,y,t,{s:12.5,w:i%2?400:600,c:i%2?MUTE:INK,a:'start'}));
   // Product: mọi Epic, Feature, User Story nằm trong Product Backlog của 1 Product
-  g+=R(509,0,300,48,C.pri[1],{rx:10,stroke:C.pri[0]})+T(659,19,'PRODUCT BACKLOG',{s:11,w:600,c:C.pri[0],ls:1})+T(659,38,'Website Gió',{s:14,w:600,c:C.pri[2]})+EXT(822,24);
+  g+=R(509,0,300,48,C.pri[1],{rx:10,stroke:C.pri[0]})+T(659,19,'PRODUCT BACKLOG',{s:11,w:600,c:C.pri[0],ls:1})+T(659,38,'Website Gió',{s:14,w:600,c:C.pri[2]});
   g+=Ln('M659 48V80M280 64H659M280 64V80',FAINT,1.5);
   g+=R(509,80,300,68,SOFT,{rx:10,stroke:INK2})+T(659,98,'EPIC',{s:11,w:600,c:INK2,ls:1})+T(659,120,'Mua sắm trực tuyến',{s:15,w:600,c:INK})+T(659,139,'Khách mua hàng trên web từ đầu đến cuối',{s:12,c:MUTE});
   [[170,'Quản lý tài khoản']].forEach(([x,t])=>g+=`<g opacity=".45">`+R(x,80,220,68,SOFT,{rx:10,stroke:INK2})+T(x+110,98,'EPIC',{s:11,w:600,c:INK2,ls:1})+T(x+110,124,t,{s:14,w:600,c:INK})+`</g>`);
@@ -541,7 +540,7 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
   /* Ô nghĩa: câu chính. 1 ý phụ thì là đoạn xám, từ 2 ý phụ mới thành gạch đầu dòng */
   const FMT=(s,mk)=>{const p=SEN(s).map(x=>RF(x,mk||(y=>y)));return p.length<2?`<p class="d1">${p[0]||''}</p>`:p.length===2?`<p class="d1">${p[0]}</p><p class="d2">${p[1]}</p>`:`<p class="d1">${p[0]}</p><ul class="d2">${p.slice(1).map(x=>`<li>${x}</li>`).join('')}</ul>`};
   const SENSES=(t,mk)=>t.s2&&t.s2.length?`<span class="two">Có ${t.s2.length+1} nghĩa</span><div class="sense"><b><i>1</i>${t.dl||'Nghĩa chung'}</b>${FMT(t.d,mk)}</div>`+t.s2.map((x,k)=>`<div class="sense"><b><i>${k+2}</i>${x[0]}</b>${FMT(x[1],mk)}</div>`).join(''):FMT(t.d,mk);
-  function show(el){const t=TERMS[+el.dataset.t];if(!t)return;tip.innerHTML=`<b>${name(t)}</b><span class="fwb">${t.fw||'Agile chung'}</span><i>${t.vi}</i>${SENSES(t)}${NAMES(t)}<small>${t.home?'Giải thích chính ở '+LB(t.home)+'. ':''}${t.x?'Ngoài slide. ':''}Bấm để mở Glossary</small>`;tip.hidden=false;
+  function show(el){const t=TERMS[+el.dataset.t];if(!t)return;tip.innerHTML=`<b>${name(t)}</b><span class="fwb">${t.fw||'Agile chung'}</span><i>${t.vi}</i>${SENSES(t)}${NAMES(t)}<small>${t.home?'Giải thích chính ở '+LB(t.home)+'. ':''}Bấm để mở Glossary</small>`;tip.hidden=false;
     const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'}
   const showTip=el=>{tip.innerHTML=el.dataset.tip;tip.hidden=false;const r=el.getBoundingClientRect(),tw=tip.offsetWidth;let x=r.left+scrollX;if(x+tw>innerWidth-12)x=innerWidth-12-tw;tip.style.left=x+'px';tip.style.top=(r.bottom+scrollY+6)+'px'};
   /* Cảm ứng: chạm không có "rê chuột ra", tooltip sẽ đọng lại đè lên lớp phủ vừa mở (#95). Nên chỉ hiện khi rê chuột thật hoặc Tab bằng bàn phím; chạm, bấm, cuộn đều ẩn */
@@ -556,21 +555,21 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
   // ngăn kéo
   const D=document.getElementById('glD'),B=document.getElementById('glBtn'),tb=document.querySelector('#glT tbody'),q=document.getElementById('glQ'),qx=document.getElementById('glX'),nE=document.getElementById('glN'),th=document.querySelector('#glT th[data-s]');
   let F='all',dir=1,hit=-1,SM='rel';const PP=document.getElementById('glP'),AZ=document.getElementById('glAZ'),KK=document.getElementById('glK');KK.onchange=()=>render();const OO=document.getElementById('glO');[...new Set(TERMS.flatMap(t=>(t.fw||'Agile chung').split(/,\s*/)))].sort((a,b)=>a==='Agile chung'?-1:b==='Agile chung'?1:a.localeCompare(b)).forEach(o=>OO.add(new Option(o,o)));OO.onchange=()=>render();window.GLO=o=>{OO.value=o;open();render()};
-  const cK={in:TERMS.filter(t=>!t.x).length,ext:TERMS.filter(t=>t.x).length,two:TERMS.filter(t=>t.s2&&t.s2.length).length,home:TERMS.filter(t=>t.home).length,none:TERMS.filter(t=>!t.where.length).length};[...KK.options].forEach(o=>{if(cK[o.value]!==undefined)o.textContent+=` (${cK[o.value]})`});
+  const cK={two:TERMS.filter(t=>t.s2&&t.s2.length).length,home:TERMS.filter(t=>t.home).length,none:TERMS.filter(t=>!t.where.length).length};[...KK.options].forEach(o=>{if(cK[o.value]!==undefined)o.textContent+=` (${cK[o.value]})`});
   function render(){const s=q.value.trim().toLowerCase(),pp=PP.value,kk=KK.value;qx.hidden=!s;document.getElementById('glR').hidden=!(s||pp||kk||OO.value);
     const oo=OO.value;
     // điểm khớp: tên trùng hẳn > tên bắt đầu bằng > tên chứa > tên gọi khác chứa > nghĩa tiếng Việt > trong định nghĩa
     /* Độ khớp: trùng hẳn 100, tên chính bắt đầu bằng chữ gõ 90, viết tắt 85, alias 75, 1 từ trong tên chính bắt đầu bằng chữ gõ 65, tên chính chứa chữ gõ 60.
        Cùng mức thì tên ngắn trước (gần chữ gõ hơn), rồi tới A tới Z */
     const score=t=>{if(!s)return 0;const tn=t.t.toLowerCase(),nm=[t.t,t.ab,...t.all].filter(Boolean).map(x=>x.toLowerCase());if(nm.includes(s))return 100;if(tn.startsWith(s))return 90;if((t.ab||'').toLowerCase().startsWith(s))return 85;if(nm.some(x=>x.startsWith(s)))return 75;if(tn.split(/[\s/-]+/).some(w=>w.startsWith(s)))return 65;if(tn.includes(s))return 60;if(nm.some(x=>x.includes(s))||(t.syn||'').toLowerCase().includes(s)||(t.old||[]).some(o=>o[0].toLowerCase().includes(s)))return 50;if(t.vi.toLowerCase().includes(s))return 40;if([t.d,t.fw,...(t.s2||[]).flat()].join(' ').toLowerCase().includes(s))return 10;return -1};
-    const kind=t=>kk===''||(kk==='old'&&t.old&&t.old.length)||(kk==='in'&&!t.x)||(kk==='ext'&&t.x)||(kk==='two'&&t.s2&&t.s2.length)||(kk==='home'&&t.home)||(kk==='none'&&!t.where.length);
+    const kind=t=>kk===''||(kk==='old'&&t.old&&t.old.length)||(kk==='two'&&t.s2&&t.s2.length)||(kk==='home'&&t.home)||(kk==='none'&&!t.where.length);
     const list=TERMS.map((t,i)=>[i,score(t)]).filter(([i,sc])=>{const t=TERMS[i];return sc>=0&&(!oo||(t.fw||'Agile chung').split(/,\s*/).includes(oo))&&kind(t)&&(pp===''||t.where.some(w=>w[1]===pp))}).sort((a,b)=>s&&SM==='rel'?(b[1]-a[1])||(TERMS[a[0]].t.length-TERMS[b[0]].t.length)||TERMS[a[0]].t.localeCompare(TERMS[b[0]].t):dir*TERMS[a[0]].t.localeCompare(TERMS[b[0]].t));
     const esc2=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),re=s?new RegExp('('+esc2(s)+')','gi'):null,mk=x=>re?x.replace(re,'<mark>$1</mark>'):x;
     let L='',html='';const letters=new Set();let grp='';
     list.forEach(([i,sc],n)=>{const t=TERMS[i],l=t.t[0].toUpperCase();letters.add(l);
       /* Khi tìm: chỉ xếp theo độ khớp, không chia nhóm, vì chữ khớp đã tô vàng ngay trong dòng */
       if(!s&&l!==L){L=l;html+=`<tr class="lt" id="gl-${l}"><td colspan="4">${l}</td></tr>`}
-      html+=`<tr data-i="${i}"><td><b>${mk(t.t)}</b>${t.vi&&t.vi!==t.t?`<span class="vi">${mk(t.vi)}</span>`:''}${t.ab?`<span class="ab">viết tắt: <b>${mk(t.ab)}</b></span>`:''}${t.x?' <span class="ic ext" title="Ngoài slide"><svg><use href="#i-plus"/></svg></span>':''}</td><td>${SENSES(t,mk)}${NAMES(t,mk)}</td><td class="fwk">${(t.fw||'Agile chung').split(/,\s*/).map(o=>`<button type="button" class="fwb fwf" data-o="${o}" title="Chỉ hiện thuật ngữ có nguồn gốc ${o}">${o}</button>`).join('')}</td><td>${t.where.length?'<div class="pills">'+t.where.map(id=>`<a href="#${id}" class="${id===t.home?'home':''}" title="${id===t.home?'Giải thích chính: ':''}${LB(id,1)}">${LB(id)}</a>`).join('')+'</div>':'<span class="muted sm">chưa có trong file</span>'}</td></tr>`});
+      html+=`<tr data-i="${i}"><td><b>${mk(t.t)}</b>${t.vi&&t.vi!==t.t?`<span class="vi">${mk(t.vi)}</span>`:''}${t.ab?`<span class="ab">viết tắt: <b>${mk(t.ab)}</b></span>`:''}</td><td>${SENSES(t,mk)}${NAMES(t,mk)}</td><td class="fwk">${(t.fw||'Agile chung').split(/,\s*/).map(o=>`<button type="button" class="fwb fwf" data-o="${o}" title="Chỉ hiện thuật ngữ có nguồn gốc ${o}">${o}</button>`).join('')}</td><td>${t.where.length?'<div class="pills">'+t.where.map(id=>`<a href="#${id}" class="${id===t.home?'home':''}" title="${id===t.home?'Giải thích chính: ':''}${LB(id,1)}">${LB(id)}</a>`).join('')+'</div>':'<span class="muted sm">chưa có trong file</span>'}</td></tr>`});
     tb.innerHTML=html;if(hit>=0){const r=tb.querySelector(`tr[data-i="${hit}"]`);hit=-1;if(r)HL([r])}
     AZ.innerHTML='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l=>`<button type="button" ${letters.has(l)?'':'disabled'} data-l="${l}">${l}</button>`).join('');
     nE.textContent=CNT(list.length,TERMS.length)}
@@ -675,9 +674,9 @@ function player(btn,steps,{start,end}={}){let tm=null,on=false;
   document.querySelectorAll('nav.top a.nv').forEach(a=>{const L=toc[a.getAttribute('href')];if(!L)return;const w=document.createElement('span');w.className='nvw';a.replaceWith(w);w.appendChild(a);
     const d=document.createElement('div');d.className='nvd';d.innerHTML=L.map(([h,n,t])=>`<a href="${h}"><i>${n==='•'?'':n}</i><span>${t}</span></a>`).join('');w.appendChild(d)})})();
 
-/* Biểu tượng (⊕, Minh hoạ, Tương tác, Định nghĩa, Lưu ý ngoài slide): ở đâu cũng cùng 1 cách: rê chuột hiện giải thích ngay, bấm mở Chú giải và tô dòng tương ứng */
+/* Biểu tượng (Minh hoạ, Tương tác, Định nghĩa): ở đâu cũng cùng 1 cách: rê chuột hiện giải thích ngay, bấm mở Chú giải và tô dòng tương ứng */
 (function(){const pop=document.getElementById('lgPop'),b=document.getElementById('lgBtn');if(!pop||!b)return;
-  const KS=[['ic ext','.ic.ext,.nt-i[aria-label="Ngoài slide"],.svext'],['ic demo','.ic.demo'],['ic try','.ic.try'],['def-i','.def-i']];
+  const KS=[['ic demo','.ic.demo'],['ic try','.ic.try'],['def-i','.def-i']];
   const row=k=>{const s=pop.querySelector('.lg>span.'+k.split(' ').join('.'));return s&&s.closest('.lg')};
   const apply=()=>{KS.forEach(([k,sel])=>{const r=row(k);if(!r)return;const name=r.querySelector('b').textContent,desc=r.querySelector('.lg-d').textContent;
     document.querySelectorAll(sel).forEach(el=>{if(el.closest('#lgPop,template'))return;el.removeAttribute('title');el.dataset.tip=`<b>${name}</b><p>${desc}</p>${el.closest('.drawer')?'':'<p>Bấm để mở Chú giải</p>'}`;el.dataset.lgk=k;if(!el.closest('.drawer')){el.setAttribute('tabindex','0');el.setAttribute('role','button')}})});};apply();new MutationObserver(apply).observe(document.querySelector('#glT tbody')||document.body,{childList:true,subtree:true});
@@ -1151,7 +1150,7 @@ fig('f-tt',300,270,()=>{let g='';
 
 
 
-/* ---------- 2.2: Servant Leadership, từ điều phối sang hỗ trợ (4 trách nhiệm theo slide, ví dụ ở Shop Áo Gió) ---------- */
+/* ---------- 2.2: Servant Leadership, từ điều phối sang hỗ trợ (4 trách nhiệm, ví dụ ở Shop Áo Gió) ---------- */
 const SRV=[['Remove impediments','xoá trở ngại','Xoá bỏ các trở ngại và nút thắt cản trở công việc.','Anh Minh liên hệ PayNhanh để gỡ sandbox đang chặn việc của Huy 2 ngày (4.6).'],
  ['Facilitate|problem solving','giải quyết vấn đề','Tạo điều kiện giải quyết vấn đề thay vì chỉ đạo.','Huy và Mai bất đồng chuyện lưu thẻ. Anh Minh không chọn thay, mà dẫn buổi bàn để Team tự chọn dùng token của PayNhanh (Risk 2 ở 5.5).'],
  ['Grow the team','phát triển Team','Phát triển năng lực của các thành viên.','Anh Minh xếp lịch Pairing để Trang học thêm frontend và thiết kế, từ I-shaped thành T-shaped (2.8).'],
