@@ -86,12 +86,12 @@
   <div class="demo"><div class="def"><span class="def-i" title="Định nghĩa"><svg><use href="#i-book"/></svg></span><span><b>Increment</b>: phần Product dùng được, đạt Definition of Done.</span></div></div>
   <dl class="spec"><dt>Dùng khi</dt><dd>Nêu nghĩa chính thức của 1 khái niệm, lần đầu khái niệm xuất hiện. Không có chữ nhãn, chỉ có icon sách.</dd></dl>
 
-  <p class="eyebrow">Lưu ý <code>.nt</code> và lưu ý ngoài slide <code>.nt.ext</code></p>
-  <div class="demo"><div class="nt"><svg class="nt-i"><use href="#i-note"/></svg><span>Ghi chú ngắn bổ sung cho đoạn ngay trên.</span></div><div class="nt ext"><svg class="nt-i" aria-label="Ngoài slide"><use href="#i-plus"/></svg><span>Nội dung không có trong slide: viền đứt và icon ⊕.</span></div></div>
-  <dl class="spec"><dt>Dùng khi</dt><dd>Ghi chú không cần tiêu đề. Nội dung ngoài slide luôn thêm <code>.ext</code>.</dd><dt>Không dùng</dt><dd>Không thêm chữ "Lưu ý" làm nhãn.</dd></dl>
+  <p class="eyebrow">Lưu ý <code>.nt</code></p>
+  <div class="demo"><div class="nt"><svg class="nt-i"><use href="#i-note"/></svg><span>Ghi chú ngắn bổ sung cho đoạn ngay trên.</span></div></div>
+  <dl class="spec"><dt>Dùng khi</dt><dd>Ghi chú không cần tiêu đề.</dd><dt>Không dùng</dt><dd>Không thêm chữ "Lưu ý" làm nhãn.</dd></dl>
 
-  <p class="eyebrow">Callout có tiêu đề <code>.co</code>: <code>.key</code>, <code>.warn</code>, <code>.ext</code></p>
-  <div class="demo"><div class="co key"><div class="co-h"><svg><use href="#i-key"/></svg>Ý cốt lõi</div>Một ý cần nhớ nhất của mục.</div><div class="co warn"><div class="co-h"><svg><use href="#i-warn"/></svg>Bẫy hay gặp</div>Điều dễ sai khi làm bài.</div><div class="co ext"><div class="co-h"><svg><use href="#i-plus"/></svg>Kiến thức thêm</div>Phần mở rộng ngoài slide, có tiêu đề.</div></div>
+  <p class="eyebrow">Callout có tiêu đề <code>.co</code>: thường, <code>.key</code>, <code>.warn</code></p>
+  <div class="demo"><div class="co key"><div class="co-h"><svg><use href="#i-key"/></svg>Ý cốt lõi</div>Một ý cần nhớ nhất của mục.</div><div class="co warn"><div class="co-h"><svg><use href="#i-warn"/></svg>Bẫy hay gặp</div>Điều dễ sai khi làm bài.</div><div class="co"><div class="co-h"><svg><use href="#i-note"/></svg>Kiến thức thêm</div>Ý bổ sung có tiêu đề.</div></div>
   <dl class="spec"><dt>Dùng khi</dt><dd>Nội dung cần 1 tiêu đề riêng. Tiêu đề là cụm danh từ.</dd></dl>
 
   <p class="eyebrow">Gợi ý thao tác <code>.hint</code></p>
@@ -99,13 +99,13 @@
   <dl class="spec"><dt>Dùng khi</dt><dd>Hình có tương tác mà người đọc khó tự đoán. Dùng đúng icon Tương tác như cạnh tiêu đề.</dd></dl>
 
   <p class="eyebrow">Cách gọi khác <code>.syns</code> và tên cũ</p>
-  <div class="demo"><div class="syns"><span class="ic ext" title="Ngoài slide"><svg><use href="#i-plus"/></svg></span><span>Cách gọi khác</span><i>Daily coordination meeting</i><i>Daily sync</i><a class="ref">APG 2</a><i>Daily Stand-up</i><span class="muted sm">tên cũ, slide dùng</span></div>
-    <dl class="nm" style="margin-top:12px"><dt>Cách gọi khác</dt><dd>Spectrum of Development Approaches (PMBOK 8)</dd><dt class="o">Tên cũ</dt><dd class="o"><i>Project Continuum</i> <small>(tên trên slide)</small></dd></dl></div>
+  <div class="demo"><div class="syns"><span>Cách gọi khác</span><i>Daily coordination meeting</i><i>Daily sync</i><a class="ref">APG 2</a><i>Daily Stand-up</i><span class="muted sm">tên cũ</span></div>
+    <dl class="nm" style="margin-top:12px"><dt>Cách gọi khác</dt><dd>Spectrum of Development Approaches (PMBOK 8)</dd><dt class="o">Tên cũ</dt><dd class="o"><i>Project Continuum</i> <small>(tên cũ)</small></dd></dl></div>
   <dl class="spec"><dt>Dùng khi</dt><dd>Chỉ cho tên thật sự đồng nghĩa, có nguồn. Chip nguồn đặt ngay sau tên. Trong Glossary và tooltip, tên cũ là 1 dòng riêng, nhãn nâu, chữ nghiêng.</dd></dl>
 
   <p class="eyebrow">Nhãn tài liệu <code>.ref</code> và số mục <code>.pills</code></p>
   <div class="demo"><p style="margin:0 0 10px">Theo <a class="ref" href="#">APG 2</a> và <a class="ref" href="#">PMBOK 8</a>, nhãn luôn kèm phiên bản.</p><div class="pills"><a href="#">1.4</a><a href="#">2.6</a><a href="#">4.7</a></div></div>
-  <dl class="spec"><dt>Nhãn tài liệu</dt><dd>Chip <code>.ref</code>, phần mã hình hay mục đặt trong <code>.srcn</code> ngay sau, ở mọi nơi kể cả cột nguồn của bảng.</dd><dt>Liên kết nội bộ</dt><dd>Trỏ tới mục x.y, không trỏ tới cả Phần.</dd><dt>Icon sau tiêu đề</dt><dd>Theo thứ tự ⊕ Ngoài slide, Minh hoạ, Tương tác, rồi nhãn tài liệu. Rê chuột hiện giải thích, bấm mở Chú giải.</dd></dl>
+  <dl class="spec"><dt>Nhãn tài liệu</dt><dd>Chip <code>.ref</code>, phần mã hình hay mục đặt trong <code>.srcn</code> ngay sau, ở mọi nơi kể cả cột nguồn của bảng.</dd><dt>Liên kết nội bộ</dt><dd>Trỏ tới mục x.y, không trỏ tới cả Phần.</dd><dt>Icon sau tiêu đề</dt><dd>Theo thứ tự Minh hoạ, Tương tác, rồi nhãn tài liệu. Rê chuột hiện giải thích, bấm mở Chú giải.</dd></dl>
 </section>
 
 <section class="card" id="ds-5">

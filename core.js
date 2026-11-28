@@ -84,7 +84,6 @@ const W=1118;
 const CNT=(n,t)=>(n<t?n+' / ':'')+t+' kết quả';
 /* Hệ điều hành, để Chú giải chỉ hiện phím tắt đúng máy đang dùng */
 document.documentElement.classList.add(/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent)?'os-mac':'os-win');
-function EXT(x,y){return `<g class="svext" style="cursor:pointer" transform="translate(${x-11} ${y-11})" color="${INK2}"><circle cx="11" cy="11" r="10.5" fill="#fff" stroke="${FAINT}" stroke-width="1.5" stroke-dasharray="3 2"/><use href="#i-plus" x="4.5" y="4.5" width="13" height="13"/></g>`}
 /* Khối tương tác: mũi nhọn của khung chi tiết chỉ vào phần tử đang chọn, nút xem lần lượt */
 /* Khung cuộn ngang gần nhất của 1 phần tử trong hình (phone: hình rộng cuộn ngang). Không có thì null */
 function HSCROLL(el){let s=el&&el.parentElement;while(s&&s!==document.body){if(s.scrollWidth>s.clientWidth+1&&/(auto|scroll)/.test(getComputedStyle(s).overflowX))return s;s=s.parentElement}return null}
