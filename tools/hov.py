@@ -17,7 +17,7 @@ with sync_playwright() as p:
             a=el.evaluate(SNAP)
             pt=el.evaluate("e=>{const r=e.getBoundingClientRect();for(let i=1;i<10;i++)for(let j=1;j<10;j++){const x=r.left+r.width*i/10,y=r.top+r.height*j/10,h=document.elementFromPoint(x,y);if(h&&e.contains(h))return [x,y]}return null}")
             if not pt: bad[fid+' KHÔNG RÊ TỚI ĐƯỢC']=1;continue
-            pg.mouse.move(*pt);pg.wait_for_timeout(220);b2=el.evaluate(SNAP)
+            pg.mouse.move(*pt);b2=el.evaluate("async(el,a)=>{const S="+SNAP+";const t=performance.now();let b=S(el);while(b===a&&performance.now()-t<220){await new Promise(r=>requestAnimationFrame(r));b=S(el)}return b}",a)  # đổi kiểu thì đi tiếp ngay, tối đa 220 ms như cũ (#69)
             tot[fid]=tot.get(fid,0)+1
             if a==b2: bad[fid]=bad.get(fid,0)+1
         except Exception as ex: bad[fid+' ERR']=str(ex)[:60]
