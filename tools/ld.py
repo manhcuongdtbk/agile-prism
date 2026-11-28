@@ -39,12 +39,13 @@ with sync_playwright() as p:
         print('6 tải lại: không lộ trang ở sai chỗ',not leak and first_out is not None and abs(first_out[0]-Y)<=2,'khung:',len(L),'lộ:',len(leak),'gỡ ở',first_out and first_out[0],'đích',Y)
         # 7 điện thoại chậm (CPU chậm 6 lần, như Android thật) tải lại giữa trang: về đúng chỗ (review #119)
         pg3=b.new_page(viewport={'width':384,'height':719},is_mobile=True,has_touch=True);pg3.goto(U+'index.html');W(pg3,GONE,15000);pg3.evaluate("scrollTo({top:20000,behavior:'instant'})");pg3.wait_for_timeout(300);Y3=pg3.evaluate("scrollY")
-        cdp=pg3.context.new_cdp_session(pg3);cdp.send('Emulation.setCPUThrottlingRate',{'rate':6});pg3.reload();W(pg3,"!document.documentElement.classList.contains('ap-rl')&&"+HID,15000);pg3.wait_for_timeout(500)
+        cdp=pg3.context.new_cdp_session(pg3);cdp.send('Emulation.setCPUThrottlingRate',{'rate':6});pg3.reload();W(pg3,"!document.documentElement.classList.contains('ap-rl')&&"+HID,15000);pg3.evaluate("async()=>{const t=performance.now();let h=document.documentElement.scrollHeight,s=performance.now();while(performance.now()-t<15000&&performance.now()-s<1000){await new Promise(r=>setTimeout(r,200));const n=document.documentElement.scrollHeight;if(n!==h){h=n;s=performance.now()}}}")
         cdp.send('Emulation.setCPUThrottlingRate',{'rate':1});y3=pg3.evaluate("scrollY");o3=pg3.evaluate(vis)
         print('7 máy chậm tải lại: về đúng chỗ, gỡ lớp phủ',abs(y3-Y3)<=2 and not o3,'ở',y3,'đích',Y3)
         # 8 chỗ đã lưu vượt cuối trang: gỡ lớp phủ sớm, không giữ đủ 3 giây
         pg3.evaluate("sessionStorage.setItem('apY','99999999')");pg3.reload()
         print('8 đích vượt cuối trang: gỡ lớp phủ trong 2.5 giây',W(pg3,HID,2500))
+        if PART=='a':print(e)  # check.sh kiểm riêng từng phần: phần a cũng kết thúc bằng danh sách lỗi JS của trang pg
     if PART in ('','b'):  # phần b: phép 9–15 (đục, chữ, bản đồ nhỏ, 150 ms, 400 ms)
         # 9 (#139, PO 27/11: lớp phủ đục hẳn mọi lúc): tải lại thì lúc rời trang lớp phủ hiện, đục, không mờ dần, có bản đồ nhỏ, chữ của chính trang; bấm liên kết thì hiện dần, cũng đục; mở trang lần đầu cũng đục
         SOLID=lambda c:bool(re.match(r'^rgb\(\d+, \d+, \d+\)$',c))
@@ -68,7 +69,7 @@ with sync_playwright() as p:
         print('12 bộ nhớ đệm: gỡ ngay; lần sau hiện dần, có bản đồ nhỏ',r12[0]=='0' and r12[1]!='0s' and r12[2]=='visible',r12)
         # 13 (#139, review lượt 3): thời gian tính từ lúc bắt đầu chuyển trang (performance.now). Trang nhanh: lớp phủ không lần nào hiện (độ đục > 0) trước 150 ms, và gỡ trước 150 ms thì không lần nào hiện. Trang chậm (mạng chậm 800 ms): khung vẽ đầu tiên đã có lớp phủ, không lộ trang thô
         REC="(()=>{const L=window.__v=[];const f=()=>{const l=document.getElementById('pgLoad');if(l){const c=getComputedStyle(l);L.push([Math.round(performance.now()),!l.hidden&&c.visibility==='visible'&&+c.opacity>0,l.classList.contains('out')])}if(performance.now()<6000)requestAnimationFrame(f)};requestAnimationFrame(f)})()"
-        pg8=b.new_page(viewport={'width':1440,'height':900});pg8.add_init_script(REC);pg8.goto(U+'product.html');W(pg8,"(window.__v||[]).some(x=>x[2])||performance.now()>1700",1700);pg8.wait_for_timeout(100);V=pg8.evaluate("window.__v")
+        pg8=b.new_page(viewport={'width':1440,'height':900});pg8.add_init_script(REC);pg8.goto(U+'product.html');W(pg8,"(()=>{const o=(window.__v||[]).find(x=>x[2]);return performance.now()>1700||(!!o&&performance.now()>Math.max(o[0]+300,450))})()",2500);V=pg8.evaluate("window.__v")
         early=[x for x in V if x[1] and x[0]<150];out=next((x[0] for x in V if x[2]),None);shown=[x for x in V if x[1]]
         print('13a trang nhanh: không hiện trước 150 ms; gỡ trước 150 ms thì không hiện lần nào',not early and (out is None or out>=150 or not shown),'gỡ ở',out,'khung hiện',len(shown));pg8.close()
         pg9=b.new_page(viewport={'width':1440,'height':900});pg9.add_init_script(REC);c9=LAT(pg9,800);pg9.goto(U+'index.html');W(pg9,"(window.__v||[]).length>=2",6500);V=pg9.evaluate("window.__v")
@@ -92,4 +93,4 @@ with sync_playwright() as p:
         c12=LAT(pg12,800);pg12.click('nav.pg-nav a[href="design-system.html"]');pg12.wait_for_url('**/design-system.html');W(pg12,"!!window.__ph",3500);ph=pg12.evaluate("window.__ph")
         ok=bool(ph) and ph[0] and len(ph[0])==5 and len(ph[1])==5;dd=[round(abs(((n-o)+1300)%2600-1300)) for o,n in zip(ph[0],ph[1])] if ok else None
         print('15 mạng chậm: bản đồ nhỏ chạy tiếp từ hình trang cũ',bool(ok) and max(dd)<120,'lệch từng chuyển động (ms)',dd);pg12.close()
-    print(e)
+    if PART!='a':print(e)

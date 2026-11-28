@@ -50,10 +50,10 @@ if not sys.argv[1:]:
     # Không tham số: chạy song song từng thiết bị trong tiến trình riêng (4 một lúc), in theo thứ tự DEV (#69)
     import subprocess
     from concurrent.futures import ThreadPoolExecutor
-    with ThreadPoolExecutor(int(_o.environ.get('CHECK_P','4'))) as ex:
+    with ThreadPoolExecutor(max(1,int(_o.environ.get('CHECK_P','4')))) as ex:
         outs=list(ex.map(lambda n:subprocess.run([sys.executable,_o.path.abspath(__file__),n],capture_output=True,text=True),list(DEV)))
     for r in outs:sys.stdout.write(r.stdout+r.stderr)
-    sys.exit(max(r.returncode for r in outs))
+    sys.exit(1 if any(r.returncode!=0 for r in outs) else 0)  # mã âm (chết do tín hiệu) cũng là lỗi
 with sync_playwright() as p:
     b=p.chromium.launch()
     for name in pick:
