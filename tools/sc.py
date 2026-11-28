@@ -14,7 +14,7 @@ with sync_playwright() as p:
             f=pg.evaluate("async()=>{const b=[...document.querySelectorAll('[data-fz]')].find(x=>x.offsetParent);if(!b)return 'không có nút Xem cả hình';b.click();await new Promise(r=>setTimeout(r,30));const o=[...document.querySelectorAll('.fz-in .sc-x')].filter(e=>!e.closest('.fz-pan')&&getComputedStyle(e).maskImage!=='none').map(e=>e.id||e.className);FZ.close();return o.length?['Xem cả hình: hình không cuộn mà còn mép mờ',o]:null}")
             if f:res.append([name,f])
         if m:
-            h=pg.evaluate("async()=>{const e=document.getElementById('f-usm');HL([e]);e.scrollIntoView({block:'center'});await new Promise(r=>setTimeout(r,7000));const c=getComputedStyle(e);return c.maskImage==='none'?[e.className,c.maskImage.slice(0,12)]:null}")
+            h=pg.evaluate("async()=>{const e=document.getElementById('f-usm');HL([e]);e.scrollIntoView({block:'center'});const t0=performance.now();await new Promise(r=>setTimeout(r,400));while(e.classList.contains('hit')&&performance.now()-t0<7000)await new Promise(r=>setTimeout(r,100));await new Promise(r=>setTimeout(r,300));const c=getComputedStyle(e);return c.maskImage==='none'?[e.className,c.maskImage.slice(0,12)]:null}")
             if h:res.append([name,'mở hình từ Danh mục (tô sáng) xong mà mép mờ vẫn tắt',h])
             h2=pg.evaluate("async()=>{const e=document.getElementById('f-usm'),w=t=>new Promise(r=>setTimeout(r,t));HL([e]);await w(2500);HL([e]);await w(1500);return e.classList.contains('hit')}")
             if not h2:res.append([name,'tô sáng lại cùng hình trong 3.6 giây bị cắt sớm'])
